@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class note_logic : MonoBehaviour {
+	
 	public class Chord : Sound{
 
 	}
+
 	public class Note : Sound{
 		string pitch;
 		int octave;
 
 	}
+
 	public class Sound{
 		int duration;
 	}
+
 	public class Song{
 		//time signature
 		float time_sig;
+		float tempo;
 		Sound[] score = new Sound[0];
 	}
 
