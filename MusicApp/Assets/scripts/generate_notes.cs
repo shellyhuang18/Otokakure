@@ -9,7 +9,7 @@ public class generate_notes : MonoBehaviour {
 
 
 
-	void generateNote(){
+	public void generateNote(int duration){
 		GameObject generate = (GameObject)Instantiate (note);
 		Debug.Log (generate.name);
 		generate.GetComponent<Rigidbody2D> ().velocity = new Vector2(-2, 0);
@@ -23,9 +23,7 @@ public class generate_notes : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown ("space")) {
-			generateNote ();
-		}
+
 	}
 
 }

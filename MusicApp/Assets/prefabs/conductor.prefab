@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2867436e960a64fe0b05d19aa6ab3f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  note_spawner: {fileID: 0}
+  note_spawner: {fileID: 1273681305232994, guid: b469534cc768c9547adba21a28f3c478,
+    type: 2}
   tempo: 0
 --- !u!212 &212685693533627746
 SpriteRenderer:
