@@ -27,7 +27,7 @@ public class create_note_generator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("space")) {
-			triggerPitch ("c4", 1);
+			triggerPitch ("child_spawner", 1);
 		}
 	}
 
@@ -37,8 +37,7 @@ public class create_note_generator : MonoBehaviour {
 
 	void triggerPitch(string pitch, int duration){
 		GameObject note_spawner = GameObject.Find (pitch);
-		Debug.Log (note_spawner.name);
-//		note_spawner.GetComponents<generate_notes>().generateNote (duration);
+		note_spawner.GetComponent<generate_notes>().generateNote(duration);
 	}
 
 
@@ -49,10 +48,11 @@ public class create_note_generator : MonoBehaviour {
 		//Create children and reposition them to fit note generator(rectangle)
 		float div_space = height / total_children_to_create;
 		float interval = 0;
+
 		for (int i = 0; i < total_children_to_create; ++i) {
 			GameObject new_child = (GameObject)Instantiate (note_spawner);
 			new_child.transform.parent = this.transform;
-			new_child.name = "child_spawner";
+			new_child.name = pitch_itr;
 
 			new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
 			interval += div_space;
