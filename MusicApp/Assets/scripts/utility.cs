@@ -7,6 +7,30 @@ namespace utility{
 	public class utility{
 		public static string[] SCALE_NOTES =  new string[]{"a", "a#", "b", "c","c#", "d", "d#", "e", "f", "f#", "g", "g#"};
 
+		//Returns a string representation of a pitch incremented by n halfsteps.
+		public static string incrementPitch(string pitch, int n){
+			int octave = pitch [pitch.Length - 1];
+			string note = pitch.Substring(0, pitch.Length-1);
+
+			int note_index = 0;
+			for (int i = 0; i < 12; i++) {
+				if (SCALE_NOTES [note_index] == note) {
+					note_index = i;
+					break;
+				} else {
+					note_index += 1;
+					if (note_index == 0) {
+						octave += 1;
+					}
+				}
+			}
+
+			for(int i=0; i<n; i++){
+				
+			}
+
+		}
+
 		//Returns the total amount of half steps between two pitches
 		public static int get_total_half_steps(string lowest_pitch, string highest_pitch){
 			//NOTE: Every pitch has two components: a note, and an octave. 
