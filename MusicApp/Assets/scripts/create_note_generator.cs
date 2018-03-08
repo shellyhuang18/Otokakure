@@ -12,11 +12,12 @@ public class create_note_generator : MonoBehaviour {
 	float lower_bound; //The lowest point of the note generating thing.
 	float center; //The absolute center position of the note generating module
 
-	public float tempo = 1;
+	public float tempo;
 
 	// Use this for initialization
 	void Start () {
-//		note_spawner = (GameObject)Resources.Load ("Assets/prefabs/note_spawner");
+		tempo = 1;
+
 		height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 		lower_bound = gameObject.transform.position.y - height / 2;
 		center = gameObject.transform.position.y;
@@ -27,7 +28,9 @@ public class create_note_generator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("space")) {
-			triggerPitch ("c4", 1);
+			//In GetChild, specify which pitch's spawn point you want to get.
+			this.gameObject.transform.GetChild (0).GetComponent<generate_notes> ().generateNote (4);
+			//triggerPitch ("c4", 1);
 		}
 	}
 

@@ -9,21 +9,16 @@ public class generate_notes : MonoBehaviour {
 
 
 
-	public void generateNote(int duration){
+	public void generateNote(float duration){
+		//Duration is out of 16. (for how many 16th notes)
 		GameObject generate = (GameObject)Instantiate (note);
-		Debug.Log (generate.name);
-		generate.GetComponent<Rigidbody2D> ().velocity = new Vector2(-2, 0);
-		//generate.transform.localScale = new Vector2 (2, generate.transform.localScale.y);
-	}
+		generate.transform.position = this.transform.position;
 
-	// Use this for initialization
-	void Start () {
+		float tempo = this.transform.parent.GetComponent<create_note_generator> ().tempo;
+		generate.GetComponent<Rigidbody2D> ().velocity = new Vector2(-1*tempo, 0);
 
-	} 
-
-	// Update is called once per frame
-	void Update () {
-
+		//generate width based on duration
+		generate.transform.localScale = new Vector2 (duration/16, generate.transform.localScale.y);
 	}
 
 }
