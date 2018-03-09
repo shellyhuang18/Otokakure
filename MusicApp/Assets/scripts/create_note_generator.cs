@@ -51,14 +51,14 @@ public class create_note_generator : MonoBehaviour {
 		float div_space = height / total_children_to_create;
 		float interval = 0;
 
-//		for (int i = 0; i < total_children_to_create; ++i) {
-//			GameObject new_child = (GameObject)Instantiate (note_spawner);
-//			new_child.transform.parent = this.transform;
-////			new_child.name = pitch_itr;
-//
-//			new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
-//			interval += div_space;
-//		}
+		for (int i = 0; i < total_children_to_create; ++i) {
+			GameObject new_child = (GameObject)Instantiate (note_spawner);
+			new_child.transform.parent = this.transform;
+//			new_child.name = pitch_itr;
+
+			new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
+			interval += div_space;
+		}
 
 	}
 
