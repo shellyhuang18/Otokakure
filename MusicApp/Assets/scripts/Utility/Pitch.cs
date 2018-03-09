@@ -1,28 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System;
 using UnityEngine;
 
-namespace utility{
-	public class utility{
+namespace Utility{
+	public class Pitch{
 		public static string[] SCALE_NOTES =  new string[]{"a", "a#", "b", "c","c#", "d", "d#", "e", "f", "f#", "g", "g#"};
-		private static string valid_pitch_expression = @"[a-g]{1}#?[1-9]{1}"; //A regular expression to represent the SCALE_NOTEs. Used for error checking.
+		public static string valid_pitch_expression = @"[a-g]{1}#?[1-9]{1}"; //A regular expression to represent the SCALE_NOTEs. Used for error checking.
 
-
-		//Returns boolean whether something is a validly formmated pitch.
-		public static bool isValidPitchFormat(string pitch){
-			if (!Regex.IsMatch (pitch, valid_pitch_expression)) {
-				return false;
-			} else {
-				return true;
-			}
-		}
 
 		//Returns a string representation of a pitch incremented by n halfsteps.
 		public static string incrementPitch(string pitch, int n){
 
-			if (!isValidPitchFormat (pitch)) {
+			if (!ErrorCheck.isValidPitchFormat (pitch)) {
 				Debug.Log ("Error in incrementPitch. Argument: string pitch");
 				return "ERROR";
 			}
@@ -52,7 +42,7 @@ namespace utility{
 		//Returns a string representation of a pitch decremented by n halfsteps.
 		public static string decrementPitch(string pitch, int n){
 
-			if (!isValidPitchFormat (pitch)) {
+			if (!ErrorCheck.isValidPitchFormat (pitch)) {
 				Debug.Log ("Error in decrementPitch. Argument: string pitch");
 				return "ERROR";
 			}
@@ -82,15 +72,15 @@ namespace utility{
 		}
 
 		//Returns the total amount of half steps between two pitches. Returns -1 when invalid.
-		public static int get_total_half_steps(string lowest_pitch, string highest_pitch){
+		public static int getTotalHalfSteps(string lowest_pitch, string highest_pitch){
 			//NOTE: Every pitch has two components: a note, and an octave. 
 			//ex) c#5. c# is the note, 5 is the octave.
 
-			if (!isValidPitchFormat (lowest_pitch)) {
+			if (!ErrorCheck.isValidPitchFormat (lowest_pitch)) {
 				Debug.Log ("Error in get_total_half_steps. Argument: string lowest_pitch");
 				return -1;
 			}
-			if (!isValidPitchFormat (highest_pitch)) {
+			if (!ErrorCheck.isValidPitchFormat (highest_pitch)) {
 				Debug.Log ("Error in get_total_half_steps. Argument: string highest_pitch");
 				return -1;
 			}
