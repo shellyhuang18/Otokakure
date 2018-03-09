@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\create_note_generator.cs" />
+     <Compile Include="Assets\scripts\destroy_note.cs" />
      <Compile Include="Assets\scripts\generate_notes.cs" />
      <Compile Include="Assets\scripts\note_logic.cs" />
      <Compile Include="Assets\scripts\utility.cs" />

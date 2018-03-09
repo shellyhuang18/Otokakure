@@ -62,11 +62,12 @@ public class create_note_generator : MonoBehaviour {
 		//Determining how many children to create
 		int total_children_to_create = utility.utility.get_total_half_steps(lowest_pitch, highest_pitch) + 1;
 
-		//Create children and reposition them to fit note generator(rectangle)
+		//Create children and reposition them to fit note generator(conductor)
 		div_space = height / total_children_to_create;
 		float interval = (float)0.5*div_space; //we want the first position to spawn at 1/2th a divspace
 
 		string pitch_id = lowest_pitch;
+
 		float color = 0;
 		//how much the color will change between each note depending on how many pitches there are
 		float gradient = 255/total_children_to_create;
