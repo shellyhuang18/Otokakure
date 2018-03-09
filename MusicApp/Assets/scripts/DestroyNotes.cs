@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class destroy_note : MonoBehaviour {
+public class DestroyNotes : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		DestroyNote ();
