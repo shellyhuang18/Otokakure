@@ -3,30 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class generate_notes : MonoBehaviour {
-	
-
 	public GameObject note;
+	private float height;
 
 
 
 	public void generateNote(float duration){
 		//Duration is out of 16. (for how many 16th notes)
-		GameObject generate = (GameObject)Instantiate (note);
-		generate.transform.position = this.transform.position;
+		GameObject generated_note = (GameObject)Instantiate (note);
+
+		//Generates the note on top of the note_spawner
+		generated_note.transform.position = new Vector2(this.transform.position.x, (float)(this.transform.position.y));
 
 		float tempo = this.transform.parent.GetComponent<create_note_generator> ().tempo;
-		generate.GetComponent<Rigidbody2D> ().velocity = new Vector2(-1*tempo, 0);
+		generated_note.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * tempo, 0);
 
-		//generate width based on duration
-		generate.transform.localScale = new Vector2 (duration/16, generate.transform.localScale.y);
+		//generate width based on duration and height to be as large as the note_spawner's height; TRUST THE MATH IT WORKS DONT TOUCH
+		generated_note.transform.localScale = new Vector2 (duration / 16, 
+			GetComponentInParent<create_note_generator>().div_space/generated_note.GetComponent<SpriteRenderer> ().bounds.size.y );
+
 	}
 
 }
 
-
-	//IEnumerator Speed(){
-		
-	//	yield return new WaitForSeconds (1);
-	//}
 
 
