@@ -71,6 +71,10 @@ public class create_note_generator : MonoBehaviour {
 		//how much the color will change between each note depending on how many pitches there are
 		float gradient = 255/total_children_to_create;
 
+		//chooses random color 
+		System.Random rand = new System.Random ();
+		int color_choice = rand.Next (1, 6);
+
 		for (int i = 0; i < total_children_to_create; ++i) {
 			GameObject new_child = (GameObject)Instantiate (note_spawner);
 			new_child.transform.parent = this.transform;
@@ -82,15 +86,13 @@ public class create_note_generator : MonoBehaviour {
 			interval += div_space;
 
 			//changes color of notes being generated
-			new_child.GetComponent<generate_notes> ().color = RandomColor (color);
+			new_child.GetComponent<generate_notes> ().color = RandomColor (color, color_choice);
 			color += gradient;
 		}
 
 	}
 
-	Color RandomColor(float color){
-		System.Random rand = new System.Random ();
-		int color_choice = rand.Next (1, 6);
+	Color RandomColor(float color, int color_choice){
 		Debug.Log (color_choice);
 
 		switch (color_choice) {
