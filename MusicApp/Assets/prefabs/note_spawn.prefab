@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4058871469936420}
-  - component: {fileID: 114063096311933580}
+  - component: {fileID: 114177218065735242}
   m_Layer: 0
   m_Name: note_spawn
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114063096311933580
+--- !u!114 &114177218065735242
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,7 +48,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1273681305232994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49639c2bdcb114e1096832318019f142, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c98b251a80204b5c8ebad97566d4ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 1319886736566254, guid: 5ef2a5fa3d3e4434797bf0c1c46227f1, type: 2}
+  color: {r: 0, g: 0, b: 0, a: 0}
