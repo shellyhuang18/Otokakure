@@ -7,59 +7,6 @@ namespace utility{
 	public class utility{
 		public static string[] SCALE_NOTES =  new string[]{"a", "a#", "b", "c","c#", "d", "d#", "e", "f", "f#", "g", "g#"};
 
-
-		//Returns a string representation of a pitch incremented by n halfsteps.
-		public static string incrementPitch(string pitch, int n){
-				
-			int octave = (int)Char.GetNumericValue(pitch [pitch.Length - 1]);
-			string note = pitch.Substring(0, pitch.Length-1);
-
-			int note_index = 0;
-			//Initalize position of index
-			for (int i = 0; i < 12; i++) {
-				if (SCALE_NOTES [i] == note) {
-					note_index = i;
-					break;
-				}
-			}
-	
-			for(int i=0; i<n; i++){
-				note_index = (note_index + 1) % 12;
-				if (note_index == 0) {
-					octave += 1;
-				}
-			}
-			return(SCALE_NOTES[note_index] + octave);
-
-		}
-
-		//Returns a string representation of a pitch decremented by n halfsteps.
-		public static string decrementPitch(string pitch, int n){
-
-			int octave = (int)Char.GetNumericValue(pitch [pitch.Length - 1]);
-			string note = pitch.Substring(0, pitch.Length-1);
-
-			int note_index = 0;
-			//Initalize position of index
-			for (int i = 0; i < 12; i++) {
-				if (SCALE_NOTES [i] == note) {
-					note_index = i;
-					break;
-				}
-			}
-
-			for(int i=0; i<n; i++){
-				note_index = (note_index - 1);
-				if (note_index == -1) {
-					note_index = 11;
-					octave -= 1;
-				}
-			}
-
-			return(SCALE_NOTES[note_index] + octave);
-
-		}
-
 		//Returns the total amount of half steps between two pitches
 		public static int get_total_half_steps(string lowest_pitch, string highest_pitch){
 			//NOTE: Every pitch has two components: a note, and an octave. 
