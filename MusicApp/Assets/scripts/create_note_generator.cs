@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using utility;
+using System.Threading;
+
 
 public class create_note_generator : MonoBehaviour {
 	public GameObject note_spawner; //The child object that spawns notes
@@ -65,6 +67,10 @@ public class create_note_generator : MonoBehaviour {
 		float interval = (float)0.5*div_space; //we want the first position to spawn at 1/2th a divspace
 
 		string pitch_id = lowest_pitch;
+		float color = 0;
+		//how much the color will change between each note depending on how many pitches there are
+		float gradient = 255/total_children_to_create;
+
 		for (int i = 0; i < total_children_to_create; ++i) {
 			GameObject new_child = (GameObject)Instantiate (note_spawner);
 			new_child.transform.parent = this.transform;
@@ -74,7 +80,33 @@ public class create_note_generator : MonoBehaviour {
 
 			new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
 			interval += div_space;
+
+			//changes color of notes being generated
+			new_child.GetComponent<generate_notes> ().color = RandomColor (color);
+			color += gradient;
 		}
+
+	}
+
+	Color RandomColor(float color){
+		System.Random rand = new System.Random ();
+		int color_choice = rand.Next (1, 6);
+		Debug.Log (color_choice);
+
+		switch (color_choice) {
+		case 1:
+			return new Color (color / 255, 0, 25);//ok
+		case 2:
+			return new Color (25, color / 255, 0); //ok
+		case 3:
+			return new Color (color / 255, 0, 0);//ok
+		case 4:
+			return new Color (0, color / 255 , 20);//ok
+		case 5:
+			return new Color (30, color / 255, 20);//ok
+		}
+
+		return new Color (0, 0, 0);
 
 	}
 
