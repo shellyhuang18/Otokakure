@@ -7,10 +7,6 @@ public class generate_notes : MonoBehaviour {
 	private float height;
 	public Color color;
 
-	void Start(){
-		
-	}
-
 	public void generateNote(float duration){
 		//Duration is out of 16. (for how many 16th notes)
 		GameObject generated_note = (GameObject)Instantiate (note);
