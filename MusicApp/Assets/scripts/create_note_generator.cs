@@ -25,16 +25,23 @@ public class create_note_generator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown ("space")) {
+		if (Input.GetKeyDown ("q")) {
 			triggerPitch ("c4", 4);
 		}
 
-		if (Input.GetKeyDown ("a")) {
+		if (Input.GetKeyDown ("w")) {
+			triggerPitch ("c#4", 4);
+		}
+		if (Input.GetKeyDown ("e")) {
 			triggerPitch ("d4", 8);
 		}
 
-		if (Input.GetKeyDown ("w")) {
+		if (Input.GetKeyDown ("r")) {
 			triggerPitch ("d#4", 16);
+		}
+
+		if (Input.GetKeyDown ("t")) {
+			triggerPitch ("e4", 16);
 		}
 
 	}
@@ -55,7 +62,7 @@ public class create_note_generator : MonoBehaviour {
 
 		//Create children and reposition them to fit note generator(rectangle)
 		div_space = height / total_children_to_create;
-		float interval = 0;
+		float interval = (float)0.5*div_space; //we want the first position to spawn at 1/2th a divspace
 
 		string pitch_id = lowest_pitch;
 		for (int i = 0; i < total_children_to_create; ++i) {
