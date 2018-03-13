@@ -1,0 +1,5 @@
+V - Vibrato    a rapid, slight variation in pitch in singing or playing some musical instruments, producing a stronger or richer tone.
+S - Staccato   Signifies a note of shortened duration or detached (not legato)
+M - Marcato    Indicates a short note, long chord, or medium passage to be played louder or more forcefully than surrounding music.
+L - Legato     Indicates musical notes are to be played or sung smoothly and connected.
+T - Tenuto     Hold the note in question its full length (or longer, with slight rubato), or play the note slightly louder.
