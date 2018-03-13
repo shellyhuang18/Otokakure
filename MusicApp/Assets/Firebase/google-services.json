@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "104400011957",
+    "firebase_url": "https://music-learning-capstone-c019b.firebaseio.com",
+    "project_id": "music-learning-capstone-c019b",
+    "storage_bucket": "music-learning-capstone-c019b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104400011957:android:c9e3ad7a70c32b24",
+        "android_client_info": {
+          "package_name": "com.musiclearning.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104400011957-meod0veuvja8m8eh624h20ipsviglnk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB999VEKRVRr0wsIMjYOsuX0OYLCrKkBJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
