@@ -21,7 +21,8 @@ namespace Conductor{
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 
-			generateChildren ("c4", "e4");
+			//The parent object should be the GameWindow.
+			generateChildren (gameObject.GetComponentInParent<GameWindow>().lowest_pitch, gameObject.GetComponentInParent<GameWindow>().highest_pitch);
 
 		}
 		
@@ -44,9 +45,6 @@ namespace Conductor{
 
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
-			}
-			if(Input.GetKeyDown("space")){
-				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
 			}
 
 		}
