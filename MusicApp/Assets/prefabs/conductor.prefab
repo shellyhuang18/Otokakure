@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212660307707513030}
   - component: {fileID: 114922416658533756}
   m_Layer: 0
-  m_Name: conductor 1
+  m_Name: conductor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
