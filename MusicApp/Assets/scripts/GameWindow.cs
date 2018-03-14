@@ -12,14 +12,8 @@ public class GameWindow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
 		
-	}
-
-	void initalizeChildren(){
-		GameObject.Find ("conductor").GetComponent<CreateNoteGenerator>().initalize ();
-		GameObject.Find ("pitch_line").GetComponent<CreateNoteGenerator>().initalize ();
-	}
-
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("o")) {

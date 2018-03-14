@@ -17,7 +17,7 @@ namespace Conductor{
 		public float tempo;
 
 		// Use this for initialization
-		public void initalize () {
+		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 

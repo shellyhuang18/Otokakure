@@ -14,7 +14,7 @@ namespace PitchLine{
 		private string highest_valid_pitch; 
 		private int total_half_steps;
 
-		void initalize () {
+		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;	
 
@@ -54,7 +54,8 @@ namespace PitchLine{
 //				arrow.GetComponent<SpriteRenderer> ().enabled = true;
 
 				//we add div_space/2 since we want the correct pitch to center on the note bar
-				float new_pos = (float)(lower_bound +(div_space/2) + (div_space * 4));
+				float new_pos = (float)(lower_bound +(div_space/2) + (div_space * 3));
+			Debug.Log ("new_pos is " + new_pos);
 				arrow.transform.position = new Vector2 (arrow.transform.position.x, new_pos);
 //			}
 		}
