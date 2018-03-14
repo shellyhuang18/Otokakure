@@ -8,17 +8,15 @@ namespace PitchLine{
 	public class DetectGameNote : MonoBehaviour {
 		double height;
 		double lower_bound;
-		double higher_bound;
 
 		public double div_space;
 		private string lowest_valid_pitch; 
 		private string highest_valid_pitch; 
 		private int total_half_steps;
 
-		void Start () {
+		void initalize () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
-			lower_bound = gameObject.transform.position.y - height / 2;
-			higher_bound = height + lower_bound;
+			lower_bound = gameObject.transform.position.y - height / 2;	
 
 			//The parent should be the overall GameWindow object, which contains the PitchLine and Conductor
 			//as children
@@ -57,8 +55,6 @@ namespace PitchLine{
 
 				//we add div_space/2 since we want the correct pitch to center on the note bar
 				float new_pos = (float)(lower_bound +(div_space/2) + (div_space * 4));
-			Debug.Log ("current y is " + arrow.transform.position.y);
-			Debug.Log ("new y is " + new_pos);
 				arrow.transform.position = new Vector2 (arrow.transform.position.x, new_pos);
 //			}
 		}
