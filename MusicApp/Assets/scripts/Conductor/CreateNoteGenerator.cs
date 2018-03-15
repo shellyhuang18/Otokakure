@@ -18,11 +18,12 @@ namespace Conductor{
 		public float tempo;
 
 		// Use this for initialization
-		void Start () {
+		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 
-			generateChildren ("c4", "e4");
+			//The parent object should be the GameWindow.
+			generateChildren (gameObject.GetComponentInParent<GameWindow>().lowest_pitch, gameObject.GetComponentInParent<GameWindow>().highest_pitch);
 
 		}
 		
@@ -45,6 +46,7 @@ namespace Conductor{
 
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
+<<<<<<< HEAD
 			}*/
 			if(Input.GetKeyDown("space")){
 				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
@@ -52,6 +54,8 @@ namespace Conductor{
 			if (Input.GetKeyDown ("a")) {
 				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4c#4 <4d4 8e4 4d#4>");
 				StartCoroutine (startSong (new_song));
+=======
+>>>>>>> acb1618789d114a72eef1bed1fbcde0db508ad87
 			}
 
 		}
