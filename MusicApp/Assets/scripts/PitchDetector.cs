@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 [RequireComponent(typeof(AudioSource))]
 public class PitchDetector : MonoBehaviour {
 	AudioSource microphone;
@@ -26,7 +27,7 @@ public class PitchDetector : MonoBehaviour {
 	void Update () {
 		//Debug.Log (microphone.clip.frequency + " ");
 		//Debug.Log (GetFundamentalFrequency() + " ");
-		Debug.Log ("The pitch is " + getPitch(GetFundamentalFrequency()) + " ");
+		Debug.Log ("The pitch is " + Utility.Pitch.getNearestPitch(GetFundamentalFrequency()) + " ");
 		Debug.Log ("The frequency is " + GetFundamentalFrequency() + " ");
 	}
 
@@ -56,29 +57,4 @@ public class PitchDetector : MonoBehaviour {
 		return fundamentalFrequency;
 	}
 
-	public string getPitch(float pitchInHz) {
-		// Base Note is A4 = 440
-		float baseNote = 440;
-		// octaves from base -> octaves  =  log(base2)(freq/base).
-		double octavesFromBase = Mathf.Round(Mathf.Log(pitchInHz/baseNote, 2));
-		double halfStepsFromBase = Mathf.Round (12 * Mathf.Log(pitchInHz/baseNote, 2));
-		//return halfStepsFromBase;
-		//double octavesFromBase = Math.round((Math.log((pitchInHz/baseNote))/Math.log(2)));
-		// half steps = log2^12 (freq/base)
-		//double halfStepsFromBase = (Math.log((pitchInHz/baseNote))/Math.log(a));
-		// half steps from base -> half steps  =  12 * log(base2)(freq/base).
-		//double halfStepsFromBase = Math.round(12 * (Math.log((pitchInHz/baseNote))/Math.log(2)));
-		int letterNoteIndex = ((int) halfStepsFromBase % 12);
-		if (letterNoteIndex < 0)
-			letterNoteIndex += 12;
-		int numberNote;
-		int other = (int)halfStepsFromBase / 12;
-		if (halfStepsFromBase < 3) {
-			numberNote = (int)halfStepsFromBase / 12 + 4;
-		} else {
-			numberNote = (int)halfStepsFromBase / 12 + 5;
-		}
-		return letterNoteArray[letterNoteIndex] + numberNote;
-		//noteText.setText(letterNoteArray[letterNoteIndex] + numberNote);*/
-	}
 }

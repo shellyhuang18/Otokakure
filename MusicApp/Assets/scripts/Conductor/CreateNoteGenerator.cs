@@ -29,7 +29,7 @@ namespace Conductor{
 		
 		// Update is called once per frame
 		void Update () {
-			/*if (Input.GetKeyDown ("q")) {
+			if (Input.GetKeyDown ("q")) {
 				triggerPitch ("c4", 4);
 			}
 
@@ -46,16 +46,12 @@ namespace Conductor{
 
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
-<<<<<<< HEAD
-			}*/
-			if(Input.GetKeyDown("space")){
-				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
 			}
+
 			if (Input.GetKeyDown ("a")) {
 				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4c#4 <4d4 8e4 4d#4>");
 				StartCoroutine (startSong (new_song));
-=======
->>>>>>> acb1618789d114a72eef1bed1fbcde0db508ad87
+
 			}
 
 		}
@@ -76,17 +72,17 @@ namespace Conductor{
 
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
-						triggerPitch (i.duration, i.pitch);
+						triggerPitch (i.pitch, i.duration);
 					}
 				//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
-					triggerPitch (n.duration, n.pitch);
+					triggerPitch ( n.pitch, n.duration);
 				}
 			}
 		}
 
-		void triggerPitch(int duration, string pitch){
+		void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}
