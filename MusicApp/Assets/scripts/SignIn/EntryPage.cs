@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using UnityEngine;
+using Firebase.Unity.Editor;
 
 
 namespace SignIn{
@@ -13,10 +14,26 @@ namespace SignIn{
 		public InputField email;
 		public InputField password;
 
+		public Firebase.Auth.FirebaseAuth obj;
 
 		public void login_submit (string sceneName) {
 			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith((obj) => {
-				SceneManager.LoadScene (sceneName);
+
+				//FirebaseAuth auth = FirebaseAuth.unitypackage.GetAuth(obj);
+				//auth.SignOut();
+
+				if (obj.IsCanceled){
+					return;
+				}
+
+				if (obj.IsFaulted){
+					SceneManager.LoadSceneAsync ("test");
+				}
+
+				if (obj.IsCompleted){
+					SceneManager.LoadScene ("userInfo");
+				}
+					
 			});
 		}
 
