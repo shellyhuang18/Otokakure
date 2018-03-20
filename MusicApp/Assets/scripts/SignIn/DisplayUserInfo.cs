@@ -8,30 +8,29 @@ using Firebase.Auth;
 
 namespace SignIn {
 	public class DisplayUserInfo : MonoBehaviour {
-		public Text sacit;
+		public Text user_email;
+		Firebase.Auth.FirebaseAuth auth;
+		Firebase.Auth.FirebaseUser user;
 
-		public void return_to_entry (string scenename){
-			Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
-			Firebase.Auth.FirebaseUser user = auth.CurrentUser;
 
+		void Start() {
+			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+			user = auth.CurrentUser;
 			if (user != null) {
-				sacit.text = "User is loggin out";
-				auth.SignOut ();
+				user_email.text = user.Email;
 			} else {
-				sacit.text = "No users right now";
+				user_email.text = "No users right now";
 			}
+		}
 
+		public void ReturnToEntry (string scene_name){
+			if (user != null) {
+				auth.SignOut ();
+			}
+		}
 
-			//if (user == null) {
-				//sacit.text = "User signed out successfully ";
-			//} else {
-				//Debug.LogFormat (user.Email);
-			//}
-			//EntryPage entr = new EntryPage ();
-			//entr.obj.SignOut();
-			//user = user.GetComponent<SignIn.Entry
-
-			//SceneManager.LoadScene (scenename);
+		public void GoBack (string scene_name) {
+			SceneManager.LoadScene (scene_name);
 		}
 	}
 }

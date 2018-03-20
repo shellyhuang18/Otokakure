@@ -41,6 +41,10 @@ namespace SignIn{
 			SceneManager.LoadScene (sceneName);
 		}
 
+		public void info_page (string sceneName) {
+			SceneManager.LoadScene (sceneName);
+		}
+
 	
 	}
 }
