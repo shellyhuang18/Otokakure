@@ -5,7 +5,7 @@ using UnityEngine;
 using Utility;
 
 namespace PitchLine{
-	public class DetectGameNote : MonoBehaviour {
+	public class ControlArrow : MonoBehaviour {
 		double height;
 		double lower_bound;
 
