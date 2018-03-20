@@ -28,7 +28,7 @@ namespace Conductor{
 		}
 		
 		// Update is called once per frame
-		void Update () {
+		void FixedUpdate () {
 			/*if (Input.GetKeyDown ("q")) {
 				triggerPitch ("c4", 4);
 			}
@@ -46,16 +46,14 @@ namespace Conductor{
 
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
-<<<<<<< HEAD
 			}*/
 			if(Input.GetKeyDown("space")){
 				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
 			}
 			if (Input.GetKeyDown ("a")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4c#4 <4d4 8e4 4d#4>");
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("8d4 8d#4");
 				StartCoroutine (startSong (new_song));
-=======
->>>>>>> acb1618789d114a72eef1bed1fbcde0db508ad87
+
 			}
 
 		}
@@ -67,13 +65,15 @@ namespace Conductor{
 
 		IEnumerator startSong(NoteLogic.NoteLogic.Song new_song){
 			//new_song.PrintScore ();
+			float timing = .51f;
+
 			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
-				yield return new WaitForSeconds (.2f);
-				Debug.Log(new_song.score.Count);
+				
 				//output chords
 				if (item.is_chord) {
 					NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
-
+					//timing = (float)(d.duration * 4) / 100;
+					Debug.Log (Time.deltaTime);
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
 						triggerPitch (i.duration, i.pitch);
@@ -81,8 +81,12 @@ namespace Conductor{
 				//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
+					//timing = (float)(n.duration * 4) / 100;
+					Debug.Log (Time.deltaTime);
 					triggerPitch (n.duration, n.pitch);
 				}
+				yield return new WaitForSeconds (timing);
+
 			}
 		}
 
