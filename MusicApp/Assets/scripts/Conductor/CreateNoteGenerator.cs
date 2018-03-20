@@ -5,6 +5,7 @@ using UnityEngine;
 using Utility;
 using System.Threading;
 using Spawner;
+using NoteLogic;
 
 namespace Conductor{
 	public class CreateNoteGenerator : MonoBehaviour {
@@ -17,11 +18,12 @@ namespace Conductor{
 		public float tempo;
 
 		// Use this for initialization
-		void Start () {
+		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 
-			generateChildren ("c4", "e4");
+			//The parent object should be the GameWindow.
+			generateChildren (gameObject.GetComponentInParent<GameWindow>().lowest_pitch, gameObject.GetComponentInParent<GameWindow>().highest_pitch);
 
 		}
 		
@@ -45,8 +47,11 @@ namespace Conductor{
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
 			}
-			if(Input.GetKeyDown("space")){
-				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
+
+			if (Input.GetKeyDown ("a")) {
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4c#4 <4d4 8e4 4d#4>");
+				StartCoroutine (startSong (new_song));
+
 			}
 
 		}
@@ -54,11 +59,34 @@ namespace Conductor{
 		void setTempo(float tempo){
 			this.tempo = tempo;
 		}
+		 
+
+		IEnumerator startSong(NoteLogic.NoteLogic.Song new_song){
+			//new_song.PrintScore ();
+			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
+				yield return new WaitForSeconds (.2f);
+				Debug.Log(new_song.score.Count);
+				//output chords
+				if (item.is_chord) {
+					NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
+
+					//output notes in chord
+					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
+						triggerPitch (i.pitch, i.duration);
+					}
+				//output single notes
+				} else {
+					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
+					triggerPitch ( n.pitch, n.duration);
+				}
+			}
+		}
 
 		void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}
+
 
 
 		void generateChildren(string lowest_pitch, string highest_pitch){
@@ -96,7 +124,6 @@ namespace Conductor{
 		}
 
 		Color RandomColor(float color, int color_choice){
-			Debug.Log (color_choice);
 
 			switch (color_choice) {
 			case 1:
