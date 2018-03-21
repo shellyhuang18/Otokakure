@@ -27,7 +27,7 @@ public class PitchDetector : MonoBehaviour {
 	void Update () {
 		//Debug.Log (microphone.clip.frequency + " ");
 		//Debug.Log (GetFundamentalFrequency() + " ");
-		Debug.Log ("The pitch is " + Utility.Pitch.getNearestPitch(GetFundamentalFrequency()) + " ");
+		Debug.Log ("The pitch is " + Pitch.getNearestPitch(GetFundamentalFrequency()) + " ");
 		Debug.Log ("The frequency is " + GetFundamentalFrequency() + " ");
 	}
 
