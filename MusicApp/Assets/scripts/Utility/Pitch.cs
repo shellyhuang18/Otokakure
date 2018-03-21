@@ -147,7 +147,7 @@ namespace Utility{
 						return total_half_steps;
 					} 
 					else {
-						total_half_steps += 1;
+						total_half_steps -= 1;
 						index_itr -= 1;
 						if (index_itr == -1) { //If we completed one scale, increase octave
 							octave_itr -= 1;
@@ -168,9 +168,9 @@ namespace Utility{
 				Debug.Break ();
 			}
 
-			int n = getTotalHalfSteps (pitch, "a3");
+			int n = getTotalHalfSteps ("a4" , pitch);
 			double c = 1.05946309436; //constant value, 2^(1/12)
-			return 220 * (float)Math.Pow(c , n);
+			return 440 * (float)Math.Pow(c , n);
 		}
 
 		//Converts a frequeny to closest matching pitch

@@ -8,11 +8,13 @@ namespace PitchLine{
 	public class ControlArrow : MonoBehaviour {
 		double height;
 		double lower_bound;
+	
+		public string lowest_valid_pitch; 
+		public string highest_valid_pitch; 
+		private float lowest_valid_frequency;
+		private float highest_valid_frequency;
 
-		public double div_space;
-		private string lowest_valid_pitch; 
-		private string highest_valid_pitch; 
-		private int total_half_steps;
+		private float frequency_range;
 
 		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
@@ -23,11 +25,9 @@ namespace PitchLine{
 			lowest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().lowest_pitch;
 			highest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().highest_pitch;
 
-			//Make sure lowest and highest pitch is defined before total_half_steps
-			total_half_steps = Utility.Pitch.getTotalHalfSteps (lowest_valid_pitch, highest_valid_pitch) + 1;
-
-			//make sure total_half_steps is defined before div_space
-			div_space = height / total_half_steps;
+			lowest_valid_frequency = Utility.Pitch.toFrequency (lowest_valid_pitch);
+			highest_valid_frequency = Utility.Pitch.toFrequency (highest_valid_pitch);
+			frequency_range = highest_valid_frequency - lowest_valid_frequency;
 
 		}
 		
@@ -37,27 +37,37 @@ namespace PitchLine{
 				Debug.Log ("pressed space");
 				setPitchLevel (440);
 			}
+			if(Input.GetKeyDown("b")){
+				string pitch = "c1";
+				while (true) {
+					Debug.Log (pitch + " " + Utility.Pitch.toFrequency (pitch));
+					pitch = Utility.Pitch.incrementPitch (pitch, 1);
+					if (pitch == "c#6")
+						break;
+				}
+			}
+	
 		}
 			
 
 		void setPitchLevel(double frequency){
 			GameObject arrow = GameObject.Find ("arrow");
 
-			Debug.Log("div space is " + div_space);
-			Debug.Log ("arrow is at " + arrow.transform.position.y);
-			Debug.Log ("lower bound is " + lower_bound);
 			//If pitch level is outside the range of the pitchline, unrender the arrow
-//			if (frequency > highest_valid_pitch || frequency < lowest_valid_pitch) {
-//				arrow.GetComponent<SpriteRenderer> ().enabled = false;
-//			} 
-//			else {
-//				arrow.GetComponent<SpriteRenderer> ().enabled = true;
+			if (frequency > Utility.Pitch.toFrequency(highest_valid_pitch) || frequency < Utility.Pitch.toFrequency(lowest_valid_pitch)) {
+				arrow.GetComponent<SpriteRenderer> ().enabled = false;
+			} 
+			else {
+				arrow.GetComponent<SpriteRenderer> ().enabled = true;
 
-				//we add div_space/2 since we want the correct pitch to center on the note bar
-				float new_pos = (float)(lower_bound +(div_space/2) + (div_space * 3));
-			Debug.Log ("new_pos is " + new_pos);
+				float frequency_fraction = (float) (1 + Math.Log ((frequency + (0.5*110))/highest_valid_frequency ,12) );
+				//double meh = (frequency + (0.5 * lowest_valid_frequency)) / highest_valid_frequency;
+				double meh = (frequency + (0.5 * lowest_valid_frequency));
+				Debug.Log ("Freq = " + frequency_fraction + " " + lowest_valid_frequency + " " + highest_valid_frequency + " " + meh);
+
+				float new_pos = (float)(frequency_fraction * height + lower_bound);
 				arrow.transform.position = new Vector2 (arrow.transform.position.x, new_pos);
-//			}
+			}
 		}
 	}
 }
