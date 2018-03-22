@@ -12,9 +12,12 @@ namespace SignIn {
 		Firebase.Auth.FirebaseAuth auth;
 		Firebase.Auth.FirebaseUser user;
 
-
-		void Start() {
+		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+			user = auth.CurrentUser;
+		}
+
+		void Update() {
 			user = auth.CurrentUser;
 			if (user != null) {
 				user_email.text = user.Email;
