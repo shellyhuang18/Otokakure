@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47bcc65b8a7745dcb2f6da65cdf6e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing_display_email: {fileID: 213673131}
+  user_email: {fileID: 213673131}
 --- !u!1 &584693296
 GameObject:
   m_ObjectHideFlags: 0

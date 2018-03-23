@@ -8,8 +8,7 @@ using Firebase.Auth;
 
 namespace SignIn {
 	public class DisplayUserInfo : MonoBehaviour {
-		
-		public Text testing_display_email;
+		public Text user_email;
 		Firebase.Auth.FirebaseAuth auth;
 		Firebase.Auth.FirebaseUser user;
 
@@ -18,12 +17,12 @@ namespace SignIn {
 			user = auth.CurrentUser;
 		}
 
-		void Update () {
+		void Update() {
 			user = auth.CurrentUser;
 			if (user != null) {
-				testing_display_email.text = user.Email;
+				user_email.text = user.Email;
 			} else {
-				testing_display_email.text = "No users right now";
+				user_email.text = "No users right now";
 			}
 		}
 
