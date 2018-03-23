@@ -13,11 +13,17 @@ namespace SignIn{
 
 		public InputField email;
 		public InputField password;
+		Firebase.Auth.FirebaseAuth auth;
+		Firebase.Auth.FirebaseUser user;
 
-		public void login_submit (string sceneName) {
+		public Text testing_display_reset;
+
+		void Start () {
+			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+		}
+
+		public void login_submit (string scene_name) {
 			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith((obj) => {
-
-				Firebase.Auth.FirebaseUser user;
 				user = obj.Result;
 				if (user != null) {
 					SceneManager.LoadSceneAsync ("userInfo");
@@ -28,12 +34,22 @@ namespace SignIn{
 
 		}
 
-		public void register_page (string sceneName) {
-			SceneManager.LoadScene (sceneName);
+		public void reset () {
+			auth.SendPasswordResetEmailAsync(email.text.ToString()).ContinueWith((authTask) => {
+				if (authTask.IsFaulted) {
+					testing_display_reset.text = "Password reset encountered an error.";
+				} else if (authTask.IsCompleted) {
+					testing_display_reset.text = "Check Your e-mail for reset!";
+				}
+			});
 		}
 
-		public void info_page (string sceneName) {
-			SceneManager.LoadScene (sceneName);
+		public void register_page (string scene_name) {
+			SceneManager.LoadScene (scene_name);
+		}
+
+		public void info_page (string scene_name) {
+			SceneManager.LoadScene (scene_name);
 		}
 
 	

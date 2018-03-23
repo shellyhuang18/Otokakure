@@ -1,12 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\note_logic.cs">
-    <Files>
-      <File FileName="Assets\scripts\note_logic.cs" Line="13" Column="43" />
-      <File FileName="Assets\scripts\generate_notes.cs" Line="18" Column="52" />
-      <File FileName="Assets\scripts\create_note_generator.cs" Line="59" Column="2" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

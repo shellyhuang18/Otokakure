@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/scenes/test.unity
+- path: Assets/scenes/Entry Page and Sign in/registration.unity
   isLoaded: 1
   isActive: 1
