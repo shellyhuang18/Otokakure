@@ -13,11 +13,17 @@ namespace SignIn{
 
 		public InputField email;
 		public InputField password;
+		Firebase.Auth.FirebaseAuth auth;
+		Firebase.Auth.FirebaseUser user;
 
-		public void login_submit (string sceneName) {
-			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith((obj) => {
+		public Text testing_for_reset;
 
-				Firebase.Auth.FirebaseUser user;
+		void Start () {
+			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+		}
+
+		public void login_submit (string scene_name) {
+			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith(obj => {
 				user = obj.Result;
 				if (user != null) {
 					SceneManager.LoadSceneAsync ("userInfo");
@@ -25,15 +31,24 @@ namespace SignIn{
 					SceneManager.LoadSceneAsync ("test");
 				}
 			});
-
 		}
 
-		public void register_page (string sceneName) {
-			SceneManager.LoadScene (sceneName);
+		public void reset() {
+			auth.SendPasswordResetEmailAsync(email.text.ToString()).ContinueWith(authTask => {
+				if (authTask.IsFaulted) {
+					testing_for_reset.text = "Error Occured!";
+				} else if (authTask.IsCompleted) {
+					testing_for_reset.text = "Check Your email!";
+				}
+			});
 		}
 
-		public void info_page (string sceneName) {
-			SceneManager.LoadScene (sceneName);
+		public void register_page (string scene_name) {
+			SceneManager.LoadScene (scene_name);
+		}
+
+		public void info_page (string scene_name) {
+			SceneManager.LoadScene (scene_name);
 		}
 
 	
