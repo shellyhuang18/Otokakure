@@ -9,10 +9,12 @@ namespace PitchLine{
 		double height;
 		double lower_bound;
 	
-		public string lowest_valid_pitch; 
+		public string lowest_valid_pitch;  //This is the frequency of the
 		public string highest_valid_pitch; 
 		private float lowest_valid_frequency;
 		private float highest_valid_frequency;
+
+		public float lowest_detected_frequency; //This is the lowest frequency on the pitch line.
 
 		private float frequency_range;
 
@@ -29,23 +31,22 @@ namespace PitchLine{
 			highest_valid_frequency = Pitch.toFrequency (highest_valid_pitch);
 			frequency_range = highest_valid_frequency - lowest_valid_frequency;
 
+			lowest_detected_frequency = (float)(lowest_valid_frequency/ Math.Pow(2, 50/1200));
 		}
 		
 		// Update is called once per frame
 		void Update () {
 			if(Input.GetKeyDown("space")){
-				Debug.Log ("pressed space");
+				Debug.Log ("move to a4");
 				moveArrow (440);
 			}
-			if(Input.GetKeyDown("b")){
-				string pitch = "a1";
-				while (true) {
-					Debug.Log (pitch);
-					moveArrow (Pitch.toFrequency (pitch));
-					pitch = Pitch.incrementPitch (pitch, 1);
-					if (pitch == "a5")
-						break;
-				}
+			if(Input.GetKeyDown("n")){
+				Debug.Log ("move to a3");
+				moveArrow (460);
+			}
+			if(Input.GetKeyDown("m")){
+				Debug.Log ("move to a2");
+				moveArrow (110);
 			}
 	
 		}
@@ -61,10 +62,20 @@ namespace PitchLine{
 			else {
 				arrow.GetComponent<SpriteRenderer> ().enabled = true;
 
-				float frequency_fraction = (float) (1 + Math.Log ((frequency + (0.5*110))/highest_valid_frequency ,12) );
-				Debug.Log (frequency + " " + frequency_fraction);
 
-				float new_pos = (float)(frequency_fraction * height + lower_bound);
+				// + 1 to reflect the div_space offset
+				int total_cents = 100 * (Pitch.getTotalHalfSteps (lowest_valid_pitch, highest_valid_pitch) + 1);
+
+				float pixel_per_cents = (float)height / total_cents;
+
+				// An octave has 1200 cents. 100 cents per half step
+				float cents_change = (float)(1200 * Math.Log( frequency/lowest_detected_frequency , 2));
+
+
+				//We add pixels_per_cents*50 to reflect the half div_space offset of the notes
+				float new_pos = (float)lower_bound + (pixel_per_cents * cents_change) + (pixel_per_cents * 50);
+
+
 				arrow.transform.position = new Vector2 (arrow.transform.position.x, new_pos);
 			}
 		}

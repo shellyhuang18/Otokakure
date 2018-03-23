@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &684011322
+--- !u!1001 &364569236
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -151,32 +151,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4450680352633020, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
+    - target: {fileID: 4882668285064856, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
       propertyPath: m_LocalScale.y
-      value: -0.01171005
-      objectReference: {fileID: 0}
-    - target: {fileID: 4450680352633020, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 212416851330492562, guid: ed71cf3cd739141e5a8d05d24cd1c291,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -545847935
-      objectReference: {fileID: 0}
-    - target: {fileID: 212416851330492562, guid: ed71cf3cd739141e5a8d05d24cd1c291,
-        type: 2}
-      propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 212293773575676952, guid: ed71cf3cd739141e5a8d05d24cd1c291,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -545847935
+    - target: {fileID: 4625871967771766, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 212293773575676952, guid: ed71cf3cd739141e5a8d05d24cd1c291,
-        type: 2}
-      propertyPath: m_SortingLayer
+    - target: {fileID: 4194444002075708, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
