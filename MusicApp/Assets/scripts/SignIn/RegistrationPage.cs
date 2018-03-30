@@ -15,7 +15,7 @@ namespace SignIn{
 		public InputField fname;
 		public InputField lname;
 			
-		public void register_submit (string sceneName) {
+		public void RegisterSubmit (string sceneName) {
 			FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(email.text, password.text).ContinueWith(obj => {
 				//Firebase.Auth.FirebaseUser newUser = obj.Result;
 				//Debug.LogFormat ("User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);

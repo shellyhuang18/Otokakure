@@ -30,10 +30,11 @@ namespace SignIn {
 			if (user != null) {
 				auth.SignOut ();
 			}
+			SceneManager.LoadScene (scene_name);
 		}
 
 		public void GoBack (string scene_name) {
-			SceneManager.LoadScene (scene_name);
+			SceneManager.LoadScene (PlayerPrefs.GetString ("lastLoadedScene"));
 		}
 	}
 }

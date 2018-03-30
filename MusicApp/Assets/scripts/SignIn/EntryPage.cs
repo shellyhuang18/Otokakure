@@ -22,7 +22,7 @@ namespace SignIn{
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 		}
 
-		public void login_submit (string scene_name) {
+		public void LoginSubmit (string scene_name) {
 			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith(obj => {
 				user = obj.Result;
 				if (user != null) {
@@ -33,7 +33,7 @@ namespace SignIn{
 			});
 		}
 
-		public void reset() {
+		public void Reset() {
 			auth.SendPasswordResetEmailAsync(email.text.ToString()).ContinueWith(authTask => {
 				if (authTask.IsFaulted) {
 					testing_for_reset.text = "Error Occured!";
@@ -43,11 +43,11 @@ namespace SignIn{
 			});
 		}
 
-		public void register_page (string scene_name) {
+		public void RegisterPage (string scene_name) {
 			SceneManager.LoadScene (scene_name);
 		}
 
-		public void info_page (string scene_name) {
+		public void InfoPage (string scene_name) {
 			SceneManager.LoadScene (scene_name);
 		}
 
