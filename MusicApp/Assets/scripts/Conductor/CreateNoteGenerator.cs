@@ -49,7 +49,17 @@ namespace Conductor{
 			}
 
 			if (Input.GetKeyDown ("a")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4c#4 <4d4 8e4 4d#4>");
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("2d4 16e4");
+				StartCoroutine (startSong (new_song));
+
+			}
+			if (Input.GetKeyDown ("s")) {
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("3d4 8e4");
+				StartCoroutine (startSong (new_song));
+
+			}
+			if (Input.GetKeyDown ("d")) {
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("5d4 6r 4e4");
 				StartCoroutine (startSong (new_song));
 
 			}
@@ -62,27 +72,50 @@ namespace Conductor{
 		 
 
 		IEnumerator startSong(NoteLogic.NoteLogic.Song new_song){
-			//new_song.PrintScore ();
+			float timing = .1f;
+			float pix_per_frame = tempo / 50;
+			float obj_width = 10;
+			float pix_req;
+
 			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
-				yield return new WaitForSeconds (.2f);
-				Debug.Log(new_song.score.Count);
+				obj_width = 10;
 				//output chords
 				if (item.is_chord) {
+					
 					NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
 
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
-						triggerPitch (i.pitch, i.duration);
+						if (i.pitch != "r") {
+							triggerPitch (i.pitch, i.duration);
+						}
+
+						obj_width *= (float)(i.duration/16);
 					}
+
+				
+					pix_req = obj_width / pix_per_frame;
+					timing = pix_req * Time.deltaTime;
 				//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
-					triggerPitch ( n.pitch, n.duration);
+					if (n.pitch != "r") {
+						triggerPitch (n.pitch, n.duration);
+					}
+
+					obj_width *= (float)(n.duration / 16);
+
+					//Debug.Log (obj_width);
+					pix_req = obj_width / pix_per_frame;
+					timing = pix_req * Time.deltaTime;
+
 				}
+
+				yield return new WaitForSeconds (timing);
 			}
 		}
 
-		void triggerPitch(string pitch, int duration){
+		void triggerPitch(string pitch, float duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}

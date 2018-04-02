@@ -18,7 +18,7 @@ namespace NoteLogic{
 		public class Note : Sound{
 			public string pitch;
 
-			public Note(string pitch, int duration){
+			public Note(string pitch, float duration){
 				this.pitch = pitch;
 				this.duration = duration;
 			}
@@ -28,7 +28,7 @@ namespace NoteLogic{
 		public class Sound{
 			//for dynamic casting-
 			public bool is_chord = false;
-			public int duration;
+			public float duration;
 			public char dynamic;
 		}
 
@@ -41,7 +41,8 @@ namespace NoteLogic{
 			public Song(string sfs){
 				//parses string and puts associated values into respective variables.
 				//TODO: make documentation on dynamics and how they're represented in string score format
-				//ex: 4c 4c# 4e 4g <16c 16e 16g>
+				//ex: 4c4 4c#4 4e4 4g4 <16c4 16e4 16g4>
+				//duration/pitch
 				score = new List<Sound>();
 
 				string[] notes;
@@ -52,11 +53,6 @@ namespace NoteLogic{
 				string str_dur;
 				int duration;
 				string pitch;
-
-				//TODO: dynamically make chords. Problem is that if new Chord object is declared 
-				//every iteration of the loop, too much garbage. Create correct number of Chord 
-				//objects that need to be made whilst using that same object and filling it with
-				//notes until end of chord '>'. (Right now it just makes one and that's dumb)
 
 				//TODO: error check so that sfs is in the correct format
 				Chord new_chord = null;
@@ -140,6 +136,11 @@ namespace NoteLogic{
 
 			}//song constructor
 
+			void CheckRest(string note){
+				if (note == "r") {
+
+				}
+			}
 			public void PrintScore(){
 				foreach (Sound item in score) {
 					if (item.is_chord) {
