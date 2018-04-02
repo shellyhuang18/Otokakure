@@ -3,22 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utility;
+using PitchLine; //This namespace hold's Naseeb's pitch tracker stuff
 
 namespace PitchLine{
 	public class ControlArrow : MonoBehaviour {
+		GameObject arrow; //The arrow that is being manipulated
+		
 		double height;
 		double lower_bound;
 	
-		public string lowest_valid_pitch;  //This is the frequency of the
+		public string lowest_valid_pitch;  
 		public string highest_valid_pitch; 
 		private float lowest_valid_frequency;
 		private float highest_valid_frequency;
+		private float pitchV;
 
 		public float lowest_detected_frequency; //This is the lowest frequency on the pitch line.
 
 		private float frequency_range;
 
 		public void Start () {
+			arrow = GameObject.Find ("arrow");
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;	
 
@@ -32,28 +37,36 @@ namespace PitchLine{
 			frequency_range = highest_valid_frequency - lowest_valid_frequency;
 
 			lowest_detected_frequency = (float)(lowest_valid_frequency/ Math.Pow(2, 50/1200));
+
+
+//			StartCoroutine ("testArrow"); //Call this if you want to test the arrow moves correctly
+
+
 		}
 		
 		// Update is called once per frame
 		void Update () {
-			if(Input.GetKeyDown("space")){
-				Debug.Log ("move to a4");
-				moveArrow (440);
+			float pitch = (arrow.GetComponent<PitchTracker> ().AnalyzeSound ());
+//			moveArrow (arrow.GetComponent<PitchTracker> ().AnalyzeSound ());
+			//Debug.Log (arrow.GetComponent<PitchTracker> ().AnalyzeSound ());
+			if (pitch > 0) {
+				pitchV = pitch;
+				moveArrow (pitchV);
+				Debug.Log (pitchV);
 			}
-			if(Input.GetKeyDown("n")){
-				Debug.Log ("move to a3");
-				moveArrow (460);
-			}
-			if(Input.GetKeyDown("m")){
-				Debug.Log ("move to a2");
-				moveArrow (110);
-			}
-	
 		}
+
+		IEnumerator testArrow(){
+			for (float i = lowest_valid_frequency; i < highest_valid_frequency; i += 9) {
+				Debug.Log (i);
+				moveArrow (i);
+				yield return new WaitForSeconds(0.01667f);
+			}
+		}
+
 			
 
 		void moveArrow(double frequency){
-			GameObject arrow = GameObject.Find ("arrow");
 
 			//If pitch level is outside the range of the pitchline, unrender the arrow
 			if (frequency > Pitch.toFrequency(highest_valid_pitch) || frequency < Pitch.toFrequency(lowest_valid_pitch)) {
