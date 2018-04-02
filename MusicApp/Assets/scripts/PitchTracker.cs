@@ -81,8 +81,8 @@ namespace PitchLine{
 
 		void Update()
 		{
-			AnalyzeSound();
-			Debug.Log ("The Pitch Frequency is " + pitchValue.ToString ("F0") + "Hz");
+//			AnalyzeSound();
+//			Debug.Log ("The Pitch Frequency is " + pitchValue.ToString ("F0") + "Hz");
 //			if (display != null)
 //			{
 //				display.text = "RMS: " + rmsValue.ToString("F2") +

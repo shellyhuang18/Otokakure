@@ -16,6 +16,7 @@ public class GameWindow : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
+
 		if (Input.GetKeyDown ("o")) {
 			Debug.Log(Utility.Pitch.getNearestPitch (440));
 		}
