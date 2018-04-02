@@ -5,24 +5,48 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Unity.Editor;
+using Firebase.Database;
 
 namespace SignIn {
 	public class DisplayUserInfo : MonoBehaviour {
-		public Text user_email;
 		Firebase.Auth.FirebaseAuth auth;
 		Firebase.Auth.FirebaseUser user;
+		public Text fname;
+		public Text lname;
+		public Text email;
 
 		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 			user = auth.CurrentUser;
+			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 		}
 
 		void Update() {
 			user = auth.CurrentUser;
+			RetrieveUserInfo ();
+		}
+
+		void RetrieveUserInfo() {
+			DatabaseReference user_table = FirebaseDatabase.DefaultInstance.GetReference ("User Table");
 			if (user != null) {
-				user_email.text = user.Email;
-			} else {
-				user_email.text = "No users right now";
+				email.text = user.Email;
+				user_table.Child(user.UserId).GetValueAsync ().ContinueWith (task => {
+					if (task.IsFaulted) {
+						fname.text = "error";
+						lname.text = "error";
+					} else if (task.IsCompleted) {
+						DataSnapshot snap = task.Result;
+						foreach (DataSnapshot name in snap.Children){
+							if (name.Key == "Name") {
+								fname.text = name.Value.ToString();
+							}
+							if (name.Key == "Last"){
+								lname.text = name.Value.ToString();
+							}
+						}
+					}
+				});
 			}
 		}
 

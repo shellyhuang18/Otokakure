@@ -26,9 +26,9 @@ namespace SignIn{
 			FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync (email.text, password.text).ContinueWith(obj => {
 				user = obj.Result;
 				if (user != null) {
-					SceneManager.LoadSceneAsync ("userInfo");
+					SceneManager.LoadSceneAsync ("Home Page");
 				} else {
-					SceneManager.LoadSceneAsync ("test");
+					SceneManager.LoadSceneAsync ("userInfo");
 				}
 			});
 		}
