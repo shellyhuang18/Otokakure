@@ -147,7 +147,7 @@ namespace Utility{
 						return total_half_steps;
 					} 
 					else {
-						total_half_steps += 1;
+						total_half_steps -= 1;
 						index_itr -= 1;
 						if (index_itr == -1) { //If we completed one scale, increase octave
 							octave_itr -= 1;
@@ -168,9 +168,37 @@ namespace Utility{
 				Debug.Break ();
 			}
 
-			int n = getTotalHalfSteps (pitch, "a3");
+			int n = getTotalHalfSteps ("a4" , pitch);
 			double c = 1.05946309436; //constant value, 2^(1/12)
-			return 220 * (float)Math.Pow(c , n);
+			return 440 * (float)Math.Pow(c , n);
+		}
+
+		//Converts a frequeny to closest matching pitch
+		public static string getNearestPitch(float pitchInHz) {
+			// Base Note is A4 = 440
+			float baseNote = 440;
+			float pitchinHz = 440;
+			// octaves from base -> octaves  =  log(base2)(freq/base).
+			//double octavesFromBase = Mathf.Round(Mathf.Log(pitchInHz/baseNote, 2));
+			double halfStepsFromBase = Mathf.Round (12 * Mathf.Log(pitchInHz/baseNote, 2));
+			//return halfStepsFromBase;
+			//double octavesFromBase = Math.round((Math.log((pitchInHz/baseNote))/Math.log(2)));
+			// half steps = log2^12 (freq/base)
+			//double halfStepsFromBase = (Math.log((pitchInHz/baseNote))/Math.log(a));
+			// half steps from base -> half steps  =  12 * log(base2)(freq/base).
+			//double halfStepsFromBase = Math.round(12 * (Math.log((pitchInHz/baseNote))/Math.log(2)));
+			int letterNoteIndex = ((int) halfStepsFromBase % 12)-3;
+			if (letterNoteIndex < 0)
+				letterNoteIndex += 12;
+			
+			int numberNote;
+			if (halfStepsFromBase < 3) {
+				numberNote = (int)halfStepsFromBase / 12 + 4;
+			} else {
+				numberNote = (int)halfStepsFromBase / 12 + 5;
+			}
+			return SCALE_NOTES[letterNoteIndex] + numberNote;
+//			/noteText.setText(letterNoteArray[letterNoteIndex] + numberNote);
 		}
 
 	}//end of class

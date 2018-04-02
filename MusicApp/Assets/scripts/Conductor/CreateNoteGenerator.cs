@@ -28,9 +28,9 @@ namespace Conductor{
 		}
 		
 		// Update is called once per frame
-		void FixedUpdate () {
-			/*if (Input.GetKeyDown ("q")) {
-				triggerPitch ("c4", 4);
+		void Update () {
+			if (Input.GetKeyDown ("q")) {
+				triggerPitch ("a4", 4);
 			}
 
 			if (Input.GetKeyDown ("w")) {
@@ -46,10 +46,11 @@ namespace Conductor{
 
 			if (Input.GetKeyDown ("t")) {
 				triggerPitch ("e4", 16);
-			}*/
+			}
 			if(Input.GetKeyDown("space")){
 				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
 			}
+
 			if (Input.GetKeyDown ("a")) {
 				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("8d4 8d#4");
 				StartCoroutine (startSong (new_song));
@@ -76,21 +77,22 @@ namespace Conductor{
 					Debug.Log (Time.deltaTime);
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
-						triggerPitch (i.duration, i.pitch);
+						triggerPitch (i.pitch, i.duration);
 					}
 				//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
 					//timing = (float)(n.duration * 4) / 100;
 					Debug.Log (Time.deltaTime);
-					triggerPitch (n.duration, n.pitch);
+
+					triggerPitch ( n.pitch, n.duration);
 				}
 				yield return new WaitForSeconds (timing);
 
 			}
 		}
 
-		void triggerPitch(int duration, string pitch){
+		void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}
@@ -99,7 +101,7 @@ namespace Conductor{
 
 		void generateChildren(string lowest_pitch, string highest_pitch){
 			//Determining how many children to create
-			int total_children_to_create = Utility.Pitch.getTotalHalfSteps(lowest_pitch, highest_pitch) + 1;
+			int total_children_to_create = Pitch.getTotalHalfSteps(lowest_pitch, highest_pitch) + 1;
 
 			//Create children and reposition them to fit note generator(rectangle)
 			div_space = height / total_children_to_create;
@@ -119,7 +121,7 @@ namespace Conductor{
 				new_child.transform.parent = this.transform;
 				new_child.name = pitch_id;
 
-				pitch_id = Utility.Pitch.incrementPitch (pitch_id, 1);
+				pitch_id = Pitch.incrementPitch (pitch_id, 1);
 
 				new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
 				interval += div_space;

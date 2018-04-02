@@ -151,7 +151,7 @@ namespace NoteLogic{
 		}
 
 		void Start(){
-			Song sng = new Song ("3c4 <6g#4 6c4 6d#4>");
+			//Song sng = new Song ("3c4 <6g#4 6c4 6d#4>");
 			//sng.PrintScore ();
 		}
 	}
