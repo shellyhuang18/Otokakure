@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
-using UnityEngine;
 using Firebase.Unity.Editor;
 
 
