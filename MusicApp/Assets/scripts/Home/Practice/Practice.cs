@@ -12,9 +12,10 @@ public class Practice : MonoBehaviour {
 
 	Firebase.Auth.FirebaseAuth auth;
 	Firebase.Auth.FirebaseUser user;
-	public Text result;
 	public GameObject sample_button;
 	public Transform content_panel;
+	public Text result;
+	public Text action;
 
 
 	void Start () {
@@ -40,6 +41,12 @@ public class Practice : MonoBehaviour {
 		RetrievePractices ("Rhythm");
 	}
 
+	public Button.ButtonClickedEvent Selection;
+
+	public void Selection2() {
+		action.text = GetComponent<ButtonTemplate> ().to_do;
+	}
+
 	void RetrievePractices(string practice_type) {
 		DatabaseReference practice_table = FirebaseDatabase.DefaultInstance.GetReference ("SFSs");
 		if (user != null) {
@@ -47,12 +54,14 @@ public class Practice : MonoBehaviour {
 				if (task.IsFaulted) {
 					result.text = "error";
 				} else if (task.IsCompleted) {
-					result.text = "Success";
+					result.text = "Successfull retrievel";
 					DataSnapshot snap = task.Result;
 					foreach (DataSnapshot variable in snap.Children) {
 						GameObject newButton = Instantiate(sample_button) as GameObject;
 						ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
 						button_script.button_text.text = practice_type + " " + variable.Key;
+						button_script.to_do = variable.Value.ToString();
+						button_script.button.onClick = Selection;
 						newButton.transform.SetParent(content_panel);
 					}
 				}

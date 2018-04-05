@@ -20,6 +20,10 @@ namespace SignIn{
 
 		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+			user = auth.CurrentUser;
+			if (user != null) {
+				SceneManager.LoadScene ("Home Page");
+			}
 		}
 
 		public void LoginSubmit (string scene_name) {
