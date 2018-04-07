@@ -5,21 +5,20 @@ using UnityEngine;
 
 namespace PitchLine{
 	public class DetectNote : MonoBehaviour {
-		static GameObject arrow; 
-		static Collider2D arrow_collider;
 
-		static Collider2D line_collider; //You need this to know if you missed
+		//Colliders of the arrow and line gameobjects
+		Collider2D arrow_collider;
+		Collider2D line_collider; 
 
-		private static int hit = 0;
-		private static int miss = 0;
+		private bool detection_enabled = true; //A bool to check if you want to detect notes
 
-		private static bool enabled = false; //A bool to check if you want to detect notes
+		private int hit = 0;
+		private int miss = 0;
+
 
 		// Use this for initialization
 		void Start () {
-			arrow = GameObject.Find ("arrow");
-			arrow_collider = (Collider2D)arrow.GetComponent<PolygonCollider2D>();
-
+			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
 		
@@ -29,8 +28,23 @@ namespace PitchLine{
 		}
 
 
-		public void checkOnPitch(){
-			if (enabled) {
+	//Write what you want specifically to happen when there is a hit or miss here in this zone
+	//=============================================================================
+		private void onHit(){
+			hit += 1;
+			Debug.Log ("hit");
+		}
+
+		private void onMiss(){
+			miss += 1;
+			Debug.Log ("miss");
+		}
+
+	//=============================================================================
+			
+
+		private void checkOnPitch(){
+			if (detection_enabled) {
 				if (!isLineTouchingNote ()) {
 					//Do nothing if the note isnt up to the line yet
 				} else {
@@ -45,21 +59,7 @@ namespace PitchLine{
 			}
 		}
 
-
-		//Write what you want specifically to happen when there is a hit or miss here in this zone
-		//=============================================================================
-		private void onHit(){
-			hit += 1;
-			Debug.Log ("hit");
-		}
-
-		private void onMiss(){
-			miss += 1;
-			Debug.Log ("miss");
-		}
-
-		//=============================================================================
-			
+		//Checks if the line's collider is touching any of the note's collider
 		private bool isLineTouchingNote(){
 			GameObject[] spawned_notes = GameObject.FindGameObjectsWithTag ("MusicalNote");
 			foreach (GameObject note in spawned_notes) {
@@ -68,11 +68,12 @@ namespace PitchLine{
 				}
 			}
 
-			// If the foreach loop didn't find anything yet and break the function, then it must be a miss.
+			// If the loop didn't find break yet, then it must be a miss.
 
 			return false;
 		}
 
+		//Checks if the arrow'collider is touching any of the note's collider
 		private bool isArrowTouchingNote(){
 			//Checks if the arrow is touching atleast one of the spawned notes
 
@@ -83,18 +84,17 @@ namespace PitchLine{
 					return true;
 				}
 			}
-			// If the foreach loop didn't find anything yet and break the function, then it must be a miss.
-
+			// If the loop didn't find break yet, then it must be a miss.
 			return false;
 
 		}
 			
 		public void enableDetection(){
-			enabled = true;
+			this.detection_enabled = true;
 		}
 
 		public void disableDetection(){
-			enabled = false;
+			this.detection_enabled = false;
 		}
 	}
 }

@@ -24,6 +24,53 @@ public class GameWindow : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown ("a")) {
+			Debug.Log ("called");
+			pitchline.GetComponent<ControlArrow>().moveArrow(pitchline.GetComponent<ControlArrow>().lowest_detectable_frequency);
+		}
+		if (Input.GetKeyDown ("s")) {
+			pitchline.GetComponent<ControlArrow>().moveArrow(pitchline.GetComponent<ControlArrow>().highest_detectable_frequency);
+		}
+
+		if (Input.GetKeyDown ("`")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("c4", 4);
+		}
+		if (Input.GetKeyDown ("1")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("c#4", 4);
+		}
+		if (Input.GetKeyDown ("2")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("d4", 4);
+		}
+		if (Input.GetKeyDown ("3")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("d#4", 4);
+		}
+		if (Input.GetKeyDown ("4")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("e4", 4);
+		}
+		if (Input.GetKeyDown ("5")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("f4", 4);
+		}
+		if (Input.GetKeyDown ("6")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("f#4", 4);
+		}
+		if (Input.GetKeyDown ("7")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("g4", 4);
+		}
+		if (Input.GetKeyDown ("8")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("g#4", 4);
+		}
+		if (Input.GetKeyDown ("9")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("a4", 4);
+		}
+		if (Input.GetKeyDown ("0")) {
+			conductor.GetComponent<CreateNoteGenerator> ().triggerPitch ("a#4", 4);
+		}
+		if (Input.GetKeyDown ("-")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("b4", 4);
+		}
+		if (Input.GetKeyDown ("=")) {
+			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("c5", 4);
+		}
 	}
 
 

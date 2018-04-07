@@ -12,8 +12,8 @@ namespace Conductor{
 		public GameObject note_spawner; //The child object that spawns notes
 
 
-		float height; //The total absolute height of the thing.
-		float lower_bound; //The lowest point of the note generating thing.
+		float height; //The total absolute height of the conductor.
+		float lower_bound; //The lowest point of the conductor
 		public float div_space;
 		public float tempo;
 
@@ -29,41 +29,6 @@ namespace Conductor{
 		
 		// Update is called once per frame
 		void Update () {
-			if (Input.GetKeyDown ("q")) {
-				triggerPitch ("a4", 4);
-			}
-
-			if (Input.GetKeyDown ("w")) {
-				triggerPitch ("c#4", 4);
-			}
-			if (Input.GetKeyDown ("e")) {
-				triggerPitch ("d4", 8);
-			}
-
-			if (Input.GetKeyDown ("r")) {
-				triggerPitch ("d#4", 16);
-			}
-
-			if (Input.GetKeyDown ("t")) {
-				triggerPitch ("e4", 16);
-			}
-
-			if (Input.GetKeyDown ("a")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("2d4 16e4");
-				StartCoroutine (startSong (new_song));
-
-			}
-			if (Input.GetKeyDown ("s")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("3d4 8e4");
-				StartCoroutine (startSong (new_song));
-
-			}
-			if (Input.GetKeyDown ("d")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("5d4 6r 4e4");
-				StartCoroutine (startSong (new_song));
-
-			}
-
 		}
 
 		public float getTempo(){
@@ -119,7 +84,7 @@ namespace Conductor{
 			}
 		}
 
-		void triggerPitch(string pitch, float duration){
+		public void triggerPitch(string pitch, float duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}
