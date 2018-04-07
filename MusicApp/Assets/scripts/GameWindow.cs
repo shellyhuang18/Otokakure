@@ -6,29 +6,77 @@ using PitchLine;
 using Utility;
 
 public class GameWindow : MonoBehaviour {
+	//UI Game Objects
+	GameObject pitchline;
+	GameObject conductor;
 
+
+	//Variables associated with the entire Game Window
 	public string lowest_pitch;
 	public string highest_pitch;
+	public float tempo;
 
 	// Use this for initialization
 	void Start () {
+		pitchline = (GameObject)GameObject.Find ("pitch_line");
+		conductor = (GameObject)GameObject.Find ("conductor");
 	}
 		
 	// Update is called once per frame
 	void Update () {
+	}
 
-		if (Input.GetKeyDown ("o")) {
-			Debug.Log(Utility.Pitch.getNearestPitch (440));
+
+//====== Variable Mutators and Getters ======
+	public void setTempo(float tempo){
+		GameObject conductor = (GameObject)GameObject.Find ("conductor");
+		conductor.GetComponent<CreateNoteGenerator> ().setTempo (tempo);
+	}
+
+	public void setPitchRange(string lower_pitch, string higher_pitch){
+		if(Utility.Pitch.isHigherPitch(lower_pitch, higher_pitch)){
+			this.lowest_pitch = lower_pitch;
+			this.highest_pitch = higher_pitch;
 		}
-		
-		if (Input.GetKeyDown ("n")) {
-			Debug.Log ("a4: " + Utility.Pitch.toFrequency ("a4"));
+	}
+
+
+
+
+//====== Control Functions ======
+	public void pause(){
+		//Pause the conductor from generating more music
+		GameObject.Find("conductor").GetComponent<CreateNoteGenerator>().pause();
+
+		//Pause all the musical notes on screen
+		GameObject[] notes = GameObject.FindGameObjectsWithTag ("MusicalNote");
+		foreach (GameObject note in notes) {
+			//Pause
+			note.GetComponent<Rigidbody2D>().velocity = new Vector2 (0, note.transform.position.y);
 		}
-		if (Input.GetKeyDown ("m")) {
-			Debug.Log ("c4: " + Utility.Pitch.toFrequency ("c4"));
+
+		//Stop the pitchline from detecting
+		GameObject.Find ("pitch_line").GetComponent<DetectNote> ().disableDetection ();
+
+	}
+
+	public void resume(){
+		GameObject pitchline = (GameObject)GameObject.Find ("pitch_line");
+		pitchline.GetComponent<DetectNote> ().enableDetection ();
+	}
+
+	public void stop(){
+		//Stop the conductor from making more music
+		GameObject.Find("conductor").GetComponent<CreateNoteGenerator>().stop();
+
+		//Destroy all notes on the screen
+		GameObject[] notes = GameObject.FindGameObjectsWithTag ("MusicalNote");
+		foreach (GameObject note in notes) {
+			Destroy(note);
 		}
-		if (Input.GetKeyDown ("l")) {
-			Debug.Log ("e6: " + Utility.Pitch.toFrequency ("e6"));
-		}
+	}
+
+	public void exitGameWindow(){
+
 	}
 }

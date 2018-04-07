@@ -66,7 +66,11 @@ namespace Conductor{
 
 		}
 
-		void setTempo(float tempo){
+		public float getTempo(){
+			return this.tempo;
+		}
+
+		public void setTempo(float tempo){
 			this.tempo = tempo;
 		}
 		 
@@ -118,6 +122,20 @@ namespace Conductor{
 		void triggerPitch(string pitch, float duration){
 			GameObject note_spawner = GameObject.Find (pitch);
 			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+		}
+
+		//Pauses the conductor from generating it's current song.
+		public void pause(){
+
+		}
+
+		//Completely stops the song the conductor was generating
+		public void stop(){
+		}
+
+		//Resumes what the song the conductor was generating
+		public void resume(){
+
 		}
 
 

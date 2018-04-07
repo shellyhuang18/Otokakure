@@ -13,6 +13,8 @@ namespace PitchLine{
 		private static int hit = 0;
 		private static int miss = 0;
 
+		private static bool enabled = false; //A bool to check if you want to detect notes
+
 		// Use this for initialization
 		void Start () {
 			arrow = GameObject.Find ("arrow");
@@ -28,17 +30,18 @@ namespace PitchLine{
 
 
 		public void checkOnPitch(){
-			if (!isLineTouchingNote ()) {
-				//Do nothing if the note isnt up to the line yet
-			} 
-			else {
-				if (isArrowTouchingNote()) {
-					onHit ();
-
+			if (enabled) {
+				if (!isLineTouchingNote ()) {
+					//Do nothing if the note isnt up to the line yet
 				} else {
-					onMiss ();
-				}
+					if (isArrowTouchingNote ()) {
+						onHit ();
 
+					} else {
+						onMiss ();
+					}
+
+				}
 			}
 		}
 
@@ -86,5 +89,12 @@ namespace PitchLine{
 
 		}
 			
+		public void enableDetection(){
+			enabled = true;
+		}
+
+		public void disableDetection(){
+			enabled = false;
+		}
 	}
 }

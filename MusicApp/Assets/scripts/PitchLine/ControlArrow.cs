@@ -39,7 +39,7 @@ namespace PitchLine{
 			lowest_detected_frequency = (float)(lowest_valid_frequency/ Math.Pow(2, 50/1200));
 
 		}
-
+			
 
 		public void Update(){
 			//		float pitch = (arrow.GetComponent<PitchTracker> ().AnalyzeSound ());
