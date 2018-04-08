@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Module;
 using NoteLogic;
-using BaseModule = Module.Module;
 
 /*This static class is responsible for maintaining the queue of modules that the user
  * is expected to complete, as well as the iterations through each module.
@@ -17,8 +16,8 @@ public class Manager{
 	private static GameObject game_window;
 
 	//Attempts to assign the Manager a game_window by ID
-	public void assignGameWindow(string id){
-		GameObject window_obj = (GameObject)GameObject.Find (id);
+	public void updateGameWindow(){
+		GameObject window_obj = (GameObject)GameObject.FindWithTag ("GameWindow");
 		if (window_obj != null) {
 			game_window = window_obj;
 		}
