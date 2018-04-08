@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Pitch
+namespace PitchTrack
 {
     /**
     * Based on Yin pitch tracking algorithms Java implementation by Joren Six

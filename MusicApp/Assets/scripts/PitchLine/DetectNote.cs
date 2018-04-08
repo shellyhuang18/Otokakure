@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 namespace PitchLine{
+	//The script is used to check if the arrow is interacting with a MusicalNote.
 	public class DetectNote : MonoBehaviour {
 
 		//Colliders of the arrow and line gameobjects

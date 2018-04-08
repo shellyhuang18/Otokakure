@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Pitch
+namespace PitchTrack
 {
     public class Yin
     {

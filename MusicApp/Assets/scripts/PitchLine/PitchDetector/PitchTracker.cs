@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Threading;
 
-namespace Pitch
+namespace PitchTrack
 {
     /*
      * LICENCE: Microsoft Public License (Ms-PL) (http://pitchtracker.codeplex.com/license)

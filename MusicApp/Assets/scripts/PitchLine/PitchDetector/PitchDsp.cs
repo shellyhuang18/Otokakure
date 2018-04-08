@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections;
 
-namespace Pitch
+namespace PitchTrack
 {
     /// <summary>
     /// Pitch related DSP
