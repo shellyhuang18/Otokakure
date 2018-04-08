@@ -8,12 +8,19 @@ namespace Spawner{
 		public GameObject note;
 		private float height;
 		public Color color;
+		private string pitch;
 
 		void Start(){
 			
 		}
 
-		public void generateNote(float duration){
+		//Sets the pitch that this spawner is responsible for spawning.
+		public void setAssociatedPitch(string pitch){
+			this.pitch = pitch;
+
+		}
+			
+		public GameObject generateNote(float duration){
 			//Duration is out of 16. (for how many 16th notes)
 			GameObject generated_note = (GameObject)Instantiate (note);
 
@@ -30,6 +37,8 @@ namespace Spawner{
 
 			//changes color of notes being generated
 			generated_note.GetComponent<SpriteRenderer>().color = color;
+
+			return generated_note;
 		}
 		//destroys note when off screen 
 

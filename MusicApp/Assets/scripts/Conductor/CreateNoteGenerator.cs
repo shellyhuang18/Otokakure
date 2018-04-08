@@ -5,20 +5,27 @@ using UnityEngine;
 using Utility;
 using System.Threading;
 using Spawner;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Utility;
+using System.Threading;
+using Spawner;
 using NoteLogic;
 
 namespace Conductor{
 	public class CreateNoteGenerator : MonoBehaviour {
 		public GameObject note_spawner; //The child object that spawns notes
 
-		float height; //The total absolute height of the thing.
-		float lower_bound; //The lowest point of the note generating thing.
+
+		float height; //The total absolute height of the conductor.
+		float lower_bound; //The lowest point of the conductor
 		public float div_space;
 		public float tempo;
 
 		// Use this for initialization
 		public void Start () {
-
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 
@@ -28,48 +35,14 @@ namespace Conductor{
 		}
 		
 		// Update is called once per frame
-		void FixedUpdate () {
-			if (Input.GetKeyDown ("q")) {
-				triggerPitch ("a4", 4);
-			}
-
-			if (Input.GetKeyDown ("w")) {
-				triggerPitch ("c#4", 4);
-			}
-			if (Input.GetKeyDown ("e")) {
-				triggerPitch ("d4", 8);
-			}
-
-			if (Input.GetKeyDown ("r")) {
-				triggerPitch ("d#4", 16);
-			}
-
-			if (Input.GetKeyDown ("t")) {
-				triggerPitch ("e4", 16);
-			}
-			if(Input.GetKeyDown("space")){
-				Debug.Log(Utility.Pitch.incrementPitch("c3", 1));
-			}
-
-			if (Input.GetKeyDown ("a")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4d4");
-				StartCoroutine (startSong (new_song));
-
-			}
-			if (Input.GetKeyDown ("s")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("3d4 8e4");
-				StartCoroutine (startSong (new_song));
-
-			}
-			if (Input.GetKeyDown ("d")) {
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("5d4 6r 4e4");
-				StartCoroutine (startSong (new_song));
-
-			}
-
+		void Update () {
 		}
 
-		void setTempo(float tempo){
+		public float getTempo(){
+			return this.tempo;
+		}
+
+		public void setTempo(float tempo){
 			this.tempo = tempo;
 		}
 		 
@@ -81,12 +54,12 @@ namespace Conductor{
 			int last_note_dur = curr_note_dur;
 			float single_beat_time = (tempo * 4) / 3600; //#16th notes / #minutes / #
 
-			
+
 			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
-				
+
 				//output chords
 				if (item.is_chord) {
-					
+
 					/*NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
@@ -100,7 +73,7 @@ namespace Conductor{
 					frame_req = obj_width / pix_per_frame;
 					timing = (float)(frame_req * Time.deltaTime);*/
 
-				//output single notes
+					//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
 					curr_note_dur = n.duration;
@@ -118,7 +91,7 @@ namespace Conductor{
 					if (n.pitch != "r") {
 						triggerPitch (n.pitch, n.duration);
 					}
-						
+
 				}
 
 				last_note_dur = curr_note_dur;
@@ -131,9 +104,29 @@ namespace Conductor{
 			}
 		}
 
-		void triggerPitch(string pitch, float duration){
+		public void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
-			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+		}
+
+		public void triggerPitch(string pitch, int duration, int birth_beat){
+			GameObject note_spawner = GameObject.Find (pitch);
+			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+			note_spawner.GetComponent<NoteBehavior>().setBirthBeat (birth_beat);
+		}
+
+		//Pauses the conductor from generating it's current song.
+		public void pause(){
+
+		}
+
+		//Completely stops the song the conductor was generating
+		public void stop(){
+		}
+
+		//Resumes what the song the conductor was generating
+		public void resume(){
+
 		}
 
 
@@ -157,17 +150,22 @@ namespace Conductor{
 
 			for (int i = 0; i < total_children_to_create; ++i) {
 				GameObject new_child = (GameObject)Instantiate (note_spawner);
-				new_child.transform.parent = this.transform;
+				//Designates what pitch the generated spawner is responsible for.
+				new_child.GetComponent<GenerateNotes> ().setAssociatedPitch (pitch_id);
 				new_child.name = pitch_id;
 
-				pitch_id = Pitch.incrementPitch (pitch_id, 1);
 
+				//Reposition of associated game objects
+				new_child.transform.parent = this.transform;
 				new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
 				interval += div_space;
 
 				//changes color of notes being generated
 				new_child.GetComponent<GenerateNotes> ().color = RandomColor (color, color_choice);
 				color += gradient;
+
+				pitch_id = Pitch.incrementPitch (pitch_id, 1);
+
 			}
 
 		}
