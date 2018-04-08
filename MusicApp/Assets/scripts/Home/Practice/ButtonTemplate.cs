@@ -6,5 +6,4 @@ using UnityEngine.UI;
 public class ButtonTemplate : MonoBehaviour {
 	public Button button;
 	public Text button_text;
-	public string to_do;
 }

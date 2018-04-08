@@ -14,8 +14,6 @@ public class Practice : MonoBehaviour {
 	Firebase.Auth.FirebaseUser user;
 	public GameObject sample_button;
 	public Transform content_panel;
-	public Text result;
-	public Text action;
 	public Text practice_text;
 
 	void Start () {
@@ -55,21 +53,19 @@ public class Practice : MonoBehaviour {
 		if (user != null) {
 			practice_table.Child (user.UserId).Child (practice_type).GetValueAsync ().ContinueWith (task => {
 				if (task.IsFaulted) {
-					result.text = "error";
+					practice_text.text = "error";
 				} else if (task.IsCompleted) {
-					result.text = "Successfull retrievel";
 					DataSnapshot snap = task.Result;
 					foreach (DataSnapshot variable in snap.Children) {
 						GameObject newButton = Instantiate(sample_button) as GameObject;
 						ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
-						button_script.button_text.text = variable.Value.ToString(); //practice_type + " " + variable.Key;
-						button_script.to_do = variable.Value.ToString();
+						button_script.button_text.text = variable.Value.ToString();
 						button_script.button.onClick = Selection;
 						newButton.transform.SetParent(content_panel);
 					}
 				}
 			});
 		} else
-			result.text = "There is no user";
+			practice_text.text = "There is no user";
 	}
 }
