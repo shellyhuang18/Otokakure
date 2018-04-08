@@ -16,7 +16,7 @@ public class Practice : MonoBehaviour {
 	public Transform content_panel;
 	public Text result;
 	public Text action;
-
+	public Text practice_text;
 
 	void Start () {
 		auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
@@ -34,23 +34,26 @@ public class Practice : MonoBehaviour {
 	}
 
 	public void LoadPitchPractices () {
+		practice_text.text = "Practice Pitch";
 		RetrievePractices ("Pitch");
 	}
 
 	public void LoadRhythmPractices () {
+		practice_text.text = "Practice Rhythm";
 		RetrievePractices ("Rhythm");
+	}
+
+	public void OnPracticeClicked (){
+		
 	}
 
 	public Button.ButtonClickedEvent Selection;
 
-	public void Selection2() {
-		action.text = GetComponent<ButtonTemplate> ().to_do;
-	}
-
 	void RetrievePractices(string practice_type) {
-		DatabaseReference practice_table = FirebaseDatabase.DefaultInstance.GetReference ("SFSs");
+		content_panel.DetachChildren ();
+		DatabaseReference practice_table = FirebaseDatabase.DefaultInstance.GetReference ("User Table");
 		if (user != null) {
-			practice_table.Child (practice_type).GetValueAsync ().ContinueWith (task => {
+			practice_table.Child (user.UserId).Child (practice_type).GetValueAsync ().ContinueWith (task => {
 				if (task.IsFaulted) {
 					result.text = "error";
 				} else if (task.IsCompleted) {
@@ -59,7 +62,7 @@ public class Practice : MonoBehaviour {
 					foreach (DataSnapshot variable in snap.Children) {
 						GameObject newButton = Instantiate(sample_button) as GameObject;
 						ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
-						button_script.button_text.text = practice_type + " " + variable.Key;
+						button_script.button_text.text = variable.Value.ToString(); //practice_type + " " + variable.Key;
 						button_script.to_do = variable.Value.ToString();
 						button_script.button.onClick = Selection;
 						newButton.transform.SetParent(content_panel);
