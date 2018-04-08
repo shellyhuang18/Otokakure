@@ -18,7 +18,7 @@ namespace NoteLogic{
 		public class Note : Sound{
 			public string pitch;
 
-			public Note(string pitch, float duration){
+			public Note(string pitch, int duration){
 				this.pitch = pitch;
 				this.duration = duration;
 			}
@@ -28,7 +28,7 @@ namespace NoteLogic{
 		public class Sound{
 			//for dynamic casting-
 			public bool is_chord = false;
-			public float duration;
+			public int duration;
 			public char dynamic;
 		}
 
@@ -42,10 +42,7 @@ namespace NoteLogic{
 				//parses string and puts associated values into respective variables.
 				//TODO: make documentation on dynamics and how they're represented in string score format
 				//ex: 4c4 4c#4 4e4 4g4 <16c4 16e4 16g4>
-<<<<<<< HEAD
-=======
 				//duration/pitch
->>>>>>> 8bfc232... notes are separated correctly by duration
 				score = new List<Sound>();
 
 				string[] notes;
@@ -57,10 +54,9 @@ namespace NoteLogic{
 				int duration;
 				string pitch;
 
-<<<<<<< HEAD
-=======
+
+
 				//TODO: error check so that sfs is in the correct format
->>>>>>> 8bfc232... notes are separated correctly by duration
 				Chord new_chord = null;
 				Note new_note = null;
 				for(int i = 0; i < notes.Length; ++i){

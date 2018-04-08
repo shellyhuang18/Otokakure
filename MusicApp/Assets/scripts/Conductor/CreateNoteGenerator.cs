@@ -11,7 +11,6 @@ namespace Conductor{
 	public class CreateNoteGenerator : MonoBehaviour {
 		public GameObject note_spawner; //The child object that spawns notes
 
-
 		float height; //The total absolute height of the thing.
 		float lower_bound; //The lowest point of the note generating thing.
 		public float div_space;
@@ -19,6 +18,7 @@ namespace Conductor{
 
 		// Use this for initialization
 		public void Start () {
+
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 
@@ -28,7 +28,7 @@ namespace Conductor{
 		}
 		
 		// Update is called once per frame
-		void Update () {
+		void FixedUpdate () {
 			if (Input.GetKeyDown ("q")) {
 				triggerPitch ("a4", 4);
 			}
@@ -52,10 +52,7 @@ namespace Conductor{
 			}
 
 			if (Input.GetKeyDown ("a")) {
-<<<<<<< HEAD
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("8d4 8d#4");
-=======
-				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("2d4 16e4");
+				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("4d4 8e4 4d4");
 				StartCoroutine (startSong (new_song));
 
 			}
@@ -66,7 +63,6 @@ namespace Conductor{
 			}
 			if (Input.GetKeyDown ("d")) {
 				NoteLogic.NoteLogic.Song new_song = new NoteLogic.NoteLogic.Song ("5d4 6r 4e4");
->>>>>>> 8bfc232... notes are separated correctly by duration
 				StartCoroutine (startSong (new_song));
 
 			}
@@ -79,27 +75,19 @@ namespace Conductor{
 		 
 
 		IEnumerator startSong(NoteLogic.NoteLogic.Song new_song){
-<<<<<<< HEAD
-			//new_song.PrintScore ();
-			float timing = .51f;
+			int last_note_beat = 0;
+			int curr_note_dur = 0;
+			int metronome = 0;
+			int last_note_dur = curr_note_dur;
+			float single_beat_time = (tempo * 4) / 3600; //#16th notes / #minutes / #
 
+			
 			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
 				
-=======
-			float timing = .1f;
-			float pix_per_frame = tempo / 50;
-			float obj_width = 10;
-			float pix_req;
-
-			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
-				obj_width = 10;
->>>>>>> 8bfc232... notes are separated correctly by duration
 				//output chords
 				if (item.is_chord) {
 					
-					NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
-					//timing = (float)(d.duration * 4) / 100;
-					Debug.Log (Time.deltaTime);
+					/*NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
 					//output notes in chord
 					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
 						if (i.pitch != "r") {
@@ -108,36 +96,38 @@ namespace Conductor{
 
 						obj_width *= (float)(i.duration/16);
 					}
+						a
+					frame_req = obj_width / pix_per_frame;
+					timing = (float)(frame_req * Time.deltaTime);*/
 
-				
-					pix_req = obj_width / pix_per_frame;
-					timing = pix_req * Time.deltaTime;
 				//output single notes
 				} else {
 					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
-<<<<<<< HEAD
-					//timing = (float)(n.duration * 4) / 100;
-					Debug.Log (Time.deltaTime);
+					curr_note_dur = n.duration;
 
-					triggerPitch ( n.pitch, n.duration);
-				}
-				yield return new WaitForSeconds (timing);
+					//keep on same note until amount of time has passed for former note to finish
+					while (!(metronome-last_note_beat == last_note_dur)) {
+						metronome++;
+						Debug.Log (metronome);
+						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
+					}
 
-=======
+					//generate note
+
+					//indicate if note is not a rest
 					if (n.pitch != "r") {
 						triggerPitch (n.pitch, n.duration);
 					}
-
-					obj_width *= (float)(n.duration / 16);
-
-					//Debug.Log (obj_width);
-					pix_req = obj_width / pix_per_frame;
-					timing = pix_req * Time.deltaTime;
-
+						
 				}
 
-				yield return new WaitForSeconds (timing);
->>>>>>> 8bfc232... notes are separated correctly by duration
+				last_note_dur = curr_note_dur;
+				//on what beat the last note has generated
+				last_note_beat = metronome;
+
+				metronome++;
+				Debug.Log (metronome);
+				yield return new WaitForSeconds (single_beat_time);
 			}
 		}
 
