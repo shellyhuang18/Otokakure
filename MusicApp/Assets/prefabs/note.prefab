@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 50710714366611018}
   - component: {fileID: 61047505791205604}
   - component: {fileID: 114579672598521674}
+  - component: {fileID: 114705427781369024}
   m_Layer: 0
   m_Name: note
-  m_TagString: Untagged
+  m_TagString: MusicalNote
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +51,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1319886736566254}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -79,7 +80,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.11, y: 2.54}
+    oldSize: {x: 10, y: 6}
     newSize: {x: 4.11, y: 2.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -97,6 +98,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 814ce06518d774ee795dfd4db06c7650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114705427781369024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319886736566254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4941b558ee94ce09ebdfc97aaaa60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212932771327099044
@@ -130,10 +142,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fddff4ac25faf47238274b5090af69fe, type: 3}
+  m_SortingLayerID: -545847935
+  m_SortingLayer: 1
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: b925a1a2f1801432d9bab8c8d37cfdf8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

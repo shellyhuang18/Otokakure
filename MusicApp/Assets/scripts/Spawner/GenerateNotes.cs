@@ -8,17 +8,21 @@ namespace Spawner{
 		public GameObject note;
 		private float height;
 		public Color color;
+		private string pitch;
 
 		void Start(){
 			
 		}
 
-		public void generateNote(float duration){
+		//Sets the pitch that this spawner is responsible for spawning.
+		public void setAssociatedPitch(string pitch){
+			this.pitch = pitch;
+
+		}
+			
+		public GameObject generateNote(float duration){
 			//Duration is out of 16. (for how many 16th notes)
 			GameObject generated_note = (GameObject)Instantiate (note);
-
-			//Generates the note on top of the note_spawner
-			generated_note.transform.position = new Vector2(this.transform.position.x, (float)(this.transform.position.y));
 
 			float tempo = GetComponentInParent<Conductor.CreateNoteGenerator> ().tempo;
 			generated_note.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * tempo, 0);
@@ -27,8 +31,14 @@ namespace Spawner{
 			generated_note.transform.localScale = new Vector2 (duration / 16, 
 				GetComponentInParent<Conductor.CreateNoteGenerator>().div_space/generated_note.GetComponent<SpriteRenderer> ().bounds.size.y );
 
+
+			//TRANSLATE THE NOTE TO THE CORRECT POSITION(On top of the spawner and behind the conductor line)
+			generated_note.transform.position = new Vector2(this.transform.position.x + generated_note.GetComponent<SpriteRenderer>().bounds.extents.x, (float)(this.transform.position.y));
+
 			//changes color of notes being generated
 			generated_note.GetComponent<SpriteRenderer>().color = color;
+
+			return generated_note;
 		}
 		//destroys note when off screen 
 
