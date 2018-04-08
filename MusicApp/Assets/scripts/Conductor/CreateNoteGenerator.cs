@@ -84,9 +84,15 @@ namespace Conductor{
 			}
 		}
 
-		public void triggerPitch(string pitch, float duration){
+		public void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
-			note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+		}
+
+		public void triggerPitch(string pitch, int duration, int birth_beat){
+			GameObject note_spawner = GameObject.Find (pitch);
+			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
+			note_spawner.GetComponent<NoteBehavior>().setBirthBeat (birth_beat);
 		}
 
 		//Pauses the conductor from generating it's current song.
@@ -124,17 +130,22 @@ namespace Conductor{
 
 			for (int i = 0; i < total_children_to_create; ++i) {
 				GameObject new_child = (GameObject)Instantiate (note_spawner);
-				new_child.transform.parent = this.transform;
+				//Designates what pitch the generated spawner is responsible for.
+				new_child.GetComponent<GenerateNotes> ().setAssociatedPitch (pitch_id);
 				new_child.name = pitch_id;
 
-				pitch_id = Pitch.incrementPitch (pitch_id, 1);
 
+				//Reposition of associated game objects
+				new_child.transform.parent = this.transform;
 				new_child.transform.position = new Vector2 (this.transform.position.x, lower_bound + interval);
 				interval += div_space;
 
 				//changes color of notes being generated
 				new_child.GetComponent<GenerateNotes> ().color = RandomColor (color, color_choice);
 				color += gradient;
+
+				pitch_id = Pitch.incrementPitch (pitch_id, 1);
+
 			}
 
 		}

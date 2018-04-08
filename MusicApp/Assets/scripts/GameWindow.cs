@@ -24,13 +24,6 @@ public class GameWindow : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown ("a")) {
-			Debug.Log ("called");
-			pitchline.GetComponent<ControlArrow>().moveArrow(pitchline.GetComponent<ControlArrow>().lowest_detectable_frequency);
-		}
-		if (Input.GetKeyDown ("s")) {
-			pitchline.GetComponent<ControlArrow>().moveArrow(pitchline.GetComponent<ControlArrow>().highest_detectable_frequency);
-		}
 
 		if (Input.GetKeyDown ("`")) {
 			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("c4", 4);

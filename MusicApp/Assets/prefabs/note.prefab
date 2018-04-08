@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50710714366611018}
   - component: {fileID: 61047505791205604}
   - component: {fileID: 114579672598521674}
+  - component: {fileID: 114705427781369024}
   m_Layer: 0
   m_Name: note
   m_TagString: MusicalNote
@@ -97,6 +98,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 814ce06518d774ee795dfd4db06c7650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114705427781369024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319886736566254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4941b558ee94ce09ebdfc97aaaa60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212932771327099044
