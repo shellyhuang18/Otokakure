@@ -5,24 +5,21 @@ using UnityEngine;
 using Utility;
 using System.Threading;
 using Spawner;
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Utility;
-using System.Threading;
-using Spawner;
 using NoteLogic;
+using Note = NoteLogic.NoteLogic.Note;
+using Sound = NoteLogic.NoteLogic.Sound;
+using Chord = NoteLogic.NoteLogic.Chord;
+using Song = NoteLogic.NoteLogic.Song;
 
 namespace Conductor{
 	public class CreateNoteGenerator : MonoBehaviour {
 		public GameObject note_spawner; //The child object that spawns notes
-
+	
 
 		float height; //The total absolute height of the conductor.
 		float lower_bound; //The lowest point of the conductor
 		public float div_space;
-		public float tempo;
+		public float tempo;					
 
 		// Use this for initialization
 		public void Start () {
@@ -36,6 +33,10 @@ namespace Conductor{
 		
 		// Update is called once per frame
 		void Update () {
+			if (Input.GetKeyDown ("a")) {
+				Song new_song = new Song("4c#4 4d#4 8d4");
+				StartCoroutine (startSong (new_song));
+			}
 		}
 
 		public float getTempo(){
@@ -47,49 +48,68 @@ namespace Conductor{
 		}
 		 
 
-		IEnumerator startSong(NoteLogic.NoteLogic.Song new_song){
+		IEnumerator startSong(Song new_song){
 			int last_note_beat = 0;
 			int curr_note_dur = 0;
 			int metronome = 0;
 			int last_note_dur = curr_note_dur;
+			int checkpoint = 0;
+
 			float single_beat_time = (tempo * 4) / 3600; //#16th notes / #minutes / #
+			GameObject last_note = null;
+			GameObject curr_note = null;
 
-
-			foreach (NoteLogic.NoteLogic.Sound item in new_song.score) {
-
+			foreach (Sound item in new_song.score) {
 				//output chords
 				if (item.is_chord) {
 
-					/*NoteLogic.NoteLogic.Chord d = item as NoteLogic.NoteLogic.Chord;
+					Chord c = item as Chord;
 					//output notes in chord
-					foreach (NoteLogic.NoteLogic.Note i in d.notes) {
+					foreach (Note i in c.notes) {
 						if (i.pitch != "r") {
-							triggerPitch (i.pitch, i.duration);
+							triggerPitch (i.pitch, i.duration, metronome, i);
+							curr_note_dur = i.duration; 
 						}
-
-						obj_width *= (float)(i.duration/16);
 					}
-						a
-					frame_req = obj_width / pix_per_frame;
-					timing = (float)(frame_req * Time.deltaTime);*/
+						
 
-					//output single notes
-				} else {
-					NoteLogic.NoteLogic.Note n = item as NoteLogic.NoteLogic.Note;
-					curr_note_dur = n.duration;
-
-					//keep on same note until amount of time has passed for former note to finish
-					while (!(metronome-last_note_beat == last_note_dur)) {
+					while (metronome != checkpoint) {
 						metronome++;
-						Debug.Log (metronome);
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
 					}
+
+				//outpuqt single notes
+				} else {
+					Note n = item as Note;
+					curr_note_dur = n.duration; 
+					checkpoint += n.duration;
+
+					//keep on same note until amount of time has passed for former note to finish
+					while (metronome != checkpoint) {
+						metronome++;
+
+						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
+					}
+
+
 
 					//generate note
 
 					//indicate if note is not a rest
 					if (n.pitch != "r") {
-						triggerPitch (n.pitch, n.duration);
+						curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
+					} else {
+						curr_note = null;
+					}
+
+					if (last_note != null) {
+						float curr_pos_x = curr_note.GetComponent<SpriteRenderer> ().bounds.min.x;
+						float last_pos_x = last_note.GetComponent<SpriteRenderer> ().bounds.max.x;
+						float difference = last_pos_x - curr_pos_x;
+
+						//add difference to curr_note pos
+						Vector2 move = new Vector2(difference+ curr_note.transform.position.x, curr_note.transform.position.y);
+						curr_note.transform.position = move;
 					}
 
 				}
@@ -97,9 +117,9 @@ namespace Conductor{
 				last_note_dur = curr_note_dur;
 				//on what beat the last note has generated
 				last_note_beat = metronome;
+				last_note = curr_note;
 
 				metronome++;
-				Debug.Log (metronome);
 				yield return new WaitForSeconds (single_beat_time);
 			}
 		}
@@ -109,10 +129,12 @@ namespace Conductor{
 			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 		}
 
-		public void triggerPitch(string pitch, int duration, int birth_beat){
+		public GameObject triggerPitch(string pitch, int duration, int birth_beat, Note note){
 			GameObject note_spawner = GameObject.Find (pitch);
 			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
-			note_spawner.GetComponent<NoteBehavior>().setBirthBeat (birth_beat);
+			generated_note.GetComponent<NoteBehavior> ().setNoteAttributes (birth_beat, note);
+
+			return generated_note;
 		}
 
 		//Pauses the conductor from generating it's current song.

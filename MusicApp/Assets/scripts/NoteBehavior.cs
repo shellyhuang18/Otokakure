@@ -10,8 +10,8 @@ public class NoteBehavior : MonoBehaviour {
 	private int birth_beat = -1; //The beat that this note_behavior was generated
 
 	//Sets the Note object's parameters. Acts as a pseudo constructor.
-	public void setNoteAttributes(string pitch, int duration, int birth_beat){
-		this.note = new Note (pitch, duration);
+	public void setNoteAttributes(int birth_beat, Note n){
+		this.note = n;
 		this.pitch = this.note.pitch;
 	}
 
