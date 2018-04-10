@@ -15,6 +15,8 @@ namespace SignIn {
 		public Text fname;
 		public Text lname;
 		public Text email;
+		public Text hrange;
+		public Text lrange;
 
 		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
@@ -38,11 +40,17 @@ namespace SignIn {
 					} else if (task.IsCompleted) {
 						DataSnapshot snap = task.Result;
 						foreach (DataSnapshot name in snap.Children){
-							if (name.Key == "Name") {
+							if (name.Key == "FirstName") {
 								fname.text = name.Value.ToString();
 							}
-							if (name.Key == "Last"){
+							if (name.Key == "LastName"){
 								lname.text = name.Value.ToString();
+							}
+							if (name.Key == "HigherRange"){
+								hrange.text = name.Value.ToString();
+							}
+							if (name.Key == "LowerRange"){
+								lrange.text = name.Value.ToString();
 							}
 						}
 					}

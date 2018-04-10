@@ -16,8 +16,6 @@ namespace SignIn{
 		Firebase.Auth.FirebaseAuth auth;
 		Firebase.Auth.FirebaseUser user;
 
-		public Text testing_for_reset;
-
 		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 			user = auth.CurrentUser;
@@ -40,21 +38,15 @@ namespace SignIn{
 		public void Reset() {
 			auth.SendPasswordResetEmailAsync(email.text.ToString()).ContinueWith(authTask => {
 				if (authTask.IsFaulted) {
-					testing_for_reset.text = "Error Occured!";
+					//testing_for_reset.text = "Error Occured!";
 				} else if (authTask.IsCompleted) {
-					testing_for_reset.text = "Check Your email!";
+					//testing_for_reset.text = "Check Your email!";
 				}
 			});
 		}
 
 		public void RegisterPage (string scene_name) {
 			SceneManager.LoadScene (scene_name);
-		}
-
-		public void InfoPage (string scene_name) {
-			SceneManager.LoadScene (scene_name);
-		}
-
-	
+		}	
 	}
 }
