@@ -34,7 +34,7 @@ namespace Conductor{
 		// Update is called once per frame
 		void Update () {
 			if (Input.GetKeyDown ("a")) {
-				Song new_song = new Song("4c#4 4d#4 8d4");
+				Song new_song = new Song("4c#4 4d#4 4r 4d4 4d#4");
 				StartCoroutine (startSong (new_song));
 			}
 		}
@@ -91,15 +91,20 @@ namespace Conductor{
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
 					}
 
-
+					                                                                                                                                                            
 
 					//generate note
 
 					//indicate if note is not a rest
-					if (n.pitch != "r") {
-						curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
-					} else {
-						curr_note = null;
+					curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
+
+					if (n.pitch == "r") {
+						
+
+						Debug.Log ("rest");
+						curr_note.GetComponent<SpriteRenderer> ().enabled = false;
+						curr_note.GetComponent<BoxCollider2D> ().enabled = false;
+
 					}
 
 					if (last_note != null) {
@@ -130,7 +135,16 @@ namespace Conductor{
 		}
 
 		public GameObject triggerPitch(string pitch, int duration, int birth_beat, Note note){
-			GameObject note_spawner = GameObject.Find (pitch);
+			GameObject note_spawner;
+			if (pitch != "r") {
+				note_spawner = GameObject.Find (pitch);
+			} else {
+				string default_pitch = GameObject.Find ("game_window").GetComponent<GameWindow> ().lowest_pitch;
+				note_spawner = GameObject.Find (default_pitch);
+			}
+
+
+
 			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 			generated_note.GetComponent<NoteBehavior> ().setNoteAttributes (birth_beat, note);
 
