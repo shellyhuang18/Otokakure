@@ -10,8 +10,10 @@ using Note = NoteLogic.NoteLogic.Note;
 using Sound = NoteLogic.NoteLogic.Sound;
 using Chord = NoteLogic.NoteLogic.Chord;
 using Song = NoteLogic.NoteLogic.Song;
+using UnityEngine.SceneManagement;
 
 namespace Conductor{
+	
 	public class CreateNoteGenerator : MonoBehaviour {
 		public GameObject note_spawner; //The child object that spawns notes
 	
@@ -21,6 +23,8 @@ namespace Conductor{
 		public float div_space;
 		public float tempo;					
 
+		private Vector2 velocity;
+		private Coroutine coroutine;
 		// Use this for initialization
 		public void Start () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
@@ -35,8 +39,20 @@ namespace Conductor{
 		void Update () {
 			if (Input.GetKeyDown ("a")) {
 				Song new_song = new Song("4c#4 4d#4 4r 4d4 4d#4");
-				StartCoroutine (startSong (new_song));
+				coroutine = StartCoroutine (startSong (new_song));
 			}
+			if (Input.GetKeyDown ("p")) {
+				Debug.Log ("pause");
+				pause ();
+			}
+			if (Input.GetKeyDown ("s")) {
+				stop ();
+			}
+			if (Input.GetKeyDown ("r")) {
+				Debug.Log ("resume");
+				resume ();
+			}
+
 		}
 
 		public float getTempo(){
@@ -72,7 +88,6 @@ namespace Conductor{
 						}
 					}
 						
-
 					while (metronome != checkpoint) {
 						metronome++;
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
@@ -89,9 +104,7 @@ namespace Conductor{
 						metronome++;
 
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
-					}
-
-					                                                                                                                                                            
+					}                                                                                                                                                 
 
 					//generate note
 
@@ -99,7 +112,7 @@ namespace Conductor{
 					curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
 
 					if (n.pitch == "r") {
-						
+						//disable sprite and collider to 'hide' note object
 
 						Debug.Log ("rest");
 						curr_note.GetComponent<SpriteRenderer> ().enabled = false;
@@ -112,7 +125,7 @@ namespace Conductor{
 						float last_pos_x = last_note.GetComponent<SpriteRenderer> ().bounds.max.x;
 						float difference = last_pos_x - curr_pos_x;
 
-						//add difference to curr_note pos
+						//add offset to curr_note pos
 						Vector2 move = new Vector2(difference+ curr_note.transform.position.x, curr_note.transform.position.y);
 						curr_note.transform.position = move;
 					}
@@ -143,8 +156,6 @@ namespace Conductor{
 				note_spawner = GameObject.Find (default_pitch);
 			}
 
-
-
 			GameObject generated_note = note_spawner.GetComponent<GenerateNotes>().generateNote(duration);
 			generated_note.GetComponent<NoteBehavior> ().setNoteAttributes (birth_beat, note);
 
@@ -153,19 +164,36 @@ namespace Conductor{
 
 		//Pauses the conductor from generating it's current song.
 		public void pause(){
+			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
+			//store old velocity to use on resume
+			velocity = notes_on_screen [0].GetComponent<Rigidbody2D> ().velocity;
 
+			foreach (GameObject o in notes_on_screen) {
+				o.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+			}
 		}
 
 		//Completely stops the song the conductor was generating
 		public void stop(){
+			//destroys all notes on screen
+			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
+			foreach (GameObject o in notes_on_screen) {
+				Destroy (o);
+			}
+
+			//Reset scene
+			string curr_scene = SceneManager.GetActiveScene ().name;
+			SceneManager.LoadScene(curr_scene);
 		}
 
 		//Resumes what the song the conductor was generating
 		public void resume(){
+			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 
+			foreach (GameObject o in notes_on_screen) {
+				o.GetComponent<Rigidbody2D> ().velocity = velocity;
+			}
 		}
-
-
 
 		void generateChildren(string lowest_pitch, string highest_pitch){
 			//Determining how many children to create
