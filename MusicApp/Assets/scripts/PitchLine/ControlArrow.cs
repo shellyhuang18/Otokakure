@@ -38,8 +38,6 @@ namespace PitchLine{
 			lowest_detectable_frequency = (float)(lowest_valid_frequency/ Math.Pow(2, 50.0/1200));
 			highest_detectable_frequency = (float)(highest_valid_frequency/ Math.Pow(2, -50.0/1200));
 
-			Debug.Log (highest_valid_frequency + " " + highest_detectable_frequency);
-
 		}
 			
 
