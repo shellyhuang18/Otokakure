@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 [RequireComponent(typeof(AudioSource))]
 public class PitchDetector : MonoBehaviour {
 	AudioSource microphone;
@@ -17,10 +16,12 @@ public class PitchDetector : MonoBehaviour {
 	public string algorithm = "";
 	void Start()
 	{
+		Application.RequestUserAuthorization (UserAuthorization.Microphone);
 		SampleRate = AudioSettings.outputSampleRate;
 		microphone = GetComponent<AudioSource>();
 		microphone.clip = Microphone.Start ("Built-in Microphone", true, 10, 44100);
 		microphone.loop = true;
+		//microphone.volume = 0.0f;
 		while (!(Microphone.GetPosition (null) > 0)) {
 		}
 		microphone.Play();

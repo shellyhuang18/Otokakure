@@ -20,7 +20,23 @@ public class Practice : MonoBehaviour {
 		auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 		user = auth.CurrentUser;
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
+		GetMicrophone ();
+		//Application.RequestUserAuthorization (UserAuthorization.Microphone);
 	}
+
+
+	IEnumerator GetMicrophone()
+	{
+		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
+		if (Application.HasUserAuthorization (UserAuthorization.Microphone)) {
+			Debug.Log ("We received the mic");
+			//StartRecording
+		} else {
+			Debug.Log ("We encountered an error");
+			//Error
+		}
+	}
+
 
 	public void GoToHomePage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
@@ -42,7 +58,7 @@ public class Practice : MonoBehaviour {
 	}
 
 	public void OnPracticeClicked (){
-		
+		SceneManager.LoadScene ("test");
 	}
 
 	public Button.ButtonClickedEvent Selection;
