@@ -42,7 +42,9 @@ namespace PitchLine{
 			
 
 		public void Update(){
-			
+			//GameObject go = GameObject.Find("pitch_line");
+			moveArrow (gameObject.GetComponent<PitchDetector>().pitch);
+			Debug.Log("The frequency is " + gameObject.GetComponent<PitchDetector>().pitch);
 		}
 			
 
