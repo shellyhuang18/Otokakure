@@ -8,7 +8,9 @@ using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 
+//Namespace for the sign in and registration authentication code
 namespace SignIn {
+	
 	public class DisplayUserInfo : MonoBehaviour {
 		Firebase.Auth.FirebaseAuth auth;
 		Firebase.Auth.FirebaseUser user;
@@ -70,3 +72,10 @@ namespace SignIn {
 		}
 	}
 }
+
+//title: 19213EA7
+//button colors:
+//Normal : FFBDBDFF
+// Highlighted : F98888FF
+// Pressed : D27272FF
+//textbox :000000FF

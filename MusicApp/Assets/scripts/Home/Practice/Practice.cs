@@ -21,7 +21,6 @@ public class Practice : MonoBehaviour {
 		user = auth.CurrentUser;
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 		GetMicrophone ();
-		//Application.RequestUserAuthorization (UserAuthorization.Microphone);
 	}
 
 

@@ -145,7 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 114031522206794944}
   button_text: {fileID: 114577992393264720}
-  to_do: 
 --- !u!114 &114917977232145818
 MonoBehaviour:
   m_ObjectHideFlags: 1
