@@ -24,13 +24,10 @@ namespace SignIn {
 
 		//On start, user is retrieved from Firebase and the database is started. 
 		void Start () {
+			Screen.orientation = ScreenOrientation.Landscape;
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 			user = auth.CurrentUser;
 			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
-		}
-
-		void Update() {
-			user = auth.CurrentUser;
 			RetrieveUserInfo ();
 		}
 

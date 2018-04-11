@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using ToastPlugin;
 //This class displays the different functions of the core of the app.
 //It lets user choose what to do in the app: do daily practice, Practice, or go look at the currculum
 public class HomePage : MonoBehaviour {
+
+	void Start(){
+		Screen.orientation = ScreenOrientation.Landscape;
+		ToastHelper.ShowToast("Hello World", true);
+	}
 
 	public void UserInfoPage (string scene_name) {
 		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);

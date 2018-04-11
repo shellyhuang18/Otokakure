@@ -7,6 +7,7 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
+using ToastPlugin;
 
 
 //This class has necessary information such as email, range, and name about a user which will be stored to Firebase realtime database
@@ -41,13 +42,17 @@ namespace SignIn{
 
 		//On start, Firebase is set up. 
 		void Start() {
+			Screen.orientation = ScreenOrientation.Landscape;
 			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 		}
 
 		//When user clicks on register submit, an account of user is created with email and password on firebase. 
 		public void RegisterSubmit (string scene_name) {
 			FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(email.text, password.text).ContinueWith(obj => {
-				if (obj.IsCompleted) {
+				if (obj.IsFaulted){
+					ToastHelper.ShowToast ("Registration Failed. Try again.", true);
+				}
+				else if (obj.IsCompleted) {
 					auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 					user = auth.CurrentUser;
 					AddUser(fname.text, lname.text);

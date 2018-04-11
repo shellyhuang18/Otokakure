@@ -21,6 +21,11 @@ namespace SignIn{
 
 		//On start of scene, check whether a user is logged in. If so, take user to a tutorial page. 
 		void Start () {
+			Screen.autorotateToLandscapeLeft = true;
+			Screen.autorotateToLandscapeRight = true;
+			Screen.autorotateToPortrait = false;
+			Screen.autorotateToPortraitUpsideDown = false;
+			Screen.orientation = ScreenOrientation.AutoRotation;
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 			user = auth.CurrentUser;
 
