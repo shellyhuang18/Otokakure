@@ -18,7 +18,6 @@ public class Practice : MonoBehaviour {
 	public Text practice_text;
 
 	void Start () {
-		Screen.orientation = ScreenOrientation.Landscape;
 		auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 		user = auth.CurrentUser;
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");

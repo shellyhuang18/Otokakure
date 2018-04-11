@@ -42,7 +42,6 @@ namespace SignIn{
 
 		//On start, Firebase is set up. 
 		void Start() {
-			Screen.orientation = ScreenOrientation.Landscape;
 			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 		}
 

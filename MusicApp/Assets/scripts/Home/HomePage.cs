@@ -9,7 +9,11 @@ using ToastPlugin;
 public class HomePage : MonoBehaviour {
 
 	void Start(){
-		Screen.orientation = ScreenOrientation.Landscape;
+		Screen.autorotateToLandscapeLeft = true;
+		Screen.autorotateToLandscapeRight = true;
+		Screen.autorotateToPortrait = false;
+		Screen.autorotateToPortraitUpsideDown = false;
+		Screen.orientation = ScreenOrientation.AutoRotation;
 		ToastHelper.ShowToast("Hello World", true);
 	}
 

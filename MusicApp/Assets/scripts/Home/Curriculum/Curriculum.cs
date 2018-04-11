@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Curriculum : MonoBehaviour {
 
 	void Start (){
-		Screen.orientation = ScreenOrientation.Landscape;
 	}
 
 	public void GoToHomePage (string scene_name) {
