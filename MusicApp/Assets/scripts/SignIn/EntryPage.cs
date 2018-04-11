@@ -32,6 +32,7 @@ namespace SignIn{
 			if (user != null) {
 				SceneManager.LoadScene ("Home Page");
 			}
+			LocalNotification.SendNotification(1, 5000, "Title", "Long message text", new Color32(0xff, 0x44, 0x44, 255));
 		}
 
 		//If Login button is clicked by user, authenticates user email and password. If email and password are valid, user is taken to a tutorial page.
