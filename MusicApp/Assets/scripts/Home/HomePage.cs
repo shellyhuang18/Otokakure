@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//This class displays the different functions of the core of the app.
+//It lets user choose what to do in the app: do daily practice, Practice, or go look at the currculum
 public class HomePage : MonoBehaviour {
 
 	public void UserInfoPage (string scene_name) {

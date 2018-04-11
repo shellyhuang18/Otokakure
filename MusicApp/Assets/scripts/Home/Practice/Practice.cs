@@ -8,6 +8,7 @@ using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 
+//This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
 
 	Firebase.Auth.FirebaseAuth auth;
@@ -23,7 +24,7 @@ public class Practice : MonoBehaviour {
 		GetMicrophone ();
 	}
 
-
+	//On Ios applications, this method is needed to ask the user permission to use the microphone. 
 	IEnumerator GetMicrophone()
 	{
 		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
