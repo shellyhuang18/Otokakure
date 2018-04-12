@@ -7,7 +7,12 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
+#if UNITY_ANDROID
 using Assets.SimpleAndroidNotifications;
+#endif
+#if UNITY_IOS
+using UnityEngine.iOS;
+#endif
 
 //Namespace for the sign in and registration authentication code
 namespace SignIn{
@@ -23,7 +28,19 @@ namespace SignIn{
 
 		//On start of scene, check whether a user is logged in. If so, take user to a tutorial page. 
 		void Start () {
+			// Android Notification
+			#if UNITY_ANDROID
 			NotificationManager.Send(TimeSpan.FromSeconds(5), "Welcome To Our Music App", "Team 7 All Day Yoo!!!", new Color(1, 0.3f, 0.15f));
+			#endif
+			// iOS Notification
+			// schedule notification to be delivered in 10 seconds
+			#if UNITY_IOS
+			var notif = new UnityEngine.iOS.LocalNotification();
+			notif.fireDate = DateTime.Now.AddSeconds(10);
+			notif.alertBody = "Hello!";
+			UnityEngine.iOS.NotificationServices.ScheduleLocalNotification(notif);
+			#endif
+
 			Screen.autorotateToLandscapeLeft = true;
 			Screen.autorotateToLandscapeRight = true;
 			Screen.autorotateToPortrait = false;
@@ -35,6 +52,15 @@ namespace SignIn{
 			if (user != null) {
 				SceneManager.LoadScene ("Home Page");
 			}
+		}
+
+		void Update(){
+			#if UNITY_IOS
+			if (UnityEngine.iOS.NotificationServices.localNotificationCount > 0) {
+				Debug.Log(UnityEngine.iOS.NotificationServices.localNotifications[0].alertBody);
+				UnityEngine.iOS.NotificationServices.ClearLocalNotifications();
+			}
+			#endif
 		}
 
 		//If Login button is clicked by user, authenticates user email and password. If email and password are valid, user is taken to a tutorial page.
