@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
+using Assets.SimpleAndroidNotifications;
 
 //Namespace for the sign in and registration authentication code
 namespace SignIn{
@@ -21,6 +23,7 @@ namespace SignIn{
 
 		//On start of scene, check whether a user is logged in. If so, take user to a tutorial page. 
 		void Start () {
+			NotificationManager.Send(TimeSpan.FromSeconds(5), "Welcome To Our Music App", "Team 7 All Day Yoo!!!", new Color(1, 0.3f, 0.15f));
 			Screen.autorotateToLandscapeLeft = true;
 			Screen.autorotateToLandscapeRight = true;
 			Screen.autorotateToPortrait = false;
