@@ -35,10 +35,16 @@ namespace SignIn{
 			// iOS Notification
 			// schedule notification to be delivered in 10 seconds
 			#if UNITY_IOS
-			var notif = new UnityEngine.iOS.LocalNotification();
-			notif.fireDate = DateTime.Now.AddSeconds(10);
-			notif.alertBody = "Hello!";
-			UnityEngine.iOS.NotificationServices.ScheduleLocalNotification(notif);
+			var n = new UnityEngine.iOS.LocalNotification();
+			n.fireDate = DateTime.Now.AddSeconds(10);
+			n.alertAction = "MusicApp";
+			n.alertBody = "Team 7 All Day Yooo!!!";
+			n.applicationIconBadgeNumber = 99;
+			n.hasAction = true;//?
+			n.repeatCalendar = UnityEngine.iOS.CalendarIdentifier.GregorianCalendar;
+			n.repeatInterval = UnityEngine.iOS.CalendarUnit.Day;
+			n.soundName = UnityEngine.iOS.LocalNotification.defaultSoundName;
+			UnityEngine.iOS.NotificationServices.ScheduleLocalNotification(n);
 			#endif
 
 			Screen.autorotateToLandscapeLeft = true;
