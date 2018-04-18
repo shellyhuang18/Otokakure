@@ -8,6 +8,7 @@ using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 
+//This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
 
 	Firebase.Auth.FirebaseAuth auth;
@@ -21,10 +22,9 @@ public class Practice : MonoBehaviour {
 		user = auth.CurrentUser;
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 		GetMicrophone ();
-		//Application.RequestUserAuthorization (UserAuthorization.Microphone);
 	}
 
-
+	//On Ios applications, this method is needed to ask the user permission to use the microphone. 
 	IEnumerator GetMicrophone()
 	{
 		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
@@ -48,17 +48,13 @@ public class Practice : MonoBehaviour {
 	}
 
 	public void LoadPitchPractices () {
-		practice_text.text = "Practice Pitch";
+		practice_text.text = "Pitch Practices";
 		RetrievePractices ("Pitch");
 	}
 
 	public void LoadRhythmPractices () {
-		practice_text.text = "Practice Rhythm";
+		practice_text.text = "Rhythm Practices";
 		RetrievePractices ("Rhythm");
-	}
-
-	public void OnPracticeClicked (){
-		SceneManager.LoadScene ("test");
 	}
 
 	public Button.ButtonClickedEvent Selection;

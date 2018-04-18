@@ -4,6 +4,8 @@ using UnityEngine;
 using Conductor;
 using PitchLine;
 using Utility;
+using UnityEngine.SceneManagement;
+
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
@@ -18,6 +20,7 @@ public class GameWindow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 	}
@@ -64,6 +67,7 @@ public class GameWindow : MonoBehaviour {
 		if (Input.GetKeyDown ("=")) {
 			conductor.GetComponent<CreateNoteGenerator>().triggerPitch ("c5", 4);
 		}
+
 	}
 
 
@@ -117,6 +121,6 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void exitGameWindow(){
-
+		SceneManager.LoadScene ("Home Page");
 	}
 }

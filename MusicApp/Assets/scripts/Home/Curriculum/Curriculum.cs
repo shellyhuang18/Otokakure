@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Curriculum : MonoBehaviour {
 
+	void Start (){
+	}
+
 	public void GoToHomePage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}

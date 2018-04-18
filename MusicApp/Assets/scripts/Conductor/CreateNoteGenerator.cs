@@ -34,7 +34,12 @@ namespace Conductor{
 			generateChildren (gameObject.GetComponentInParent<GameWindow>().lowest_pitch, gameObject.GetComponentInParent<GameWindow>().highest_pitch);
 
 		}
-		
+		void Awake(){
+			Song song = new Song ("4c#4 4d#4 4r 4d4 4d#4 4c#4 4d#4 4r 4d4 4c#4 4d#4 4r 4d4 2g4 8r 4a#4 4d#4 4r 16b4 8f#4 4g4 4a#4 4d#4 4r 16b4 4d4 4c#4 4d#4 4a#4 4d#4 4r 16b4");
+			StartCoroutine (startSong (song));
+
+		}
+
 		// Update is called once per frame
 		void Update () {
 			if (Input.GetKeyDown ("a")) {
@@ -53,6 +58,9 @@ namespace Conductor{
 				resume ();
 			}
 
+
+
+
 		}
 
 		public float getTempo(){
@@ -65,6 +73,8 @@ namespace Conductor{
 		 
 
 		IEnumerator startSong(Song new_song){
+			yield return new WaitForSeconds (2);
+
 			int last_note_beat = 0;
 			int curr_note_dur = 0;
 			int metronome = 0;

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Daily : MonoBehaviour {
 
+	void Start() {
+	}
+
 	public void GoToHomePage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}
