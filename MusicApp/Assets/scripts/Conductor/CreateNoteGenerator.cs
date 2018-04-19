@@ -35,8 +35,8 @@ namespace Conductor{
 
 		}
 		void Awake(){
-			Song song = new Song ("4c#4 4d#4 4r 4d4 4d#4 4c#4 4d#4 4r 4d4 4c#4 4d#4 4r 4d4 2g4 8r 4a#4 4d#4 4r 16b4 8f#4 4g4 4a#4 4d#4 4r 16b4 4d4 4c#4 4d#4 4a#4 4d#4 4r 16b4");
-			StartCoroutine (startSong (song));
+//			Song song = new Song ("4c#4 4d#4 4r 4d4 4d#4 4c#4 4d#4 4r 4d4 4c#4 4d#4 4r 4d4 2g4 8r 4a#4 4d#4 4r 16b4 8f#4 4g4 4a#4 4d#4 4r 16b4 4d4 4c#4 4d#4 4a#4 4d#4 4r 16b4");
+//			StartCoroutine (startSong (song));
 
 		}
 
@@ -124,7 +124,6 @@ namespace Conductor{
 					if (n.pitch == "r") {
 						//disable sprite and collider to 'hide' note object
 
-						Debug.Log ("rest");
 						curr_note.GetComponent<SpriteRenderer> ().enabled = false;
 						curr_note.GetComponent<BoxCollider2D> ().enabled = false;
 

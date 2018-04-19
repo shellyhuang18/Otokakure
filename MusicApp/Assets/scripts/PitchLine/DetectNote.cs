@@ -17,6 +17,7 @@ namespace PitchLine{
 		private int miss = 0;
 
 
+
 		// Use this for initialization
 		void Start () {
 			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
@@ -27,27 +28,34 @@ namespace PitchLine{
 		void Update () {
 			checkOnPitch ();
 		}
-
+			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
 			hit += 1;
+			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
 		}
 
 		private void onMiss(){
 			miss += 1;
+			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Stop ();
+
 			Debug.Log ("miss");
 		}
 
+		private void onNothing(){
+			GameObject.Find ("arrow").GetComponent<ParticleSystem> ().Stop ();
+		}
+			
 	//=============================================================================
 			
 
 		private void checkOnPitch(){
 			if (detection_enabled) {
 				if (!isLineTouchingNote ()) {
-					//Do nothing if the note isnt up to the line yet
+					onNothing ();
 				} else {
 					if (isArrowTouchingNote ()) {
 						onHit ();
