@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 60362541905136066}
   - component: {fileID: 199381130050212642}
   - component: {fileID: 198064479227838278}
-  - component: {fileID: 114571910018247212}
   m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
@@ -74,6 +73,7 @@ GameObject:
   - component: {fileID: 4457795157160532}
   - component: {fileID: 212650303900000160}
   - component: {fileID: 114547122987882534}
+  - component: {fileID: 114804429549460196}
   m_Layer: 0
   m_Name: conductor
   m_TagString: Untagged
@@ -91,11 +91,11 @@ GameObject:
   - component: {fileID: 4161012019262514}
   - component: {fileID: 212254630942171896}
   - component: {fileID: 114779955510124980}
-  - component: {fileID: 114607739531351214}
   - component: {fileID: 61513917474962248}
   - component: {fileID: 82063017627956806}
   - component: {fileID: 114770708490937224}
   - component: {fileID: 81932292267297358}
+  - component: {fileID: 114210698310217448}
   m_Layer: 0
   m_Name: pitch_line
   m_TagString: Untagged
@@ -343,6 +343,17 @@ MonoBehaviour:
   lowest_pitch: c3
   highest_pitch: c5
   tempo: 20
+--- !u!114 &114210698310217448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871089009134944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391d744af52a94ad6b1999ca7e2644a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114547122987882534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,29 +368,6 @@ MonoBehaviour:
   note_spawner: {fileID: 1273681305232994, guid: b469534cc768c9547adba21a28f3c478,
     type: 2}
   div_space: 0
-  tempo: 5
---- !u!114 &114571910018247212
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1510613413907006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391d744af52a94ad6b1999ca7e2644a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114607739531351214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871089009134944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391d744af52a94ad6b1999ca7e2644a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114770708490937224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,6 +407,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94af328fe9de4bd9991e60af413c163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114804429549460196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581518584200972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44a337995e4240898cb55971f356d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempo: 15
+  velocity: {x: 0, y: 0}
 --- !u!198 &198064479227838278
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3957,7 +3958,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b925a1a2f1801432d9bab8c8d37cfdf8, type: 3}
-  m_Color: {r: 0.096993946, g: 0.1611234, b: 0.28676468, a: 1}
+  m_Color: {r: 0.036548443, g: 0.08880207, b: 0.19117647, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

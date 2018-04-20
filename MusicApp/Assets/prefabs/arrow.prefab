@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 60120641349563962}
   - component: {fileID: 199083728809739234}
   - component: {fileID: 198997890295071730}
-  - component: {fileID: 114421855737819918}
   m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
@@ -75,17 +74,6 @@ PolygonCollider2D:
       - {x: 1.5, y: -1.435}
       - {x: 1.09, y: -0.515}
       - {x: 0.049999997, y: 1.485}
---- !u!114 &114421855737819918
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1189507182533740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391d744af52a94ad6b1999ca7e2644a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198997890295071730
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -146,7 +134,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -809740862
+  randomSeed: -542456062
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -11,7 +11,7 @@ namespace PitchLine{
 		Collider2D arrow_collider;
 		Collider2D line_collider; 
 
-		private bool detection_enabled = true; //A bool to check if you want to detect notes
+		private bool detection_enabled; //A bool to check if you want to detect notes
 
 		private int hit = 0;
 		private int miss = 0;
@@ -20,6 +20,7 @@ namespace PitchLine{
 
 		// Use this for initialization
 		void Start () {
+			enableDetection ();
 			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
@@ -65,7 +66,7 @@ namespace PitchLine{
 					}
 
 				}
-			}
+			} 
 		}
 
 		//Checks if the line's collider is touching any of the note's collider

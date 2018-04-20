@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 60107961877223146}
   - component: {fileID: 199760415285713350}
   - component: {fileID: 198366552258258324}
-  - component: {fileID: 114921459508025436}
   m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
@@ -56,11 +55,11 @@ GameObject:
   - component: {fileID: 4677858073025766}
   - component: {fileID: 212161610132094640}
   - component: {fileID: 114888364671409682}
-  - component: {fileID: 114290969765502966}
   - component: {fileID: 61503624387365814}
   - component: {fileID: 82465595997123038}
   - component: {fileID: 114749740474682522}
   - component: {fileID: 81405385754920404}
+  - component: {fileID: 114290969765502966}
   m_Layer: 0
   m_Name: pitch_line
   m_TagString: Untagged
@@ -300,17 +299,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f94af328fe9de4bd9991e60af413c163, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114921459508025436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1233215817328726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391d744af52a94ad6b1999ca7e2644a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &198366552258258324
@@ -3720,7 +3708,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
-  m_Pivot: {x: 0, y: 0, z: 100}
+  m_Pivot: {x: 0, y: 0, z: 50}
   m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
   m_Mesh: {fileID: 0}

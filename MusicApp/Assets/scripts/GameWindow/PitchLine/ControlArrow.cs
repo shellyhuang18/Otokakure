@@ -28,8 +28,8 @@ namespace PitchLine{
 			lower_bound = gameObject.transform.position.y - height / 2;	
 
 			//The parent of the gameObject that controlarrow is connected to, should be GameWindow
-			lowest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().lowest_pitch;
-			highest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().highest_pitch;
+			lowest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().getLowestPitch();
+			highest_valid_pitch = gameObject.GetComponentInParent<GameWindow>().getHighestPitch();
 
 			lowest_valid_frequency = Pitch.toFrequency (lowest_valid_pitch);
 			highest_valid_frequency = Pitch.toFrequency (highest_valid_pitch);
@@ -42,7 +42,6 @@ namespace PitchLine{
 			
 
 		public void Update(){
-//			moveArrow (gameObject.GetComponent<PitchDetector>().pitch);
 			moveArrow(440);
 //			Debug.Log("The frequency is " + gameObject.GetComponent<PitchDetector>().pitch);
 		}
