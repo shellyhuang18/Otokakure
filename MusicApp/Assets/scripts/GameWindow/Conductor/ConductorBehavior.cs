@@ -10,13 +10,14 @@ using UnityEngine.SceneManagement;
 namespace Conductor{
 	public class ConductorBehavior : MonoBehaviour
 	{
-		[SerializeField]
+
 		private float tempo;
 
 		private GameObject game_window;
 
 		void Start(){
 			game_window = GameObject.Find ("game_window");
+			tempo = game_window.GetComponent<GameWindow> ().getTempo ();
 		}
 
 		//Finds the corresponding child and commands it to create a pitch. The reference to the 
@@ -124,9 +125,9 @@ namespace Conductor{
 					checkpoint += n.duration;
 
 					//keep on same note until amount of time has passed for former note to finish
-					while (metronome != checkpoint) {
-						metronome++;
-
+					while ((metronome != checkpoint) || game_window.GetComponent<GameWindow>().getPauseStatus()) {
+						if(metronome != checkpoint && !game_window.GetComponent<GameWindow>().getPauseStatus())
+							metronome++;
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
 					}                                                                                                                                                 
 

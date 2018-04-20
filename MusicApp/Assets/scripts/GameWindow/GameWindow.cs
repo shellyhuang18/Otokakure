@@ -104,7 +104,6 @@ public class GameWindow : MonoBehaviour {
 	//Sets the tempo for the conductor
 	public void setTempo(float tempo){
 		this.tempo = tempo;
-		GameObject conductor = (GameObject)GameObject.Find ("conductor");
 		conductor.GetComponent<ConductorBehavior> ().setTempo (tempo);
 	}
 
