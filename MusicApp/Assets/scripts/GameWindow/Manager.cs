@@ -19,7 +19,7 @@ public class Manager{
 	public void updateGameWindow(){
 		GameObject window_obj = (GameObject)GameObject.FindWithTag ("GameWindow");
 		if (window_obj != null) {
-			game_window = window_obj;
+			game_window = window_obj; 
 		}
 	}
 

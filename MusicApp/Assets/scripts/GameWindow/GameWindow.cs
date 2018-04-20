@@ -13,6 +13,8 @@ public class GameWindow : MonoBehaviour {
 	private GameObject pitchline;
 	private GameObject conductor;
 
+	[SerializeField]
+	private bool isPaused;
 
 	//Variables associated with the entire Game Window
 	[SerializeField]
@@ -31,46 +33,46 @@ public class GameWindow : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetKeyDown ("`")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4);
-		}
-		if (Input.GetKeyDown ("1")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c#4", 4);
-		}
-		if (Input.GetKeyDown ("2")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("d4", 4);
-		}
-		if (Input.GetKeyDown ("3")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("d#4", 4);
-		}
-		if (Input.GetKeyDown ("4")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("e4", 4);
-		}
-		if (Input.GetKeyDown ("5")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("f4", 4);
-		}
-		if (Input.GetKeyDown ("6")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("f#4", 4);
-		}
-		if (Input.GetKeyDown ("7")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g4", 4);
-		}
-		if (Input.GetKeyDown ("8")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
-		}
-		if (Input.GetKeyDown ("9")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
-		}
-		if (Input.GetKeyDown ("0")) {
-			conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
-		}
-		if (Input.GetKeyDown ("-")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("b4", 4);
-		}
-		if (Input.GetKeyDown ("=")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c5", 4);
-		}
+		
+			if (Input.GetKeyDown ("`")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4);
+			}
+			if (Input.GetKeyDown ("1")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c#4", 4);
+			}
+			if (Input.GetKeyDown ("2")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("d4", 4);
+			}
+			if (Input.GetKeyDown ("3")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("d#4", 4);
+			}
+			if (Input.GetKeyDown ("4")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("e4", 4);
+			}
+			if (Input.GetKeyDown ("5")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("f4", 4);
+			}
+			if (Input.GetKeyDown ("6")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("f#4", 4);
+			}
+			if (Input.GetKeyDown ("7")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("g4", 4);
+			}
+			if (Input.GetKeyDown ("8")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
+			}
+			if (Input.GetKeyDown ("9")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
+			}
+			if (Input.GetKeyDown ("0")) {
+				conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
+			}
+			if (Input.GetKeyDown ("-")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("b4", 4);
+			}
+			if (Input.GetKeyDown ("=")) {
+				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c5", 4);
+			}
 
 		if (Input.GetKeyDown ("a")) {
 			Song new_song = new Song("4c#4 4d#4 4r 4d4 4d#4");
@@ -118,10 +120,21 @@ public class GameWindow : MonoBehaviour {
 		return this.tempo;
 	}
 
+	public void setPauseStatus(bool status){
+		this.isPaused = status;
+	}
+
+	public bool getPauseStatus(){
+		return this.isPaused;
+	}
+
+
 //====== Control Functions ======
 
 
 	public void pause(){
+		isPaused = true;
+
 		//Stop the pitchline from detecting
 		pitchline.GetComponent<DetectNote> ().disableDetection ();
 
@@ -130,6 +143,8 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void resume(){
+		isPaused = false;
+
 		//Pitchline continues detecting notes
 		pitchline.GetComponent<DetectNote> ().enableDetection ();
 
@@ -138,6 +153,8 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void stop(){
+		isPaused = false;
+
 		//Stop the conductor from making more music
 		conductor.GetComponent<ConductorBehavior>().stop();
 

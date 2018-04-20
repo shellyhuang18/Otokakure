@@ -12,9 +12,12 @@ namespace Conductor{
 	{
 		[SerializeField]
 		private float tempo;
-		[SerializeField]
-		private Vector2 velocity;
 
+		private GameObject game_window;
+
+		void Start(){
+			game_window = GameObject.Find ("game_window");
+		}
 
 		//Finds the corresponding child and commands it to create a pitch. The reference to the 
 		//pitch is returned. Also associates the returned reference with it's musical information.
@@ -23,7 +26,7 @@ namespace Conductor{
 			if (pitch != "r") {
 				note_spawner = GameObject.Find (pitch);
 			} else {
-				string default_pitch = GameObject.Find ("game_window").GetComponent<GameWindow> ().getLowestPitch();
+				string default_pitch = game_window.GetComponent<GameWindow> ().getLowestPitch();
 				note_spawner = GameObject.Find (default_pitch);
 			}
 
@@ -36,7 +39,7 @@ namespace Conductor{
 		//Simple version. Just triggers the pitch and does not associate anything.
 		public void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
-			GameObject generated_note = note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
+			note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
 		}
 
 		public float getTempo(){
@@ -46,7 +49,7 @@ namespace Conductor{
 		public void setTempo(float tempo){
 			this.tempo = tempo;
 		}
-
+			
 		//Pauses the conductor from generating it's current song.
 		public void pause(){
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
@@ -56,6 +59,8 @@ namespace Conductor{
 					o.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
 				}
 			}
+
+
 		}
 
 		//Completely stops the song the conductor was generating
@@ -74,7 +79,6 @@ namespace Conductor{
 		//Resumes what the song the conductor was generating
 		public void resume(){
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
-			GameObject game_window = GameObject.Find ("game_window");
 
 			foreach (GameObject o in notes_on_screen) {
 				o.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * game_window.GetComponent<GameWindow>().getTempo(), 0);
@@ -85,15 +89,13 @@ namespace Conductor{
 		public void startSong(Song new_song){
 			StartCoroutine (coroutineStartSong (new_song));
 		}
+			
 
 		private IEnumerator coroutineStartSong(Song new_song){
-			yield return new WaitForSeconds (2);
+			//yield return new WaitForSeconds (2);
 
-			int last_note_beat = 0;
-			int curr_note_dur = 0;
 			int metronome = 0;
-			int last_note_dur = curr_note_dur;
-			int checkpoint = 0;
+			int checkpoint = 0; //The time of the next expected note in the song
 
 			float single_beat_time = (tempo * 4) / 3600; //#16th notes / #minutes / #
 			GameObject last_note = null;
@@ -108,7 +110,6 @@ namespace Conductor{
 					foreach (Note i in c.notes) {
 						if (i.pitch != "r") {
 							triggerPitch (i.pitch, i.duration, metronome, i);
-							curr_note_dur = i.duration; 
 						}
 					}
 
@@ -117,10 +118,9 @@ namespace Conductor{
 						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
 					}
 
-					//outpuqt single notes
+					//output single notes
 				} else {
 					Note n = item as Note;
-					curr_note_dur = n.duration; 
 					checkpoint += n.duration;
 
 					//keep on same note until amount of time has passed for former note to finish
@@ -137,12 +137,14 @@ namespace Conductor{
 
 					if (n.pitch == "r") {
 						//disable sprite and collider to 'hide' note object
-
 						curr_note.GetComponent<SpriteRenderer> ().enabled = false;
+
+						//Set the collider off so the pitch line doesn't detect the hidden note.
 						curr_note.GetComponent<BoxCollider2D> ().enabled = false;
 
 					}
 
+					//last_note is the previously generated note from the one generated now.
 					if (last_note != null) {
 						float curr_pos_x = curr_note.GetComponent<SpriteRenderer> ().bounds.min.x;
 						float last_pos_x = last_note.GetComponent<SpriteRenderer> ().bounds.max.x;
@@ -152,15 +154,14 @@ namespace Conductor{
 						Vector2 move = new Vector2(difference+ curr_note.transform.position.x, curr_note.transform.position.y);
 						curr_note.transform.position = move;
 					}
-
+				
 				}
 
-				last_note_dur = curr_note_dur;
 				//on what beat the last note has generated
-				last_note_beat = metronome;
 				last_note = curr_note;
 
 				metronome++;
+
 				yield return new WaitForSeconds (single_beat_time);
 			}
 		}
