@@ -11,14 +11,16 @@ namespace PitchLine{
 		Collider2D arrow_collider;
 		Collider2D line_collider; 
 
-		private bool detection_enabled = true; //A bool to check if you want to detect notes
+		private bool detection_enabled; //A bool to check if you want to detect notes
 
 		private int hit = 0;
 		private int miss = 0;
 
 
+
 		// Use this for initialization
 		void Start () {
+			enableDetection ();
 			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
@@ -27,27 +29,34 @@ namespace PitchLine{
 		void Update () {
 			checkOnPitch ();
 		}
-
+			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
 			hit += 1;
+			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
 		}
 
 		private void onMiss(){
 			miss += 1;
+			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Stop ();
+
 			Debug.Log ("miss");
 		}
 
+		private void onNothing(){
+			GameObject.Find ("arrow").GetComponent<ParticleSystem> ().Stop ();
+		}
+			
 	//=============================================================================
 			
 
 		private void checkOnPitch(){
 			if (detection_enabled) {
 				if (!isLineTouchingNote ()) {
-					//Do nothing if the note isnt up to the line yet
+					onNothing ();
 				} else {
 					if (isArrowTouchingNote ()) {
 						onHit ();
@@ -57,7 +66,7 @@ namespace PitchLine{
 					}
 
 				}
-			}
+			} 
 		}
 
 		//Checks if the line's collider is touching any of the note's collider
