@@ -158,6 +158,7 @@ namespace Conductor{
 				
 				}
 
+				Debug.Log ("SPAWNED");
 				//on what beat the last note has generated
 				last_note = curr_note;
 

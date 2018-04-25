@@ -29,50 +29,61 @@ public class GameWindow : MonoBehaviour {
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
+
+		string test_score;
+		test_score = "";
+		for (int i = 0; i < 60; i++) {
+			test_score += "4a4 4b4 ";
+		}
+		Song test = new Song (test_score);
+//
+//
+//		Song test = new Song("16a4 17a4");
+		conductor.GetComponent<ConductorBehavior> ().startSong(test);
+//			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4*120);
 	}
 		
 	// Update is called once per frame
 	void Update () {
-		
-			if (Input.GetKeyDown ("`")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4);
-			}
-			if (Input.GetKeyDown ("1")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c#4", 4);
-			}
-			if (Input.GetKeyDown ("2")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("d4", 4);
-			}
-			if (Input.GetKeyDown ("3")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("d#4", 4);
-			}
-			if (Input.GetKeyDown ("4")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("e4", 4);
-			}
-			if (Input.GetKeyDown ("5")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("f4", 4);
-			}
-			if (Input.GetKeyDown ("6")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("f#4", 4);
-			}
-			if (Input.GetKeyDown ("7")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("g4", 4);
-			}
-			if (Input.GetKeyDown ("8")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
-			}
-			if (Input.GetKeyDown ("9")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
-			}
-			if (Input.GetKeyDown ("0")) {
-				conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
-			}
-			if (Input.GetKeyDown ("-")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("b4", 4);
-			}
-			if (Input.GetKeyDown ("=")) {
-				conductor.GetComponent<ConductorBehavior>().triggerPitch ("c5", 4);
-			}
+		if (Input.GetKeyDown ("`")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4);
+		}
+		if (Input.GetKeyDown ("1")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c#4", 4);
+		}
+		if (Input.GetKeyDown ("2")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("d4", 4);
+		}
+		if (Input.GetKeyDown ("3")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("d#4", 4);
+		}
+		if (Input.GetKeyDown ("4")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("e4", 4);
+		}
+		if (Input.GetKeyDown ("5")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("f4", 4);
+		}
+		if (Input.GetKeyDown ("6")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("f#4", 4);
+		}
+		if (Input.GetKeyDown ("7")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g4", 4);
+		}
+		if (Input.GetKeyDown ("8")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
+		}
+		if (Input.GetKeyDown ("9")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
+		}
+		if (Input.GetKeyDown ("0")) {
+			conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
+		}
+		if (Input.GetKeyDown ("-")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("b4", 4);
+		}
+		if (Input.GetKeyDown ("=")) {
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c5", 4);
+		}
 
 		if (Input.GetKeyDown ("a")) {
 			Song new_song = new Song("4c#4 4d#4 4r 4d4 4d#4");

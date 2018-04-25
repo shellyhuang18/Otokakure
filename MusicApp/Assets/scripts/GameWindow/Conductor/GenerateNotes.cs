@@ -26,7 +26,8 @@ namespace Spawner{
 			GameObject generated_note = (GameObject)Instantiate (note);
 
 			float tempo = GetComponentInParent<ConductorBehavior> ().getTempo();
-			generated_note.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * tempo, 0);
+//			generated_note.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * tempo, 0);
+			generated_note.GetComponent<NoteBehavior>().setVelocityToTempo(tempo);
 
 			//generate width based on duration and height to be as large as the note_spawner's height; TRUST THE MATH IT WORKS DONT TOUCH
 			generated_note.transform.localScale = new Vector2 (duration / 16, 
