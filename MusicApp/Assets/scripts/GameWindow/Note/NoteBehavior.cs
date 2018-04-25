@@ -39,10 +39,9 @@ public class NoteBehavior : MonoBehaviour {
 	}
 
 	public void setVelocityToTempo(float tempo){
-		GameObject game_window = GameObject.FindGameObjectWithTag ("GameWindow");
-//		float dist_btw_line_and_right_edge = Math.Abs(GameObject.Find("pitch_line").transform.position.x - (game_window.transform.position.x + game_window.GetComponent<SpriteRenderer>().bounds.extents.x));
-		float quarter_note_width = gameObject.GetComponent<SpriteRenderer> ().bounds.size.x / 4.0f;
-		float speed = (/*dist_btw_line_and_right_edge + */ (tempo * quarter_note_width)) / 60.0f; //Veloctor = Unity Unit/s   (unity unit should be defaulted to meter)
+		
+		float quarter_note_width = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 4.0f;
+		float speed = (tempo * quarter_note_width) / 60.0f; //Velocity = Unity Unit/s   (unity unit should be defaulted to meter)
 
 		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2(-1 * speed, 0);
 	}

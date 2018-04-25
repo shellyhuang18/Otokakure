@@ -82,7 +82,7 @@ namespace Conductor{
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 
 			foreach (GameObject o in notes_on_screen) {
-				o.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-1 * game_window.GetComponent<GameWindow>().getTempo(), 0);
+				o.GetComponent<NoteBehavior> ().setVelocityToTempo (120);
 			}
 		}
 
@@ -102,9 +102,9 @@ namespace Conductor{
 			if (60 <= tempo && tempo < 100)
 				buffer = 1.0f;
 			else if (100 <= tempo && tempo < 140)
-				buffer = 1.25f;
-			else if (140 <= tempo)
 				buffer = 1.5f;
+			else if (140 <= tempo)
+				buffer = 1.75f;
 			else
 				buffer = 2.0f;
 
@@ -170,7 +170,6 @@ namespace Conductor{
 			
 //				}
 
-				Debug.Log ("SPAWNED");
 				//on what beat the last note has generated
 				last_note = curr_note;
 
