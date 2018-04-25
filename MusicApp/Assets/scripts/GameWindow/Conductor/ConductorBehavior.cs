@@ -98,65 +98,77 @@ namespace Conductor{
 			int metronome = 0;
 			int checkpoint = 0; //The time of the next expected note in the song
 
-			float single_beat_time = (tempo * 4) / 3600; //#16th notes / #minutes / #
+			float buffer = 1.5f; //Jack's cheating hacky solution
+			if (60 <= tempo && tempo < 100)
+				buffer = 1.0f;
+			else if (100 <= tempo && tempo < 140)
+				buffer = 1.25f;
+			else if (140 <= tempo)
+				buffer = 1.5f;
+			else
+				buffer = 2.0f;
+
+			float single_beat_time = 60/((tempo * buffer) * 4); //#16th notes / #minutes / #
 			GameObject last_note = null;
 			GameObject curr_note = null;
 
 			foreach (Sound item in new_song.score) {
 				//output chords
-				if (item.is_chord) {
+//				if (item.is_chord) {
+//
+//					Chord c = item as Chord;
+//					//output notes in chord
+//					foreach (Note i in c.notes) {
+//						if (i.pitch != "r") {
+//							triggerPitch (i.pitch, i.duration, metronome, i);
+//						}
+//					}
+//
+//					while (metronome != checkpoint) {
+//						metronome++;
+//						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
+//					}
+//
+//					//output single notes
+//				} else {
+				Note n = item as Note;
+				checkpoint += n.duration;
 
-					Chord c = item as Chord;
-					//output notes in chord
-					foreach (Note i in c.notes) {
-						if (i.pitch != "r") {
-							triggerPitch (i.pitch, i.duration, metronome, i);
-						}
-					}
+				GameWindow script = game_window.GetComponent<GameWindow> ();
 
-					while (metronome != checkpoint) {
+				//keep on same note until amount of time has passed for former note to finish
+				while ((metronome != checkpoint) || script.getPauseStatus()) {
+					if(metronome != checkpoint && !script.getPauseStatus())
 						metronome++;
-						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
-					}
+					yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
+				}                                                                                                                                                 
 
-					//output single notes
-				} else {
-					Note n = item as Note;
-					checkpoint += n.duration;
+				//generate note
 
-					//keep on same note until amount of time has passed for former note to finish
-					while ((metronome != checkpoint) || game_window.GetComponent<GameWindow>().getPauseStatus()) {
-						if(metronome != checkpoint && !game_window.GetComponent<GameWindow>().getPauseStatus())
-							metronome++;
-						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
-					}                                                                                                                                                 
+				//indicate if note is not a rest
+				curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
 
-					//generate note
+				if (n.pitch == "r") {
+					//disable sprite and collider to 'hide' note object
+					curr_note.GetComponent<SpriteRenderer> ().enabled = false;
 
-					//indicate if note is not a rest
-					curr_note = triggerPitch (n.pitch, n.duration, metronome, n);
+					//Set the collider off so the pitch line doesn't detect the hidden note.
+					curr_note.GetComponent<BoxCollider2D> ().enabled = false;
 
-					if (n.pitch == "r") {
-						//disable sprite and collider to 'hide' note object
-						curr_note.GetComponent<SpriteRenderer> ().enabled = false;
-
-						//Set the collider off so the pitch line doesn't detect the hidden note.
-						curr_note.GetComponent<BoxCollider2D> ().enabled = false;
-
-					}
-
-					//last_note is the previously generated note from the one generated now.
-					if (last_note != null) {
-						float curr_pos_x = curr_note.GetComponent<SpriteRenderer> ().bounds.min.x;
-						float last_pos_x = last_note.GetComponent<SpriteRenderer> ().bounds.max.x;
-						float difference = last_pos_x - curr_pos_x;
-
-						//add offset to curr_note pos
-						Vector2 move = new Vector2(difference+ curr_note.transform.position.x, curr_note.transform.position.y);
-						curr_note.transform.position = move;
-					}
-				
 				}
+
+				//last_note is the previously generated note from the one generated now.
+				if (last_note != null) {
+					float curr_pos_x = curr_note.GetComponent<SpriteRenderer> ().bounds.min.x;
+					float last_pos_x = last_note.GetComponent<SpriteRenderer> ().bounds.max.x;
+					float difference = last_pos_x - curr_pos_x;
+
+					//add offset to curr_note pos
+					Vector2 move = new Vector2(difference+ curr_note.transform.position.x, curr_note.transform.position.y);
+					curr_note.transform.position = move;
+				}
+			
+//				}
 
 				Debug.Log ("SPAWNED");
 				//on what beat the last note has generated

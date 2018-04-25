@@ -32,7 +32,7 @@ public class GameWindow : MonoBehaviour {
 
 		string test_score;
 		test_score = "";
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 45; i++) {
 			test_score += "4a4 4b4 ";
 		}
 		Song test = new Song (test_score);
