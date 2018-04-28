@@ -602,7 +602,7 @@ MonoBehaviour:
   isPaused: 0
   lowest_pitch: c3
   highest_pitch: c5
-  tempo: 120
+  tempo: 140
 --- !u!1 &1212286326
 GameObject:
   m_ObjectHideFlags: 0
