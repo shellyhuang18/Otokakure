@@ -7,18 +7,27 @@ namespace NoteLogic{
 	public class NoteLogic {
 
 		public class GameElements{
+			public bool is_alert = false;
 
+			public GameElements(Song[] song){
+
+			}
+
+			//empty constructor
+			public GameElements(){}
 		}
-
+			
 		public class Alert : GameElements{
 			public string id;
-			public GUIContent content;
 
-			public Alert(string id, GUIContent content){
+			public Alert(string id){
 				this.id = id;
-				this.content = content;
 			}
+				
+			//empty constructor
 			public Alert(){}
+
+
 		}
 
 		public class Chord : Sound{
@@ -27,7 +36,6 @@ namespace NoteLogic{
 				is_chord = true;
 				notes = new List<Note>();
 			}
-
 		}
 
 		public class Note : Sound{
@@ -49,15 +57,15 @@ namespace NoteLogic{
 		public class Song{
 			float time_sig;
 			float tempo;
-			public List<Sound> score; //add
 			public int total_dur;
+
+			public List<GameElements> score; //add notes to score
 
 			public Song(string sfs){
 				//parses string and puts associated values into respective variables.
-				//TODO: make documentation on dynamics and how they're represented in string score format
 				//ex: 4c4 4c#4 4e4 4g4 <16c4 16e4 16g4>
 				//duration/pitch
-				score = new List<Sound>();
+				score = new List<GameElements>();
 
 				total_dur = 0;
 				string[] notes;
@@ -92,8 +100,6 @@ namespace NoteLogic{
 								//since no broken chords, each note in chord has same duration
 								new_chord.duration = duration;
 
-								//Debug.Log("note: " + duration + " " + pitch);
-
 								break;
 							}
 
@@ -113,7 +119,6 @@ namespace NoteLogic{
 
 								//add that shit to the score
 								score.Add (new_chord);
-								//Debug.Log("note: " + duration + " " + pitch);
 
 								break;
 							}
@@ -125,9 +130,13 @@ namespace NoteLogic{
 						}*/
 						else if(notes[i][0] == '!'){
 							string id = notes[i].Substring (1, notes[i].Length-1);
-							Alert alert = new Alert();
-							alert.id = id;
-							//this.alert_id = id;
+							Alert alert = new Alert(id);
+
+							alert.is_alert = true;
+
+							score.Add (alert);
+							Debug.Log("created alert");
+							break;
 						}
 
 						else{
@@ -160,6 +169,9 @@ namespace NoteLogic{
 
 			}//song constructor
 				
+			//empty constructor
+			public Song(){}
+
 			public void PrintScore(){
 				foreach (Sound item in score) {
 					if (item.is_chord) {
@@ -173,6 +185,8 @@ namespace NoteLogic{
 					}
 				}
 			}
+
+
 
 		}
 	}
