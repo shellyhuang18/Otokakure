@@ -141,7 +141,6 @@ public class GameWindow : MonoBehaviour {
 
 //====== Control Functions ======
 
-
 	public void pause(){
 		isPaused = true;
 

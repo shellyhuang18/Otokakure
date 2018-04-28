@@ -323,6 +323,7 @@ MonoBehaviour:
   sample_button: {fileID: 1359140448350584, guid: 6002c6099864d4099b1345c5fa834327,
     type: 2}
   content_panel: {fileID: 675130719}
+  header: {fileID: 1379196832}
   practice_text: {fileID: 937451240}
   Selection:
     m_PersistentCalls:
@@ -523,7 +524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000027027292, y: -0.000017568607}
+  m_AnchoredPosition: {x: 0.000027027292, y: -0.000012042686}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675130720
@@ -606,7 +607,7 @@ GameObject:
   - component: {fileID: 683859226}
   - component: {fileID: 683859225}
   m_Layer: 5
-  m_Name: Rhythm
+  m_Name: Intervals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -671,7 +672,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 371769863}
-        m_MethodName: LoadRhythmPractices
+        m_MethodName: LoadIntervalPractices
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -950,7 +951,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Practices
+  m_Text: 
 --- !u!222 &937451241
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1498,7 +1499,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RHYTHM
+  m_Text: INTERVALS
 --- !u!222 &2000567113
 CanvasRenderer:
   m_ObjectHideFlags: 0

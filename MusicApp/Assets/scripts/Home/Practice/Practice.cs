@@ -10,17 +10,15 @@ using Firebase.Database;
 
 //This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
-
-	Firebase.Auth.FirebaseAuth auth;
-	Firebase.Auth.FirebaseUser user;
 	public GameObject sample_button;
 	public Transform content_panel;
+	public GameObject header;
 	public Text practice_text;
+	List<string> interval_list = new List<string> (new string[] {"Unison", "Minor 2nd", "Major 2nd","Minor 3rd", "Major 3rd",
+													"Perfect 4th", "Perfect 5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"});
 
 	void Start () {
-		auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
-		user = auth.CurrentUser;
-		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
+		header.SetActive (false);
 		GetMicrophone ();
 	}
 
@@ -48,18 +46,35 @@ public class Practice : MonoBehaviour {
 	}
 
 	public void LoadPitchPractices () {
-		practice_text.text = "Pitch Practices";
-		RetrievePractices ("Pitch");
+		header.SetActive (false);
+		MapButtons ("Pitch");
 	}
 
-	public void LoadRhythmPractices () {
-		practice_text.text = "Rhythm Practices";
-		RetrievePractices ("Rhythm");
+	public void LoadIntervalPractices () {
+		header.SetActive (true);
+		practice_text.text = "Multiple Interval Practices";
+		MapButtons ("Intervals");
 	}
 
 	public Button.ButtonClickedEvent Selection;
 
-	void RetrievePractices(string practice_type) {
+	void MapButtons(string practice_type){
+		content_panel.DetachChildren ();
+		if (practice_type == "Pitch") {
+			//alert dialog which leads to game window page
+		} else if (practice_type == "Intervals") {
+			foreach (var practices in interval_list) {
+				GameObject newButton = Instantiate(sample_button) as GameObject;
+				ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
+				button_script.button_text.text = practices;
+				button_script.button.onClick = Selection;
+				newButton.transform.SetParent(content_panel);
+			}
+		} else {
+		}
+	}
+	/*
+	void MapButtons(string practice_type) {
 		content_panel.DetachChildren ();
 		DatabaseReference practice_table = FirebaseDatabase.DefaultInstance.GetReference ("User Table");
 		if (user != null) {
@@ -80,4 +95,5 @@ public class Practice : MonoBehaviour {
 		} else
 			practice_text.text = "There is no user";
 	}
+	*/
 }

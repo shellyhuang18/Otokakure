@@ -23,7 +23,6 @@ public class Manager{
 		}
 	}
 
-
 	public void nextModule(){
 		current_module = queue.Dequeue ();
 	}
