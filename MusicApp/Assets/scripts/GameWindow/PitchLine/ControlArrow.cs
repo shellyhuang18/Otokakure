@@ -20,6 +20,7 @@ namespace PitchLine{
 		private float lowest_detectable_frequency; //The max and min frequency that the PITCHLINE can detect
 		private float highest_detectable_frequency;
 
+		private PitchDetector pitch_detector;
 
 
 		public void Start () {
@@ -38,12 +39,18 @@ namespace PitchLine{
 			lowest_detectable_frequency = (float)(lowest_valid_frequency/ Math.Pow(2, 50.0/1200));
 			highest_detectable_frequency = (float)(highest_valid_frequency/ Math.Pow(2, -50.0/1200));
 
+			pitch_detector = gameObject.GetComponent <PitchDetector>();
 		}
 			
 
 		public void Update(){
-			moveArrow(440);
-//			Debug.Log("The frequency is " + gameObject.GetComponent<PitchDetector>().pitch);
+
+			GameWindow game_window_script = GameObject.FindGameObjectWithTag ("GameWindow").GetComponent<GameWindow>();
+			if (game_window_script.getMicStatus()) {
+				moveArrow (pitch_detector.pitch);
+			} else {
+				moveArrow(440);
+			}
 		}
 			
 

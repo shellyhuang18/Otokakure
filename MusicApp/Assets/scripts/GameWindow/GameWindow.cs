@@ -24,18 +24,24 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private float tempo;
 
+	[SerializeField]
+	private bool micEnabled;
+
 	// Use this for initialization
 	void Start () {
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 
-		string test_score;
-		test_score = "";
-		for (int i = 0; i < 45; i++) {
-			test_score += "4a4 4b4 ";
-		}
-		Song test = new Song (test_score);
+
+		pitchline.GetComponent<AudioListener> ().enabled = micEnabled;
+		
+//		string test_score;
+//		test_score = "";
+//		for (int i = 0; i < 45; i++) {
+//			test_score += "4a4 4b4 ";
+//		}
+//		Song test = new Song (test_score);
 //
 //
 //		Song test = new Song("16a4 17a4");
@@ -110,6 +116,10 @@ public class GameWindow : MonoBehaviour {
 
 	public string getHighestPitch(){
 		return this.highest_pitch;
+	}
+
+	public bool getMicStatus(){
+		return this.micEnabled;
 	}
 
 	//Sets the tempo for the conductor
