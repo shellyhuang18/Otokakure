@@ -108,6 +108,12 @@ namespace NoteLogic{
 						/*else if(Char.IsNumber (notes[i][0])){
 					
 						}*/
+						else if(notes[i][0] == '!'){
+							string id = notes[i].Substring (1, notes[i].Length-1);
+
+
+						}
+
 						else{
 							if(!Char.IsNumber (notes[i][j])){
 								str_dur = notes[i].Substring (0, j);		
