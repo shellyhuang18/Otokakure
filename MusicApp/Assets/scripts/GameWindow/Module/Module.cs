@@ -5,16 +5,24 @@ using RandomGenerator = System.Random;
 //The base class used as a template for generating random
 namespace Module{
 	public abstract class BaseModule {
+		protected const string DEFAULT_LOWEST_PITCH = "c2";
+		protected const string DEFAULT_HIGHEST_PITCH = "c6";
+		protected const int DEFAULT_LEADING_LENGTH = 4;
+		protected const int DEFAULT_TRAILING_LENGTH = 4;
+		protected const int DEFAULT_MIN_NOTE_LENGTH = 4;
+		protected const int DEFAULT_MAX_NOTE_LENGTH = 4;
 
-		protected RandomGenerator generator; //Random number generator
-		protected string lowest_pitch;
-		protected string highest_pitch;
-		protected int song_length; //The length (in 16th notes) of the song that the module is set to generate.
+		protected const int TOTAL_INTERVALS = 14; //There are 12 half steps + unison + octave
 
-		//Since the generator uses a consistent seed, it's best to save the generator for multiple use.
-		protected BaseModule(){ 
-			generator = new RandomGenerator (); 
-		}
+		protected RandomGenerator generator = new RandomGenerator(); //Random number generator
+
+		protected string lowest_pitch = DEFAULT_LOWEST_PITCH;
+		protected string highest_pitch = DEFAULT_HIGHEST_PITCH;
+		protected int leading_rest_len = DEFAULT_LEADING_LENGTH;
+		protected int trailing_rest_len = DEFAULT_TRAILING_LENGTH;
+		protected int min_note_length = DEFAULT_MIN_NOTE_LENGTH;
+		protected int max_note_length = DEFAULT_MAX_NOTE_LENGTH;
+	
 
 		abstract public string generateSFS ();
 
@@ -25,8 +33,34 @@ namespace Module{
 			}
 		}
 
-		public void setLength(int length){
-			this.song_length = length;
+		public bool setMinNoteLength(int i){
+			//Check to see if the min len is less than max
+			if (i > this.max_note_length) {
+				return false;
+			}
+			else {
+				this.min_note_length = i;
+				return true;
+			}
+		}
+
+		public bool setMaxNoteLength(int i){
+			//Check to see if the max len is greater than min
+			if (i < this.min_note_length) {
+				return false;
+			} 
+			else {
+				this.max_note_length = i;	
+				return true;
+			}
+		}
+
+		public void setTrailingLength(int length){
+			this.trailing_rest_len = length;
+		}
+
+		public void setLeadingLength(int length){
+			this.leading_rest_len = length;
 		}
 
 	}
