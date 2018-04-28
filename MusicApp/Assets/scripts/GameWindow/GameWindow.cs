@@ -95,6 +95,7 @@ public class GameWindow : MonoBehaviour {
 		if (Input.GetKeyDown ("a")) {
 			Song new_song = new Song("4c#4 4d#4 4r 4d4 4d#4");
 			conductor.GetComponent<ConductorBehavior>().startSong (new_song);
+			Debug.Log ("ttoaal dur: " + new_song.total_dur);
 		}
 		if (Input.GetKeyDown ("p")) {
 			Debug.Log ("pause");
@@ -181,11 +182,11 @@ public class GameWindow : MonoBehaviour {
 
 			GUIContent content = new GUIContent ();
 			content.text = "Pause Menu";
-			pause_window = GUI.ModalWindow (0, pause_window, DoMyWindow, content);
+			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
 		}
 	}
 	//operations on pop up window
-	void DoMyWindow(int windowID){
+	void WindowAction(int windowID){
 		
 		Rect button = new Rect (100, 50, 100, 35);
 		Rect home = new Rect (100, 100, 100, 35);

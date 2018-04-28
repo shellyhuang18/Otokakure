@@ -6,6 +6,21 @@ using System;
 namespace NoteLogic{
 	public class NoteLogic {
 
+		public class GameElements{
+
+		}
+
+		public class Alert : GameElements{
+			public string id;
+			public GUIContent content;
+
+			public Alert(string id, GUIContent content){
+				this.id = id;
+				this.content = content;
+			}
+			public Alert(){}
+		}
+
 		public class Chord : Sound{
 			public List<Note> notes;
 			public Chord(){
@@ -24,7 +39,7 @@ namespace NoteLogic{
 			}
 		}
 
-		public class Sound{
+		public class Sound : GameElements{
 			//for dynamic casting-
 			public bool is_chord = false;
 			public int duration;
@@ -35,7 +50,7 @@ namespace NoteLogic{
 			float time_sig;
 			float tempo;
 			public List<Sound> score; //add
-
+			public int total_dur;
 
 			public Song(string sfs){
 				//parses string and puts associated values into respective variables.
@@ -44,16 +59,16 @@ namespace NoteLogic{
 				//duration/pitch
 				score = new List<Sound>();
 
+				total_dur = 0;
 				string[] notes;
 				notes = sfs.Split (' ');
 
 				bool is_chord = false;
-
+			
 				string str_dur;
 				int duration;
 				string pitch;
 
-				//TODO: error check so that sfs is in the correct format
 				Chord new_chord = null;
 				for(int i = 0; i < notes.Length; ++i){
 					Note new_note = null;
@@ -110,8 +125,9 @@ namespace NoteLogic{
 						}*/
 						else if(notes[i][0] == '!'){
 							string id = notes[i].Substring (1, notes[i].Length-1);
-
-
+							Alert alert = new Alert();
+							alert.id = id;
+							//this.alert_id = id;
 						}
 
 						else{
@@ -122,6 +138,9 @@ namespace NoteLogic{
 								pitch = notes[i].Substring (j, notes[i].Length-str_dur.Length);
 								new_note = new Note(pitch, duration);
 
+								if(pitch != "r"){
+									total_dur += duration;
+								}
 								//to distinguish if notes are contained within a chord
 								if(is_chord){
 									new_chord.notes.Add (new_note);
@@ -140,12 +159,7 @@ namespace NoteLogic{
 
 
 			}//song constructor
-
-			void CheckRest(string note){
-				if (note == "r") {
-
-				}
-			}
+				
 			public void PrintScore(){
 				foreach (Sound item in score) {
 					if (item.is_chord) {
