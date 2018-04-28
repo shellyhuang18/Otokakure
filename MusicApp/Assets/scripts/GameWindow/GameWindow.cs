@@ -13,6 +13,7 @@ public class GameWindow : MonoBehaviour {
 	private GameObject pitchline;
 	private GameObject conductor;
 
+	public static Rect pause_window;
 	[SerializeField]
 	private bool isPaused;
 
@@ -97,7 +98,11 @@ public class GameWindow : MonoBehaviour {
 		}
 		if (Input.GetKeyDown ("p")) {
 			Debug.Log ("pause");
-			pause ();
+
+			//pause ();
+			//OnGUI();
+
+			isPaused = true;
 		}
 		if (Input.GetKeyDown ("s")) {
 			stop ();
@@ -160,6 +165,40 @@ public class GameWindow : MonoBehaviour {
 
 		//Pause the conductor from generating more music
 		conductor.GetComponent<ConductorBehavior>().pause();
+
+
+	}
+
+	//gui function- anything gui related implement here
+	void OnGUI(){
+		if (isPaused) {
+			pause ();
+			//implement pause window
+			GameObject canvas = GameObject.Find ("Canvas");
+			Vector2 canvas_coords = canvas.transform.position;
+
+			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 300, 200);
+
+			GUIContent content = new GUIContent ();
+			content.text = "Pause Menu";
+			pause_window = GUI.ModalWindow (0, pause_window, DoMyWindow, content);
+		}
+	}
+	//operations on pop up window
+	void DoMyWindow(int windowID){
+		
+		Rect button = new Rect (100, 50, 100, 35);
+		Rect home = new Rect (100, 100, 100, 35);
+		//GUIContent butt = new GUIContent ();
+		//butt.image = GameObject.Find ("arrow").GetComponent<SpriteRenderer> ().sprite.texture;
+		if (GUI.Button (button, "Resume") ) {
+			isPaused = false;
+			resume ();
+		}
+		if (GUI.Button (home, "Home") ) {
+			SceneManager.LoadScene ("Home Page");
+		}
+
 	}
 
 	public void resume(){
