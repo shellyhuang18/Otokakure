@@ -9,9 +9,17 @@ namespace Module{
 	public sealed class PitchModule : BaseModule {
 
 
-		public PitchModule(){
-			this.lowest_pitch = "c4";
-			this.highest_pitch = "c5";
+		//Constructor. The only required parameter is the interval selection
+		public PitchModule(string lowest_pitch = DEFAULT_LOWEST_PITCH, string highest_pitch = DEFAULT_HIGHEST_PITCH, 
+			int leading_rest_len = DEFAULT_LEADING_LENGTH, int trailing_rest_len = DEFAULT_TRAILING_LENGTH, 
+			int min_note_len = DEFAULT_MIN_NOTE_LENGTH, int max_note_len = DEFAULT_MAX_NOTE_LENGTH){
+
+			this.lowest_pitch = lowest_pitch;
+			this.highest_pitch = highest_pitch;
+			this.leading_rest_len = leading_rest_len;
+			this.trailing_rest_len = trailing_rest_len;
+			this.min_note_length = min_note_len;
+			this.max_note_length = max_note_len;
 
 		}
 
@@ -22,25 +30,24 @@ namespace Module{
 
 		//The method responsible for generating a random SFS, given the parameters the module was set to.
 		public override string generateSFS (){
-			string SFS = "";
-			int total_half_steps = Utility.Pitch.getTotalHalfSteps (this.lowest_pitch, this.highest_pitch);
+			string sfs = "";
 
-			string[] pitch_arr = new string[total_half_steps];
-			string pitch_itr = this.lowest_pitch;
-			for(int i = 0; i < total_half_steps; i++){
-				pitch_arr[i] = pitch_itr;
-				pitch_itr = Utility.Pitch.incrementPitch(pitch_itr, 1);
-
+			if(leading_rest_len != 0 ){
+				sfs += (leading_rest_len.ToString() + "r" + " ");
 			}
 
-			//Generates all dotted 8th notes
-			for (int i = 0; i < 4; i += 4) {
-				string random_pitch = pitch_arr [this.generator.Next (0, total_half_steps)];
-				SFS += "3" + random_pitch + " ";
-				SFS += "1r "; //Add a 16th note rest after each note"
+			int pitch_range = Pitch.getTotalHalfSteps (lowest_pitch, highest_pitch);
+			string note = Pitch.incrementPitch (lowest_pitch, generator.Next (0, pitch_range));
+			int note_duration = generator.Next (min_note_length, max_note_length + 1); //max is exclusive, so +1
+
+			sfs += (note_duration.ToString() + note + " ");
+
+
+			if(trailing_rest_len != 0 ){
+				sfs += (trailing_rest_len.ToString() + "r" + " ");
 			}
 
-			return SFS;
+			return sfs;
 		}
 			
 	}
