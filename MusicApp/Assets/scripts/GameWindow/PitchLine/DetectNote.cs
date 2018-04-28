@@ -24,11 +24,17 @@ namespace PitchLine{
 			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
-		
-		// Update is called once per frame
-		void Update () {
+
+		void FixedUpdate(){
 			checkOnPitch ();
 		}
+
+		// Update is called once per frame
+
+
+//		void Update () {
+//			//checkOnPitch ();
+//		}
 			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone

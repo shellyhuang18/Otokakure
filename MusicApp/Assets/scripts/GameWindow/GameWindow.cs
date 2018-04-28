@@ -39,7 +39,7 @@ public class GameWindow : MonoBehaviour {
 //
 //
 //		Song test = new Song("16a4 17a4");
-		conductor.GetComponent<ConductorBehavior> ().startSong(test);
+		//conductor.GetComponent<ConductorBehavior> ().startSong(test);
 //			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4*120);
 	}
 		
