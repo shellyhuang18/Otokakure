@@ -5,6 +5,8 @@ using Note = NoteLogic.NoteLogic.Note;
 using Sound = NoteLogic.NoteLogic.Sound;
 using Chord = NoteLogic.NoteLogic.Chord;
 using Song = NoteLogic.NoteLogic.Song;
+using GameElements = NoteLogic.NoteLogic.GameElements;
+using Alert = NoteLogic.NoteLogic.Alert;
 using UnityEngine.SceneManagement;
 
 namespace Conductor{
@@ -112,7 +114,9 @@ namespace Conductor{
 			GameObject last_note = null;
 			GameObject curr_note = null;
 
-			foreach (Sound item in new_song.score) {
+
+
+			foreach (GameElements item in new_song.score) {
 				//output chords
 //				if (item.is_chord) {
 //
@@ -131,6 +135,16 @@ namespace Conductor{
 //
 //					//output single notes
 //				} else {
+
+				if (item.is_alert) {
+					Alert alert = item as Alert;
+
+					//retrieve alert from list of alerts(based on id)
+					GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+
+					continue;
+				}
+
 				Note n = item as Note;
 				checkpoint += n.duration;
 

@@ -7,6 +7,8 @@ namespace Utility{
 	public class Pitch{
 		public static string[] SCALE_NOTES =  new string[]{"c","c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"};
 		public static string valid_pitch_expression = @"[a-g]{1}#?[1-9]{1}"; //A regular expression to represent the SCALE_NOTEs. Used for error checking.
+		public enum interval{u, m1, M1, m2, M2, m3, M3, P4, P5, m6, M6, m7, M7, o};
+		public static int TOTAL_NOTES = 12;
 
 		//Returns the index of a note within SCALE_NOTES
 		private static int getScaleIndex(string note){
