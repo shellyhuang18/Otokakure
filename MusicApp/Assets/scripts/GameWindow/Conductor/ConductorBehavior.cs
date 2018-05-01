@@ -88,7 +88,7 @@ namespace Conductor{
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 
 			foreach (GameObject o in notes_on_screen) {
-				o.GetComponent<NoteBehavior> ().setVelocityToTempo (120);
+				o.GetComponent<NoteBehavior> ().setVelocityToTempo (game_window.GetComponent<GameWindow>().getTempo());
 			}
 		}
 
