@@ -9,7 +9,7 @@ namespace Module{
 	public sealed class PitchModule : BaseModule {
 
 
-		//Constructor. The only required parameter is the interval selection
+		//Constructor. 
 		public PitchModule(string lowest_pitch = DEFAULT_LOWEST_PITCH, string highest_pitch = DEFAULT_HIGHEST_PITCH, 
 			int leading_rest_len = DEFAULT_LEADING_LENGTH, int trailing_rest_len = DEFAULT_TRAILING_LENGTH, 
 			int min_note_len = DEFAULT_MIN_NOTE_LENGTH, int max_note_len = DEFAULT_MAX_NOTE_LENGTH){
