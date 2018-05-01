@@ -12,8 +12,8 @@ namespace Conductor{
 	{
 
 		private float tempo;
-
 		private GameObject game_window;
+		private bool isComposing = false; //Whether the conductor is busy creating a song
 
 		void Start(){
 			game_window = GameObject.Find ("game_window");
@@ -66,6 +66,9 @@ namespace Conductor{
 
 		//Completely stops the song the conductor was generating
 		public void stop(){
+			//We are not calling onSongFinish cause technically, the song didnt finish if you called stop.
+			isComposing = false;
+
 			//destroys all notes on screen
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 			foreach (GameObject o in notes_on_screen) {
@@ -90,10 +93,15 @@ namespace Conductor{
 		public void startSong(Song new_song){
 			StartCoroutine (coroutineStartSong (new_song));
 		}
+
+
 			
+		public bool getComposingStatus(){
+			return isComposing;
+		}
 
 		private IEnumerator coroutineStartSong(Song new_song){
-			//yield return new WaitForSeconds (2);
+			onSongStart ();
 
 			int metronome = 0;
 			int checkpoint = 0; //The time of the next expected note in the song
@@ -177,6 +185,24 @@ namespace Conductor{
 
 				yield return new WaitForSeconds (single_beat_time);
 			}
+
+			//We are done generating music.
+			onSongFinish();
+		}
+
+		//Called when the Song starts
+		private void onSongStart(){
+			isComposing = true;
+		}
+
+		//Called when the Song is finished and no notes are left on the screen
+		private void onSongFinish(){
+			int total_notes = 0;
+			do {
+				total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
+			} while(total_notes > 0);
+			isComposing = false;
+
 		}
 
 	}
