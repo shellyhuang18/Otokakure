@@ -11,6 +11,32 @@ public class NoteBehavior : MonoBehaviour {
 	private int birth_beat = -1; //The beat that this note_behavior was generated
 
 
+	void OnMouseDown(){
+		//Play audio file as a hint.
+		playAudio(this.pitch, 1f);
+	}
+
+	//Plays the audio of a certain pitch for n seconds. Returns an reference to the clip
+	//if you need it.
+	public AudioSource playAudio(string pitch, float seconds){
+		string clip_id = pitch;
+		AudioSource audio_clip = (AudioSource) Resources.Load("Sounds/" + clip_id);
+		StartCoroutine (playAudioCoroutine (audio_clip, seconds));
+		return audio_clip;
+	}
+
+	//Coroutine ment to be called in playAudio();
+	private IEnumerator playAudioCoroutine(AudioSource audio, float seconds){
+		audio.Play ();
+		while (audio.time < seconds) {
+			yield return new WaitForSeconds (0.01f);
+		}
+		audio.Stop ();
+	}
+
+
+
+
 	//Sets the Note object's parameters. Acts as a pseudo constructor.
 	public void setNoteAttributes(int birth_beat, Note n){
 		this.note = n;
