@@ -6,7 +6,7 @@ using PitchLine;
 using Utility;
 using UnityEngine.SceneManagement;
 using Song = NoteLogic.NoteLogic.Song;
-
+using Manager = Communication.Manager;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
@@ -31,24 +31,17 @@ public class GameWindow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Manager.setGameWindow (gameObject); //Set it to this
+
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 
-
 		pitchline.GetComponent<AudioListener> ().enabled = micEnabled;
+
+		startSong (Manager.generateSong ());
 		
-//		string test_score;
-//		test_score = "";
-//		for (int i = 0; i < 45; i++) {
-//			test_score += "4a4 4b4 ";
-//		}
-//		Song test = new Song (test_score);
-//
-//
-//		Song test = new Song("16a4 17a4");
-		//conductor.GetComponent<ConductorBehavior> ().startSong(test);
-//			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4*120);
+
 	}
 		
 	// Update is called once per frame
@@ -162,7 +155,9 @@ public class GameWindow : MonoBehaviour {
 
 
 //====== Control Functions ======
-
+	public void startSong(Song song){
+		conductor.GetComponent<ConductorBehavior>().startSong (song);
+	}
 
 	public void pause(){
 		isPaused = true;
@@ -172,8 +167,6 @@ public class GameWindow : MonoBehaviour {
 
 		//Pause the conductor from generating more music
 		conductor.GetComponent<ConductorBehavior>().pause();
-
-
 	}
 
 	//gui function- anything gui related implement here
@@ -231,6 +224,7 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void exitGameWindow(){
+		Manager.clear();
 		SceneManager.LoadScene ("Home Page");
 	}
 }
