@@ -119,7 +119,6 @@ namespace Conductor{
 			GameObject curr_note = null;
 
 
-
 			foreach (GameElements item in new_song.score) {
 				//output chords
 //				if (item.is_chord) {
@@ -144,7 +143,13 @@ namespace Conductor{
 					Alert alert = item as Alert;
 
 					//retrieve alert from list of alerts(based on id)
-					GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+					if (alert.multiple) {
+						StartCoroutine(GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior> ().DisplayAlertSlides (alert.id));
+
+					} else {
+						GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+					}
+
 
 					continue;
 				}

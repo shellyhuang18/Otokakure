@@ -97,7 +97,11 @@ public class GameWindow : MonoBehaviour {
 			window_enabled = true;
 		}
 		if (Input.GetKeyDown ("m")) {
-			Song new_song = new Song ("4c#4 4d#4 4r 4d4 4d#4 !alertEx");
+			Song new_song = new Song ("4c#4 4d#4 4r 4d4 4d#4 !alert");
+			conductor.GetComponent<ConductorBehavior>().startSong (new_song);
+		}
+		if (Input.GetKeyDown ("n")) {
+			Song new_song = new Song ("4c#4 4d#4 4r 4d4 4d#4 !!alertEx");
 			conductor.GetComponent<ConductorBehavior>().startSong (new_song);
 		}
 		if (Input.GetKeyDown ("s")) {

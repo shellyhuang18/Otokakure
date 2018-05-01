@@ -19,6 +19,7 @@ namespace NoteLogic{
 			
 		public class Alert : GameElements{
 			public string id;
+			public bool multiple;
 
 			public Alert(string id){
 				this.id = id;
@@ -65,6 +66,8 @@ namespace NoteLogic{
 				//parses string and puts associated values into respective variables.
 				//ex: 4c4 4c#4 4e4 4g4 <16c4 16e4 16g4>
 				//duration/pitch
+				//alerts: !prefabname
+				//alertslides: !!prefabname
 				score = new List<GameElements>();
 
 				total_dur = 0;
@@ -128,14 +131,28 @@ namespace NoteLogic{
 						/*else if(Char.IsNumber (notes[i][0])){
 					
 						}*/
+						//indicating alert
 						else if(notes[i][0] == '!'){
-							string id = notes[i].Substring (1, notes[i].Length-1);
-							Alert alert = new Alert(id);
+							string id;
+							Alert alert;
+
+							//if multiple slides
+							if(notes[i][1] == '!'){
+								id = notes[i].Substring (2, notes[i].Length-2);
+
+								alert = new Alert(id);
+								alert.multiple = true;
+							}else{
+								id = notes[i].Substring (1, notes[i].Length-1);
+
+								alert = new Alert(id);
+								alert.multiple = false;
+							}
+
 
 							alert.is_alert = true;
 
 							score.Add (alert);
-							Debug.Log("created alert");
 							break;
 						}
 
