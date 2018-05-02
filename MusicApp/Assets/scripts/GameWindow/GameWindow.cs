@@ -37,7 +37,7 @@ public class GameWindow : MonoBehaviour {
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 
-		pitchline.GetComponent<AudioListener> ().enabled = micEnabled;
+		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 
 		startSong (Manager.generateSong ());
 		

@@ -7,40 +7,51 @@ using Note = NoteLogic.NoteLogic.Note;
 public class NoteBehavior : MonoBehaviour {
 
 	private Note note;
-	public string pitch;
+	[SerializeField]
+	private string pitch;
+	[SerializeField]
+	private int duration = -1;
 	private int birth_beat = -1; //The beat that this note_behavior was generated
 
 
 	void OnMouseDown(){
-		//Play audio file as a hint.
-		playAudio(this.pitch, 1f);
+		//Play audio file as a hint. 
+		playAudio(this.pitch, 1f); //By default, the hint plays the note for 1 second
 	}
 
-	//Plays the audio of a certain pitch for n seconds. Returns an reference to the clip
+	//Plays the audio of a certain pitch for n seconds. Returns an reference to the source
 	//if you need it.
 	public AudioSource playAudio(string pitch, float seconds){
 		string clip_id = pitch;
-		AudioSource audio_clip = (AudioSource) Resources.Load("Sounds/" + clip_id);
-		StartCoroutine (playAudioCoroutine (audio_clip, seconds));
-		return audio_clip;
+		string file_name = "Sounds/" + clip_id;
+		AudioClip audio_clip = Resources.Load(file_name) as AudioClip;
+		AudioSource audio_source = gameObject.GetComponent<AudioSource> ();
+
+		//Load the clip into the audio source
+		audio_source.clip = audio_clip;
+//		audio_source.SetScheduledEndTime (seconds);
+
+		//source now plays the assigned clip
+		audio_source.Play ();
+
+		return audio_source;
 	}
+		
 
-	//Coroutine ment to be called in playAudio();
-	private IEnumerator playAudioCoroutine(AudioSource audio, float seconds){
-		audio.Play ();
-		while (audio.time < seconds) {
-			yield return new WaitForSeconds (0.01f);
-		}
-		audio.Stop ();
+
+	//When you want to set the attributes, but dont care about the birth beat
+	public void setNoteAttributes(Note n){
+		this.birth_beat = -1;
+		this.note = n;
+		this.pitch = n.pitch;
+		this.duration = n.duration;
 	}
-
-
-
 
 	//Sets the Note object's parameters. Acts as a pseudo constructor.
 	public void setNoteAttributes(int birth_beat, Note n){
 		this.note = n;
-		this.pitch = this.note.pitch;
+		this.pitch = n.pitch;
+		this.duration = n.duration;
 	}
 
 	public int getDuration(){
@@ -50,6 +61,7 @@ public class NoteBehavior : MonoBehaviour {
 	public string getPitch(){
 		return this.note.pitch;
 	}
+		
 
 	public int getBirthBeat(){
 		return birth_beat;

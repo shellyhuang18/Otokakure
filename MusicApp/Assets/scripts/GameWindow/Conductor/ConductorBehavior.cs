@@ -43,7 +43,8 @@ namespace Conductor{
 		//Simple version. Just triggers the pitch and does not associate anything.
 		public void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
-			note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
+			GameObject generated_note = note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
+			generated_note.GetComponent<NoteBehavior> ().setNoteAttributes (n: new Note (pitch, duration));
 		}
 
 		public float getTempo(){
