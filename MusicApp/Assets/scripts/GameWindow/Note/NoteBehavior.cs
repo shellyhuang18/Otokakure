@@ -14,6 +14,11 @@ public class NoteBehavior : MonoBehaviour {
 	private int birth_beat = -1; //The beat that this note_behavior was generated
 
 
+
+	void Awake(){
+		startNoteFadeIn ();
+	}
+
 	void OnMouseDown(){
 		//Play audio file as a hint. 
 		playAudio(this.pitch, 1f); //By default, the hint plays the note for 1 second
@@ -82,5 +87,36 @@ public class NoteBehavior : MonoBehaviour {
 		float speed = (tempo * quarter_note_width) / 60.0f; //Velocity = Unity Unit/s   (unity unit should be defaulted to meter)
 
 		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2(-1 * speed, 0);
+	}
+
+	//A function used to make the notes fade into the game window
+	public void startNoteFadeIn(){
+		StartCoroutine (transparencyToOpaqueCoroutine());
+	}
+
+	//A coroutine meant to be called within startNoteFadeIn();
+	private IEnumerator transparencyToOpaqueCoroutine(){
+		GameObject game_window = GameObject.FindGameObjectWithTag ("GameWindow");
+		float alpha_per_wait = 0.025f; //How much the opaqueness should increase for each coroutine call.
+		float start_alpha_value = 0.05f; //The transparency value that the note starts with.
+
+		Color color = gameObject.GetComponent<SpriteRenderer> ().color;
+		color.a = start_alpha_value;
+		gameObject.GetComponent<SpriteRenderer> ().color = color;
+
+		float extent = game_window.GetComponent<SpriteRenderer> ().bounds.extents.x;
+		float left_bound = game_window.transform.position.x + extent;
+		float right_bound = game_window.transform.position.x - extent;
+
+		//Since we have a buffer, wait until the note is actually on screen
+		while (!(right_bound < gameObject.transform.position.x && gameObject.transform.position.x < left_bound)) {
+			yield return new WaitForSeconds (0.01f);
+		}
+
+		while (color.a < 1.0f) {
+			color.a += alpha_per_wait;
+			gameObject.GetComponent<SpriteRenderer> ().material.color = color;
+			yield return new WaitForSeconds (0.01f);
+		}
 	}
 }
