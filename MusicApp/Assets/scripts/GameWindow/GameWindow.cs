@@ -37,7 +37,7 @@ public class GameWindow : MonoBehaviour {
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 
-		pitchline.GetComponent<AudioListener> ().enabled = micEnabled;
+		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 
 		startSong (Manager.generateSong ());
 		
@@ -110,6 +110,10 @@ public class GameWindow : MonoBehaviour {
 		if (Input.GetKeyDown ("r")) {
 			Debug.Log ("resume");
 			resume ();
+		}
+		if (Input.GetKeyDown ("space")) {
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("main");
 		}
 	}
 
