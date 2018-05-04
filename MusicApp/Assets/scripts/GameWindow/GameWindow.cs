@@ -111,6 +111,10 @@ public class GameWindow : MonoBehaviour {
 			Debug.Log ("resume");
 			resume ();
 		}
+		if (Input.GetKeyDown ("space")) {
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("main");
+		}
 	}
 
 

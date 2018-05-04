@@ -43,7 +43,6 @@ public class NoteBehavior : MonoBehaviour {
 	}
 		
 
-
 	//When you want to set the attributes, but dont care about the birth beat
 	public void setNoteAttributes(Note n){
 		this.birth_beat = -1;
@@ -102,7 +101,7 @@ public class NoteBehavior : MonoBehaviour {
 
 		Color color = gameObject.GetComponent<SpriteRenderer> ().color;
 		color.a = start_alpha_value;
-		gameObject.GetComponent<SpriteRenderer> ().color = color;
+		gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 
 		float extent = game_window.GetComponent<SpriteRenderer> ().bounds.extents.x;
 		float left_bound = game_window.transform.position.x + extent;
@@ -113,7 +112,7 @@ public class NoteBehavior : MonoBehaviour {
 			yield return new WaitForSeconds (0.01f);
 		}
 
-		while (color.a < 1.0f) {
+		while (color.a < 0.60f) {
 			color.a += alpha_per_wait;
 			gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 			yield return new WaitForSeconds (0.01f);
