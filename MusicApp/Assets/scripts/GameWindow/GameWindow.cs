@@ -202,7 +202,10 @@ public class GameWindow : MonoBehaviour {
 			resume ();
 		}
 		if (GUI.Button (home, "Home") ) {
-			SceneManager.LoadScene ("Home Page");
+			window_enabled = false;
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("Home Page");
+
 		}
 
 	}
