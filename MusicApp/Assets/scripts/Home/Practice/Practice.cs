@@ -8,7 +8,7 @@ using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 
-//This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
+//This class sets up the practice page of the app. 
 public class Practice : MonoBehaviour {
 	public GameObject sample_button;
 	public Transform content_panel;

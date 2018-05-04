@@ -172,6 +172,8 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void exitGameWindow(){
+		//change data in database
+		//call info page 
 		SceneManager.LoadScene ("Home Page");
 	}
 }

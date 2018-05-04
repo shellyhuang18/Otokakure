@@ -73,7 +73,7 @@ namespace SignIn{
 				user_table = user_table.Child (user.UserId);
 				user_table.SetRawJsonValueAsync (json);
 
-			
+				/*
 				List<string> pitch = new List<string>(new string[] { "Intervals", "Undecided"});
 				pitch.Add ("Undecided 2");
 
@@ -88,6 +88,7 @@ namespace SignIn{
 					//Exercises are added as children of Rhythm
 					user_table.Child ("Rhythm").Push ().SetValueAsync (exercises);
 				}
+				*/
 
 			}
 		}

@@ -42,16 +42,17 @@ namespace PitchLine{
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
+			data.IncrementHits();
 			gameObject.GetComponent<ScoreBoard>().IncrementScore(1);
-			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total);
-			//gameObject.GetComponent<ScoreBoard> ().Progress (hit + miss, total);  total = how many  total hits possible 
-			hit += 1; 
+			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
+			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
+			//data.updateCurrNote();
 			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
 		}
 
 		private void onMiss(){
-			miss += 1;
+			data.IncrementMisses ();
 			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Stop ();
 
 			Debug.Log ("miss");
@@ -62,7 +63,8 @@ namespace PitchLine{
 		}
 
 		private void onComplete(){
-			data.SetCurrentValues (hit, hit + miss);
+			data.SetCurrentValues ();
+			//data.SetCurrentValues (hit, hit + miss);
 			//data.CalculateOverall ();
 		}
 			

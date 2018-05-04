@@ -6,6 +6,7 @@ using ProgressBar;
 
 public class ScoreBoard : MonoBehaviour {
 	int score = 0;
+	int total = 0; //get total from song object
 	public Text scoreBoard;
 	public Text percentBoard;
 	public GameObject gameobj;
