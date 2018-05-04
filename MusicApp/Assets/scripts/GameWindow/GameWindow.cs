@@ -118,6 +118,7 @@ public class GameWindow : MonoBehaviour {
 	}
 
 
+
 //====== Variable Mutators and Getters ======
 	public string getLowestPitch(){
 		return this.lowest_pitch;
@@ -171,6 +172,11 @@ public class GameWindow : MonoBehaviour {
 
 		//Pause the conductor from generating more music
 		conductor.GetComponent<ConductorBehavior>().pause();
+	}
+
+	public void openPauseWindow(){
+		isPaused = true;
+		window_enabled = true;
 	}
 
 	//gui function- anything gui related implement here
