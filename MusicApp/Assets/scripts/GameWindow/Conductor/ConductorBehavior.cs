@@ -5,6 +5,8 @@ using Note = NoteLogic.NoteLogic.Note;
 using Sound = NoteLogic.NoteLogic.Sound;
 using Chord = NoteLogic.NoteLogic.Chord;
 using Song = NoteLogic.NoteLogic.Song;
+using GameElements = NoteLogic.NoteLogic.GameElements;
+using Alert = NoteLogic.NoteLogic.Alert;
 using UnityEngine.SceneManagement;
 
 namespace Conductor{
@@ -12,10 +14,11 @@ namespace Conductor{
 	{
 
 		private float tempo;
-
+		private bool isComposing; //Whether the conductor is busy creating a song
 		private GameObject game_window;
 
 		void Start(){
+			isComposing = false;
 			game_window = GameObject.Find ("game_window");
 			tempo = game_window.GetComponent<GameWindow> ().getTempo ();
 		}
@@ -40,7 +43,8 @@ namespace Conductor{
 		//Simple version. Just triggers the pitch and does not associate anything.
 		public void triggerPitch(string pitch, int duration){
 			GameObject note_spawner = GameObject.Find (pitch);
-			note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
+			GameObject generated_note = note_spawner.GetComponent<Spawner.GenerateNotes>().generateNote(duration);
+			generated_note.GetComponent<NoteBehavior> ().setNoteAttributes (n: new Note (pitch, duration));
 		}
 
 		public float getTempo(){
@@ -66,6 +70,9 @@ namespace Conductor{
 
 		//Completely stops the song the conductor was generating
 		public void stop(){
+			//We are not calling onSongFinish cause technically, the song didnt finish if you called stop.
+			isComposing = false;
+
 			//destroys all notes on screen
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 			foreach (GameObject o in notes_on_screen) {
@@ -82,7 +89,7 @@ namespace Conductor{
 			GameObject[] notes_on_screen = GameObject.FindGameObjectsWithTag ("MusicalNote");
 
 			foreach (GameObject o in notes_on_screen) {
-				o.GetComponent<NoteBehavior> ().setVelocityToTempo (120);
+				o.GetComponent<NoteBehavior> ().setVelocityToTempo (game_window.GetComponent<GameWindow>().getTempo());
 			}
 		}
 
@@ -93,7 +100,7 @@ namespace Conductor{
 			
 
 		private IEnumerator coroutineStartSong(Song new_song){
-			//yield return new WaitForSeconds (2);
+			onSongStart ();
 
 			int metronome = 0;
 			int checkpoint = 0; //The time of the next expected note in the song
@@ -112,7 +119,8 @@ namespace Conductor{
 			GameObject last_note = null;
 			GameObject curr_note = null;
 
-			foreach (Sound item in new_song.score) {
+
+			foreach (GameElements item in new_song.score) {
 				//output chords
 //				if (item.is_chord) {
 //
@@ -131,6 +139,22 @@ namespace Conductor{
 //
 //					//output single notes
 //				} else {
+
+				if (item.is_alert) {
+					Alert alert = item as Alert;
+
+					//retrieve alert from list of alerts(based on id)
+					if (alert.multiple) {
+						StartCoroutine(GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior> ().DisplayAlertSlides (alert.id));
+
+					} else {
+						GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+					}
+
+
+					continue;
+				}
+
 				Note n = item as Note;
 				checkpoint += n.duration;
 
@@ -177,7 +201,38 @@ namespace Conductor{
 
 				yield return new WaitForSeconds (single_beat_time);
 			}
+
+			//We are done generating music.
+			onSongFinish();
+		}
+			
+
+		//Called when the Song starts
+		private void onSongStart(){
+			isComposing = true;
+			Debug.Log ("Song has been started");
 		}
 
+		//Called when the Song is finished composing. 
+		//NOTE: When you want something to happen when the song is off screen,
+		//then write in on onSongCompletelyDone.
+		private void onSongFinish(){
+			StartCoroutine (onSongCompletelyDone());
+		}
+
+		//Use this function when you want stuff to happen in the event that the song is off screen
+		private IEnumerator onSongCompletelyDone(){
+			//Wait until everything is off screen.
+			int total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
+			while(total_notes > 0){
+				yield return new WaitForSeconds (0.01f);
+				total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
+			} 
+
+
+			Debug.Log ("Song has been finished");
+			isComposing = false;
+		}
+			
 	}
 }

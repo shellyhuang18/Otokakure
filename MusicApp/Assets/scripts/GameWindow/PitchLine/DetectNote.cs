@@ -49,6 +49,7 @@ namespace PitchLine{
 			//data.updateCurrNote();
 			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
+
 		}
 
 		private void onMiss(){

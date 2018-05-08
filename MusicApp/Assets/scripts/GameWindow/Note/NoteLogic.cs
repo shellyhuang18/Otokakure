@@ -6,13 +6,37 @@ using System;
 namespace NoteLogic{
 	public class NoteLogic {
 
+		public class GameElements{
+			public bool is_alert = false;
+
+			public GameElements(Song[] song){
+
+			}
+
+			//empty constructor
+			public GameElements(){}
+		}
+			
+		public class Alert : GameElements{
+			public string id;
+			public bool multiple;
+
+			public Alert(string id){
+				this.id = id;
+			}
+				
+			//empty constructor
+			public Alert(){}
+
+
+		}
+
 		public class Chord : Sound{
 			public List<Note> notes;
 			public Chord(){
 				is_chord = true;
 				notes = new List<Note>();
 			}
-
 		}
 
 		public class Note : Sound{
@@ -24,7 +48,7 @@ namespace NoteLogic{
 			}
 		}
 
-		public class Sound{
+		public class Sound : GameElements{
 			//for dynamic casting-
 			public bool is_chord = false;
 			public int duration;
@@ -34,26 +58,28 @@ namespace NoteLogic{
 		public class Song{
 			float time_sig;
 			float tempo;
-			public List<Sound> score; //add
+			public int total_dur;
 
+			public List<GameElements> score; //add notes to score
 
 			public Song(string sfs){
 				//parses string and puts associated values into respective variables.
-				//TODO: make documentation on dynamics and how they're represented in string score format
 				//ex: 4c4 4c#4 4e4 4g4 <16c4 16e4 16g4>
 				//duration/pitch
-				score = new List<Sound>();
+				//alerts: !prefabname
+				//alertslides: !!prefabname
+				score = new List<GameElements>();
 
+				total_dur = 0;
 				string[] notes;
 				notes = sfs.Split (' ');
 
 				bool is_chord = false;
-
+			
 				string str_dur;
 				int duration;
 				string pitch;
 
-				//TODO: error check so that sfs is in the correct format
 				Chord new_chord = null;
 				for(int i = 0; i < notes.Length; ++i){
 					Note new_note = null;
@@ -77,8 +103,6 @@ namespace NoteLogic{
 								//since no broken chords, each note in chord has same duration
 								new_chord.duration = duration;
 
-								//Debug.Log("note: " + duration + " " + pitch);
-
 								break;
 							}
 
@@ -98,7 +122,6 @@ namespace NoteLogic{
 
 								//add that shit to the score
 								score.Add (new_chord);
-								//Debug.Log("note: " + duration + " " + pitch);
 
 								break;
 							}
@@ -108,6 +131,31 @@ namespace NoteLogic{
 						/*else if(Char.IsNumber (notes[i][0])){
 					
 						}*/
+						//indicating alert
+						else if(notes[i][0] == '!'){
+							string id;
+							Alert alert;
+
+							//if multiple slides
+							if(notes[i][1] == '!'){
+								id = notes[i].Substring (2, notes[i].Length-2);
+
+								alert = new Alert(id);
+								alert.multiple = true;
+							}else{
+								id = notes[i].Substring (1, notes[i].Length-1);
+
+								alert = new Alert(id);
+								alert.multiple = false;
+							}
+
+
+							alert.is_alert = true;
+
+							score.Add (alert);
+							break;
+						}
+
 						else{
 							if(!Char.IsNumber (notes[i][j])){
 								str_dur = notes[i].Substring (0, j);		
@@ -116,6 +164,9 @@ namespace NoteLogic{
 								pitch = notes[i].Substring (j, notes[i].Length-str_dur.Length);
 								new_note = new Note(pitch, duration);
 
+								if(pitch != "r"){
+									total_dur += duration;
+								}
 								//to distinguish if notes are contained within a chord
 								if(is_chord){
 									new_chord.notes.Add (new_note);
@@ -134,12 +185,10 @@ namespace NoteLogic{
 
 
 			}//song constructor
+				
+			//empty constructor
+			public Song(){}
 
-			void CheckRest(string note){
-				if (note == "r") {
-
-				}
-			}
 			public void PrintScore(){
 				foreach (Sound item in score) {
 					if (item.is_chord) {
@@ -153,6 +202,8 @@ namespace NoteLogic{
 					}
 				}
 			}
+
+
 
 		}
 	}
