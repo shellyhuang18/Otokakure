@@ -10,7 +10,6 @@ using Firebase.Database;
 
 //Namespace for the sign in and registration authentication code
 namespace SignIn {
-
 	//This class displays useful information about the user to the user such as names, range and email.
 	//It also gives the user to chance to log out of the account. 
 	public class DisplayUserInfo : MonoBehaviour {
@@ -21,7 +20,9 @@ namespace SignIn {
 		public Text email;
 		public Text hrange;
 		public Text lrange;
-
+		public Text overall_accuracy;
+		public Text total_score;
+		public Text overall_possible;
 		//On start, user is retrieved from Firebase and the database is started. 
 		void Start () {
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
@@ -53,6 +54,15 @@ namespace SignIn {
 							}
 							if (name.Key == "LowerRange"){
 								lrange.text = name.Value.ToString();
+							}
+							if(name.Key == "Overall Accuracy"){
+								overall_accuracy.text = name.Value.ToString();
+							}
+							if(name.Key == "Total Score"){
+								total_score.text = name.Value.ToString();
+							}
+							if(name.Key == "Overall Possible"){
+								overall_possible.text = name.Value.ToString();
 							}
 						}
 					}

@@ -28,11 +28,11 @@ namespace Communication{
 		private static Queue<Exercise> queue;
 		private static GameObject game_window;
 
+
 		//Attempts to assign the Manager a game_window by ID
 		public static void setGameWindow(GameObject curr_game_window){
 			game_window = curr_game_window;
 		}
-
 
 		public static BaseModule getCurrentModule(){
 			return current_module;

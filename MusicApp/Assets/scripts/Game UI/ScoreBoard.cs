@@ -6,6 +6,7 @@ using ProgressBar;
 
 public class ScoreBoard : MonoBehaviour {
 	int score = 0;
+	int total = 0; //get total from song object
 	public Text scoreBoard;
 	public Text percentBoard;
 	public GameObject gameobj;
@@ -28,19 +29,19 @@ public class ScoreBoard : MonoBehaviour {
 		*/
 	}
 
-	void IncrementScore(int value){
+	public void IncrementScore(int value){
 		score += value;
 		scoreBoard.text = "Score: " + score;
 	}
 
-	void PercentageScore(int total){
+	public void PercentageScore(int total){
 		double percentHit = score / total;
 		percentBoard.text = percentHit + "%";
 	}
 
 	//amount = how many passed
 	//total = how many there are
-	void Progress(int amount, int total){
+	public void Progress(int amount, int total){
 		double progress = amount / total;
 		BarBehaviour.Value = (float)progress * 100;
 		//BarBehaviour.SetFillerSizeAsPercentage((float)progress * 100);

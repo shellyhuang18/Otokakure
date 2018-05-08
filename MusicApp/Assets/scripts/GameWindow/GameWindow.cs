@@ -159,6 +159,7 @@ public class GameWindow : MonoBehaviour {
 
 
 //====== Control Functions ======
+
 	public void startSong(Song song){
 		conductor.GetComponent<ConductorBehavior>().startSong (song);
 	}
@@ -228,6 +229,7 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void exitGameWindow(){
+
 		Manager.clear();
 		SceneManager.LoadScene ("Home Page");
 	}

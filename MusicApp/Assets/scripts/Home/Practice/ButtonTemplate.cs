@@ -8,8 +8,5 @@ using ToastPlugin;
 public class ButtonTemplate : MonoBehaviour {
 	public Button button;
 	public Text button_text;
-
-	public void PracticeInfo (){
-		ToastHelper.ShowToast(button_text.text.ToString(), true);
-	}
+	public GameObject check;
 }
