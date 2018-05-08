@@ -37,7 +37,7 @@ public class GameWindow : MonoBehaviour {
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 
-		pitchline.GetComponent<AudioListener> ().enabled = micEnabled;
+		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 
 		startSong (Manager.generateSong ());
 		
@@ -74,7 +74,7 @@ public class GameWindow : MonoBehaviour {
 			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
 		}
 		if (Input.GetKeyDown ("9")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 16);
 		}
 		if (Input.GetKeyDown ("0")) {
 			conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
@@ -111,7 +111,12 @@ public class GameWindow : MonoBehaviour {
 			Debug.Log ("resume");
 			resume ();
 		}
+		if (Input.GetKeyDown ("space")) {
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("main");
+		}
 	}
+
 
 
 //====== Variable Mutators and Getters ======
@@ -169,6 +174,11 @@ public class GameWindow : MonoBehaviour {
 		conductor.GetComponent<ConductorBehavior>().pause();
 	}
 
+	public void openPauseWindow(){
+		isPaused = true;
+		window_enabled = true;
+	}
+
 	//gui function- anything gui related implement here
 	void OnGUI(){
 		if (isPaused && window_enabled) {
@@ -198,7 +208,10 @@ public class GameWindow : MonoBehaviour {
 			resume ();
 		}
 		if (GUI.Button (home, "Home") ) {
-			SceneManager.LoadScene ("Home Page");
+			window_enabled = false;
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("Home Page");
+
 		}
 
 	}

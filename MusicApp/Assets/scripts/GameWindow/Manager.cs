@@ -12,7 +12,7 @@ using Song = NoteLogic.NoteLogic.Song;
  * the designated game window.
  * */
 namespace Communication{
-	public class Manager{
+	public class Manager: MonoBehaviour{
 		private struct Exercise{
 			public BaseModule module;
 			public int repetitions;
@@ -56,8 +56,10 @@ namespace Communication{
 		}
 
 		public static void startSession(){
-			SceneManager.LoadScene ("test");
+
 		}
+
+	
 
 		//Generates a random song depending on the current module the manager is using.
 		public static Song generateSong(){

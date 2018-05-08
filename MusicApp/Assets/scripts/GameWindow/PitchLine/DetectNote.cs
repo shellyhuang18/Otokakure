@@ -21,7 +21,7 @@ namespace PitchLine{
 		// Use this for initialization
 		void Start () {
 			enableDetection ();
-			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
+			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
 
@@ -29,12 +29,7 @@ namespace PitchLine{
 			checkOnPitch ();
 		}
 
-		// Update is called once per frame
 
-
-//		void Update () {
-//			//checkOnPitch ();
-//		}
 			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
@@ -43,6 +38,7 @@ namespace PitchLine{
 			hit += 1;
 			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
+
 		}
 
 		private void onMiss(){
@@ -112,5 +108,7 @@ namespace PitchLine{
 		public void disableDetection(){
 			this.detection_enabled = false;
 		}
+
+
 	}
 }

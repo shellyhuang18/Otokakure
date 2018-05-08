@@ -32,6 +32,12 @@ namespace Spawner{
 			generated_note.transform.localScale = new Vector2 (duration / 16, 
 				GetComponentInParent<Conductor.CreateNoteGenerator>().div_space/generated_note.GetComponent<SpriteRenderer> ().bounds.size.y );
 
+			//Resize collider
+			BoxCollider2D col = (BoxCollider2D)generated_note.GetComponent<BoxCollider2D>();
+			SpriteRenderer sprite = generated_note.GetComponent<SpriteRenderer> ();
+			float collider_x = sprite.bounds.size.x / generated_note.transform.localScale.x;
+			float collider_y = sprite.bounds.size.y / generated_note.transform.localScale.y;
+			col.size = new Vector2 ( collider_x, collider_y);
 
 			//TRANSLATE THE NOTE TO THE CORRECT POSITION(On top of the spawner and behind the conductor line)
 			generated_note.transform.position = new Vector2(this.transform.position.x + generated_note.GetComponent<SpriteRenderer>().bounds.extents.x, (float)(this.transform.position.y));

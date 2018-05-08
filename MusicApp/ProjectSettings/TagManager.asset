@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MusicalNote
   - GameWindow
+  - UINote
   layers:
   - Default
   - TransparentFX
