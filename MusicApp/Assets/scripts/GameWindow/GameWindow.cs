@@ -74,7 +74,7 @@ public class GameWindow : MonoBehaviour {
 			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
 		}
 		if (Input.GetKeyDown ("9")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 16);
 		}
 		if (Input.GetKeyDown ("0")) {
 			conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);

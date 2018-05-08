@@ -13,10 +13,41 @@ public class NoteBehavior : MonoBehaviour {
 	private int duration = -1;
 	private int birth_beat = -1; //The beat that this note_behavior was generated
 
-
+	private float max_opacity = 0.6f; //The max opacity when the note hasn't been hit
 
 	void Awake(){
 		startNoteFadeIn ();
+		startOpaqueWhenHit ();
+	}
+
+
+		
+	private void startOpaqueWhenHit(){
+		StartCoroutine (opaqueWhenHitCoroutine ());
+	}
+
+	//A coroutine meant to be called within startOpaqueWhenHit();
+	private IEnumerator opaqueWhenHitCoroutine(){
+		while (true) {
+			if (gameObject.GetComponent<BoxCollider2D> ().IsTouching (GameObject.Find ("arrow").GetComponent<BoxCollider2D> ())) {
+				makeSolid ();
+			} else {
+				makeGhost ();
+			}
+			yield return new WaitForSeconds (0.01f);
+		}
+	}
+
+	public void makeSolid(){
+		Color color = gameObject.GetComponent<SpriteRenderer> ().material.color;
+		color.a = 1.0f;
+		gameObject.GetComponent<SpriteRenderer> ().material.color = color;
+	}
+
+	public void makeGhost(){
+		Color color = gameObject.GetComponent<SpriteRenderer> ().material.color;
+		color.a = this.max_opacity;
+		gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 	}
 
 	void OnMouseDown(){
@@ -112,10 +143,18 @@ public class NoteBehavior : MonoBehaviour {
 			yield return new WaitForSeconds (0.01f);
 		}
 
-		while (color.a < 0.60f) {
+		while (color.a < this.max_opacity) {
 			color.a += alpha_per_wait;
 			gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 			yield return new WaitForSeconds (0.01f);
 		}
 	}
+
+//	void OnTriggerStay2D(Collider2D col){
+//		if (col.gameObject.name == "arrow") {
+//			makeSolid ();
+//		} else {
+//			makeGhost ();
+//		}
+//	}
 }
