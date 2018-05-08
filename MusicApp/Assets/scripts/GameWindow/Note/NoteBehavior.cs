@@ -59,7 +59,9 @@ public class NoteBehavior : MonoBehaviour {
 		string clip_id = pitch;
 		string file_name = "Sounds/" + clip_id;
 		AudioClip audio_clip = Resources.Load(file_name) as AudioClip;
+		Debug.Log (audio_clip);
 		AudioSource audio_source = gameObject.GetComponent<AudioSource> ();
+
 
 		//Load the clip into the audio source
 		audio_source.clip = audio_clip;
@@ -104,11 +106,6 @@ public class NoteBehavior : MonoBehaviour {
 		this.birth_beat = birth_beat;
 	}
 
-	//Plays the audio file of the note object associated in this script.
-	public void playAudio(){
-
-	}
-
 	public void setVelocityToTempo(float tempo){
 		
 		float quarter_note_width = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 4.0f;
@@ -148,11 +145,5 @@ public class NoteBehavior : MonoBehaviour {
 		}
 	}
 
-//	void OnTriggerStay2D(Collider2D col){
-//		if (col.gameObject.name == "arrow") {
-//			makeSolid ();
-//		} else {
-//			makeGhost ();
-//		}
-//	}
+
 }
