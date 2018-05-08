@@ -56,7 +56,6 @@ public class AlertBehavior : MonoBehaviour, IPointerClickHandler {
 			}
 
 			//Display single alert
-			Debug.Log ("what iteration: " + i);
 			DisplayAlert(id + i);
 
 			//wait until user clicks to go to next slide
