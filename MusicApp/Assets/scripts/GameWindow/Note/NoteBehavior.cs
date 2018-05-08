@@ -19,8 +19,6 @@ public class NoteBehavior : MonoBehaviour {
 		startNoteFadeIn ();
 		startOpaqueWhenHit ();
 	}
-
-
 		
 	private void startOpaqueWhenHit(){
 		StartCoroutine (opaqueWhenHitCoroutine ());
@@ -29,7 +27,7 @@ public class NoteBehavior : MonoBehaviour {
 	//A coroutine meant to be called within startOpaqueWhenHit();
 	private IEnumerator opaqueWhenHitCoroutine(){
 		while (true) {
-			if (gameObject.GetComponent<BoxCollider2D> ().IsTouching (GameObject.Find ("arrow").GetComponent<BoxCollider2D> ())) {
+			if (gameObject.GetComponent<Collider2D> ().IsTouching (GameObject.Find ("arrow").GetComponent<Collider2D> ())) {
 				makeSolid ();
 			} else {
 				makeGhost ();
