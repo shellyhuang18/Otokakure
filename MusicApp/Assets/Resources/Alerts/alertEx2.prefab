@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4700200441946956}
   m_Layer: 0
-  m_Name: alertEx 2
+  m_Name: alertEx2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

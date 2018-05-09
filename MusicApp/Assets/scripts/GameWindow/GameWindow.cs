@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using Song = NoteLogic.NoteLogic.Song;
 using Manager = Communication.Manager;
 using HintLine;
+using UnityEngine.UI;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
@@ -200,6 +201,10 @@ public class GameWindow : MonoBehaviour {
 		if (isPaused && window_enabled) {
 			pause ();
 
+			//change button's sprite to play
+			GameObject pause_button = GameObject.Find ("Home Button");
+			pause_button.GetComponent<Image> ().sprite = Resources.Load ("Buttons/play_button", typeof(Sprite)) as Sprite;
+
 			//implement pause window
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
@@ -222,6 +227,9 @@ public class GameWindow : MonoBehaviour {
 			isPaused = false;
 			window_enabled = false;
 			resume ();
+			//change button's sprite to pause
+			GameObject pause_button = GameObject.Find ("Home Button");
+			pause_button.GetComponent<Image> ().sprite = Resources.Load ("Buttons/pause_button", typeof(Sprite)) as Sprite;
 		}
 		if (GUI.Button (home, "Home") ) {
 			window_enabled = false;
