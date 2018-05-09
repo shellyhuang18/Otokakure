@@ -50,22 +50,20 @@ public class NoteBehavior : MonoBehaviour {
 
 	void OnMouseDown(){
 		//Play audio file as a hint. 
-		playAudio(this.pitch, 1f); //By default, the hint plays the note for 1 second
+		playAudio(); //By default, the hint plays the note for 1 second
 	}
 
 	//Plays the audio of a certain pitch for n seconds. Returns an reference to the source
 	//if you need it.
-	public AudioSource playAudio(string pitch, float seconds){
-		string clip_id = pitch;
+	public AudioSource playAudio(){
+		string clip_id = this.pitch;
 		string file_name = "Sounds/" + clip_id;
 		AudioClip audio_clip = Resources.Load(file_name) as AudioClip;
-		Debug.Log (audio_clip);
 		AudioSource audio_source = gameObject.GetComponent<AudioSource> ();
 
 
 		//Load the clip into the audio source
 		audio_source.clip = audio_clip;
-//		audio_source.SetScheduledEndTime (seconds);
 
 		//source now plays the assigned clip
 		audio_source.Play ();
