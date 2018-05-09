@@ -37,9 +37,9 @@ public class NoteBehavior : MonoBehaviour {
 	}
 
 	public void makeSolid(){
-		Color color = gameObject.GetComponent<SpriteRenderer> ().material.color;
+		Color color = this.gameObject.GetComponent<SpriteRenderer> ().material.color;
 		color.a = 1.0f;
-		gameObject.GetComponent<SpriteRenderer> ().material.color = color;
+		this.gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 	}
 
 	public void makeGhost(){
@@ -50,20 +50,19 @@ public class NoteBehavior : MonoBehaviour {
 
 	void OnMouseDown(){
 		//Play audio file as a hint. 
-		playAudio(this.pitch, 1f); //By default, the hint plays the note for 1 second
+		playAudio(); //By default, the hint plays the note for 1 second
 	}
 
-	//Plays the audio of a certain pitch for n seconds. Returns an reference to the source
-	//if you need it.
-	public AudioSource playAudio(string pitch, float seconds){
-		string clip_id = pitch;
+	//Plays the audio of the note
+	public AudioSource playAudio(){
+		string clip_id = this.pitch;
 		string file_name = "Sounds/" + clip_id;
 		AudioClip audio_clip = Resources.Load(file_name) as AudioClip;
 		AudioSource audio_source = gameObject.GetComponent<AudioSource> ();
 
+
 		//Load the clip into the audio source
 		audio_source.clip = audio_clip;
-//		audio_source.SetScheduledEndTime (seconds);
 
 		//source now plays the assigned clip
 		audio_source.Play ();
@@ -102,11 +101,6 @@ public class NoteBehavior : MonoBehaviour {
 
 	public void setBirthBeat(int birth_beat){
 		this.birth_beat = birth_beat;
-	}
-
-	//Plays the audio file of the note object associated in this script.
-	public void playAudio(){
-
 	}
 
 	public void setVelocityToTempo(float tempo){
@@ -148,11 +142,5 @@ public class NoteBehavior : MonoBehaviour {
 		}
 	}
 
-//	void OnTriggerStay2D(Collider2D col){
-//		if (col.gameObject.name == "arrow") {
-//			makeSolid ();
-//		} else {
-//			makeGhost ();
-//		}
-//	}
+
 }

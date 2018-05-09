@@ -1,6 +1,19 @@
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Assembly-CSharp.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Firebase.App.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Firebase.Auth.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Firebase.Database.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Firebase.Editor.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Firebase.Platform.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.IOSResolver_v1.2.61.0.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.JarResolver_v1.2.61.0.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.MiniJson.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.Sharpen.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.VersionHandler.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Google.VersionHandlerImpl_v1.2.61.0.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\nunit.framework.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Unity.Compat.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Unity.Tasks.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.Advertisements.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.Analytics.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
@@ -43,6 +56,7 @@ C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.iOS.Extensi
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Unity.Cecil.Pdb.dll
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEngine.xml
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.xml
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEngine.UI.xml
@@ -65,5 +79,6 @@ C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.SpatialTrac
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.VR.xml
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+C:\Users\puhbuh\Desktop\MusicApp\MusicApp\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\obj\Debug\Assembly-CSharp.dll
 C:\Users\puhbuh\Desktop\MusicApp\MusicApp\obj\Debug\Assembly-CSharp.pdb

@@ -42,20 +42,17 @@ namespace PitchLine{
 			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
 			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
 			//data.updateCurrNote();
-			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
 
 		}
 
 		private void onMiss(){
 			data.IncrementMisses ();
-			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Stop ();
 
 			Debug.Log ("miss");
 		}
 
 		private void onNothing(){
-			GameObject.Find ("arrow").GetComponent<ParticleSystem> ().Stop ();
 		}
 
 		private void onComplete(){

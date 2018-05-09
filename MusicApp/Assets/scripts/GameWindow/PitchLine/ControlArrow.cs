@@ -22,6 +22,7 @@ namespace PitchLine{
 
 		private PitchDetector pitch_detector;
 
+		GameWindow game_window_script;
 
 		public void Start () {
 			arrow = GameObject.Find ("arrow");
@@ -40,12 +41,12 @@ namespace PitchLine{
 			highest_detectable_frequency = (float)(highest_valid_frequency/ Math.Pow(2, -50.0/1200));
 
 			pitch_detector = gameObject.GetComponent <PitchDetector>();
+
+			game_window_script = GameObject.FindGameObjectWithTag ("GameWindow").GetComponent<GameWindow>();
 		}
 			
 
 		public void Update(){
-
-			GameWindow game_window_script = GameObject.FindGameObjectWithTag ("GameWindow").GetComponent<GameWindow>();
 			if (game_window_script.getMicStatus()) {
 				moveArrow (pitch_detector.pitch);
 			} else {
@@ -57,30 +58,52 @@ namespace PitchLine{
 			
 		public void moveArrow(double frequency){
 
-			//If pitch level is outside the range of the pitchline, unrender the arrow
-			if (frequency < this.lowest_detectable_frequency || this.highest_detectable_frequency < frequency ) {
+			//The pitch detector returns a -1 when the volume is too low. 
+			//Unrender the arrow when that happens
+			if (frequency == -1) {
 				arrow.GetComponent<SpriteRenderer> ().enabled = false;
-			} 
-			else {
+				arrow.GetComponent<Collider2D> ().enabled = false;
+			}
+			else{
 				arrow.GetComponent<SpriteRenderer> ().enabled = true;
+				arrow.GetComponent<Collider2D> ().enabled = true;
 
 
-				// + 1 to reflect the div_space offset. (Half offset on top and half offset on bottom)
-				// 100 cents per half step.
-				int total_cents = 100 * (Pitch.getTotalHalfSteps (lowest_valid_pitch, highest_valid_pitch) + 1);
-
-				float pixel_per_cents = (float)height / total_cents;
-
-				// An octave has 1200 cents 
-				//This equation determines the offset in cents between the lowest freqency in the line, to the frequency
-				float cents_change = (float)(1200 * Math.Log( frequency/this.lowest_detectable_frequency , 2));
-
-
-				float new_pos = (float)lower_bound + (pixel_per_cents * cents_change);
-
-
-				arrow.transform.position = new Vector2 (arrow.transform.position.x, new_pos);
+				//If pitch is too low, just set it to the bottom of the pitch line
+				if (frequency < this.lowest_detectable_frequency){
+					arrow.transform.position = frequencyToPitchlinePosition (this.lowest_detectable_frequency);
+				} 
+				//If the pitch is too high, just set it to the bottom of the pitch line
+				else if(frequency > this.highest_detectable_frequency ){
+					arrow.transform.position = frequencyToPitchlinePosition (this.highest_detectable_frequency);
+				}
+				else {
+					arrow.transform.position = frequencyToPitchlinePosition (frequency);
+				}
 			}
 		}
+
+		//Converts a frequency and determines it's position on the pitch line.
+		private Vector2 frequencyToPitchlinePosition(double frequency){
+			
+			// Add + 1 for the half offset on top and half offset on bottom
+			// 100 cents per half step.
+			int total_cents = 100 * (Pitch.getTotalHalfSteps (lowest_valid_pitch, highest_valid_pitch) + 1);
+
+			float pixel_per_cents = (float)height / total_cents;
+
+			// An octave has 1200 cents 
+			//This equation determines the offset in cents between the LOWEST FREQUENCY ON THE LINE, to the frequency given
+			float cents_change = (float)(1200 * Math.Log( frequency/this.lowest_detectable_frequency , 2));
+
+
+			float new_pos = (float)lower_bound + (pixel_per_cents * cents_change);
+
+
+			return new Vector2 (arrow.transform.position.x, new_pos);
+
+
+		}
+			
 	}
 }
