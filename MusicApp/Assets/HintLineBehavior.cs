@@ -6,20 +6,34 @@ namespace HintLine{
 public class HintLineBehavior : MonoBehaviour {
 
 
-		void onTriggerEnter(Collider2D collider){
+		void OnTriggerEnter2D(Collider2D collider){
 			if(collider.gameObject.tag == "MusicalNote" ){
-				collider.gameObject.GetComponent<NoteBehavior> ().playAudio();
+				GameObject note = collider.gameObject;
+				note.GetComponent<NoteBehavior> ().playAudio();
+//				highlightForOneSecond (note);
 			}
 		}
+			
 
-		public void enableHintLine(){
-			gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+		public void setEnabled(bool val){
+				gameObject.GetComponent<SpriteRenderer> ().enabled = val;
+				gameObject.GetComponent<BoxCollider2D> ().enabled = val;
 		}
 
-		public void disableHintLine(){
-			gameObject.GetComponent<BoxCollider2D> ().enabled = false;
-		}
-
+//		//Highlights a note for one second
+//		private void highlightForOneSecond(GameObject note_obj){
+//			StartCoroutine (highlightForOneSecondCoroutine (note_obj));
+//		}
+//
+//		//A coroutine meant to be called within highlightForOneSecond()
+//		private IEnumerator highlightForOneSecondCoroutine(GameObject note_obj){
+//			note_obj.GetComponent<NoteBehavior> ().makeSolid ();
+//
+//			yield return new WaitForSeconds (1.0f);
+//
+//			note_obj.GetComponent<NoteBehavior> ().makeGhost ();
+//
+//		}
 
 	}
 }

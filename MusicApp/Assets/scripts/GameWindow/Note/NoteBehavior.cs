@@ -37,9 +37,9 @@ public class NoteBehavior : MonoBehaviour {
 	}
 
 	public void makeSolid(){
-		Color color = gameObject.GetComponent<SpriteRenderer> ().material.color;
+		Color color = this.gameObject.GetComponent<SpriteRenderer> ().material.color;
 		color.a = 1.0f;
-		gameObject.GetComponent<SpriteRenderer> ().material.color = color;
+		this.gameObject.GetComponent<SpriteRenderer> ().material.color = color;
 	}
 
 	public void makeGhost(){
@@ -53,8 +53,7 @@ public class NoteBehavior : MonoBehaviour {
 		playAudio(); //By default, the hint plays the note for 1 second
 	}
 
-	//Plays the audio of a certain pitch for n seconds. Returns an reference to the source
-	//if you need it.
+	//Plays the audio of the note
 	public AudioSource playAudio(){
 		string clip_id = this.pitch;
 		string file_name = "Sounds/" + clip_id;

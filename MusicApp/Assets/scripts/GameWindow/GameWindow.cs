@@ -7,11 +7,13 @@ using Utility;
 using UnityEngine.SceneManagement;
 using Song = NoteLogic.NoteLogic.Song;
 using Manager = Communication.Manager;
+using HintLine;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
 	private GameObject pitchline;
 	private GameObject conductor;
+	private GameObject hintline;
 
 	public static Rect pause_window;
 	[SerializeField]
@@ -29,6 +31,9 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool micEnabled;
 
+	[SerializeField]
+	private bool hintLineEnabled;
+
 	// Use this for initialization
 	void Start () {
 		Manager.setGameWindow (gameObject); //Set it to this
@@ -36,8 +41,12 @@ public class GameWindow : MonoBehaviour {
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
+		hintline = (GameObject)GameObject.Find ("hint_line");
 
 		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
+		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
+
+
 
 		startSong (Manager.generateSong ());
 		
@@ -131,6 +140,11 @@ public class GameWindow : MonoBehaviour {
 	public bool getMicStatus(){
 		return this.micEnabled;
 	}
+		
+
+	public void setHintLineActive(bool val){
+		hintline.GetComponent<HintLineBehavior> ().setEnabled (val);
+	}
 
 	//Sets the tempo for the conductor
 	public void setTempo(float tempo){
@@ -157,6 +171,7 @@ public class GameWindow : MonoBehaviour {
 	public bool getPauseStatus(){
 		return this.isPaused;
 	}
+		
 
 
 //====== Control Functions ======
