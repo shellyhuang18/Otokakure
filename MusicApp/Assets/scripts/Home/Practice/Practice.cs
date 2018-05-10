@@ -33,7 +33,8 @@ public class Practice : MonoBehaviour {
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
 
-			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 900, 600);
+			pause_window = new Rect(canvas_coords.x/2, canvas_coords.y/2, Screen.width/2, Screen.height/2);
+//			pause_window = GUI.ModalWindow()
 			GUIContent content = new GUIContent ();
 			content.text = "Enter Amount";
 			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
@@ -41,8 +42,11 @@ public class Practice : MonoBehaviour {
 	}
 	//operations on pop up window
 	void WindowAction(int windowID){
-		Rect input_location = new Rect (100, 100, 100, 30);
-		Rect done_button_location = new Rect (100, 200, 700, 80);
+
+		Rect text_location = new Rect (pause_window.width / 2, pause_window.height * 0f, 100, 30);
+		Rect input_location = new Rect (pause_window.width/2, pause_window.height*0.25f, 100, 30);
+		Rect done_button_location = new Rect (pause_window.width/2, pause_window.height*0.50f, 100, 30);
+//		string n = GUI.
 		input = GUI.TextField (input_location, input);
 		GUI.skin.textField.fontSize = 40;
 		GUI.skin.textField.alignment = TextAnchor.MiddleCenter;
@@ -50,8 +54,12 @@ public class Practice : MonoBehaviour {
 
 		//OnClick listener 
 		if (GUI.Button (done_button_location, "Done") ) {
-			Manager.addExercise (new Module.PitchModule (), 10);
-			Manager.transitionTo ("test");
+			int reps = 0;
+			if(int.TryParse(input, out reps)){
+				window_enabled = false;
+				Manager.addExercise (new Module.PitchModule (), reps);
+				Manager.transitionTo ("test");
+			}
 		}
 	}
 
