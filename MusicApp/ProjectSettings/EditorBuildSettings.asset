@@ -4,4 +4,28 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/scenes/Entry Page and Sign in/main.unity
+    guid: 06e68619d18d74822b9c3698a1925d76
+  - enabled: 1
+    path: Assets/scenes/Entry Page and Sign in/registration.unity
+    guid: 106ab28c127604c55ad8fa08eb0d2b9b
+  - enabled: 1
+    path: Assets/scenes/Entry Page and Sign in/userInfo.unity
+    guid: 0d24f838daa384292bc4f99616896c4a
+  - enabled: 1
+    path: Assets/scenes/Game UI/test.unity
+    guid: ce159d90c99d8bc40b3edf495fe40ab6
+  - enabled: 1
+    path: Assets/scenes/Home/Curriculum.unity
+    guid: d5b0084f50d364870953ccf4b0a1a408
+  - enabled: 1
+    path: Assets/scenes/Home/Daily.unity
+    guid: 6b416af6ddf85445bad13c7dd8b2364e
+  - enabled: 1
+    path: Assets/scenes/Home/Home Page.unity
+    guid: 97c27519a663244239c19cb1c8f89137
+  - enabled: 1
+    path: Assets/scenes/Home/Practice.unity
+    guid: 1ec4f90f7b96b47a584dac6c998a1d1a
