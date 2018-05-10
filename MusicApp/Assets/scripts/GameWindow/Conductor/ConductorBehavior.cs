@@ -211,7 +211,6 @@ namespace Conductor{
 		//Called when the Song starts
 		private void onSongStart(){
 			isComposing = true;
-			Debug.Log ("Song has been started");
 		}
 
 		//Called when the Song is finished composing. 
@@ -232,7 +231,9 @@ namespace Conductor{
 
 			isComposing = false;
 
-			Manager.transitionTo ("practice");
+			if (game_window.GetComponent<GameWindow> ().willExitOnCompletition ()) {
+				Manager.transitionTo ("practice");
+			}
 
 		}
 			

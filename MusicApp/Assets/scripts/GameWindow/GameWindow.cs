@@ -35,6 +35,9 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool hintLineEnabled;
 
+	[SerializeField]
+	private bool exitWhenSongFinished;
+
 	Song current_song;
 
 	// Use this for initialization
@@ -179,6 +182,9 @@ public class GameWindow : MonoBehaviour {
 		return this.current_song;
 	}
 
+	public bool willExitOnCompletition(){
+		return this.exitWhenSongFinished;
+	}
 
 //====== Control Functions ======
 

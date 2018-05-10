@@ -43,6 +43,7 @@ namespace PitchLine{
 			pitch_detector = gameObject.GetComponent <PitchDetector>();
 
 			game_window_script = GameObject.FindGameObjectWithTag ("GameWindow").GetComponent<GameWindow>();
+
 		}
 			
 
@@ -104,6 +105,7 @@ namespace PitchLine{
 
 
 		}
+			
 			
 	}
 }

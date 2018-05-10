@@ -28,16 +28,24 @@ namespace Communication{
 
 
 		public static BaseModule getCurrentModule(){
-			return queue.Peek ().module;
+			if (queue.Count != 0) {
+				return queue.Peek ().module;
+			}
+			return null;
 		}
 
 		public static int getCurrentRepetition(){
-			return queue.Peek ().repetitions;
+			if (queue.Count != 0) {
+				return queue.Peek ().repetitions;
+			}
+			return 0;
 		}
 
 		//Dequeues the current exercise, updates manager info
 		public static void nextExercise(){
-			Exercise curr_ex = queue.Dequeue ();
+			if (queue.Count != 0) {
+				Exercise curr_ex = queue.Dequeue ();
+			}
 		}
 
 		public static void addExercise(BaseModule module, int repetitions){
