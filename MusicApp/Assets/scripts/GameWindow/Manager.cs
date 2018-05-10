@@ -61,8 +61,7 @@ namespace Communication{
 			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
 			n.GetComponent<TransitionScene> ().startTransition (scene_name);
 		}
-
-	
+			
 
 		//Generates a random song depending on the current module the manager is using.
 		public static Song generateSong(){

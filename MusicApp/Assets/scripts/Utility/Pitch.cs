@@ -20,14 +20,11 @@ namespace Utility{
 			return -1; //Error if return -1
 		}
 
-		//Determines the amount of cent change between the lower TO the higher pitch
-		public static float hereIsYourChange(string lower_pitch, string higher_pitch){
-			float low_freq = Utility.Pitch.toFrequency (lower_pitch);
-			float high_freq = Utility.Pitch.toFrequency (higher_pitch); 
 
+		//Determines the amount of cent change between the lower TO the higher pitch
+		public static float hereisYourChange(float low_freq, float high_freq){
 			float cents_change = (float)(1200 * Math.Log( high_freq/low_freq, 2));
 			return cents_change;
-
 		}
 			
 

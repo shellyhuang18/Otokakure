@@ -20,9 +20,13 @@ namespace PitchLine{
 		private float lowest_detectable_frequency; //The max and min frequency that the PITCHLINE can detect
 		private float highest_detectable_frequency;
 
+		private float off_pitch_render_threshold = 1200; //The maximum amount of cent you can be off pitch before the arrow unrenders
+
 		private PitchDetector pitch_detector;
 
 		GameWindow game_window_script;
+
+
 
 		public void Start () {
 			arrow = GameObject.Find ("arrow");
@@ -44,8 +48,22 @@ namespace PitchLine{
 
 			game_window_script = GameObject.FindGameObjectWithTag ("GameWindow").GetComponent<GameWindow>();
 
+//			StartCoroutine (testLineIsWorking ());
 		}
 			
+
+		//Just a test function to check that the arrows
+		IEnumerator testLineIsWorking(){
+			float a = Utility.Pitch.toFrequency ("c1");
+			float b = Utility.Pitch.toFrequency ("c6");
+			float diff = b - a;
+
+			for (float i = a; i < diff; i++) {
+				moveArrow (i);
+				yield return new WaitForSeconds (0.01f);
+			}
+
+		}
 
 		public void Update(){
 			if (game_window_script.getMicStatus()) {
@@ -73,11 +91,33 @@ namespace PitchLine{
 				//If pitch is too low, just set it to the bottom of the pitch line
 				if (frequency < this.lowest_detectable_frequency){
 					arrow.transform.position = frequencyToPitchlinePosition (this.lowest_detectable_frequency);
+
+					//Make the arrow get increasingly transparent the more off pitch you are. (1200, an octave, is the max you can be off);
+					float how_off_are_you = Utility.Pitch.hereisYourChange ((float)frequency, (float)lowest_detectable_frequency);
+					float transparency_fraction = 1 - how_off_are_you/off_pitch_render_threshold;
+					if (transparency_fraction < 0)
+						transparency_fraction = 0;
+
+					Color color = arrow.GetComponent<SpriteRenderer> ().material.color;
+					color.a = transparency_fraction;
+					arrow.GetComponent<SpriteRenderer> ().material.color = color;
+
 				} 
 				//If the pitch is too high, just set it to the bottom of the pitch line
 				else if(frequency > this.highest_detectable_frequency ){
 					arrow.transform.position = frequencyToPitchlinePosition (this.highest_detectable_frequency);
+
+					//Make the arrow get increasingly transparent the more off pitch you are. (1200, an octave, is the max you can be off);
+					float how_off_are_you = Utility.Pitch.hereisYourChange ((float)highest_detectable_frequency, (float)frequency);
+					float transparency_fraction = 1 - how_off_are_you/off_pitch_render_threshold;
+					if (transparency_fraction < 0)
+						transparency_fraction = 0;
+
+					Color color = arrow.GetComponent<SpriteRenderer> ().material.color;
+					color.a = transparency_fraction;
+					arrow.GetComponent<SpriteRenderer> ().material.color = color;
 				}
+
 				else {
 					arrow.transform.position = frequencyToPitchlinePosition (frequency);
 				}
