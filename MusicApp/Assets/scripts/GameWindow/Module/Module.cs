@@ -5,8 +5,8 @@ using RandomGenerator = System.Random;
 //The base class used as a template for generating random
 namespace Module{
 	public abstract class BaseModule {
-		protected const string DEFAULT_LOWEST_PITCH = "c2";
-		protected const string DEFAULT_HIGHEST_PITCH = "c6";
+		protected const string DEFAULT_LOWEST_PITCH = "c4";
+		protected const string DEFAULT_HIGHEST_PITCH = "c5";
 		protected const int DEFAULT_LEADING_LENGTH = 4;
 		protected const int DEFAULT_TRAILING_LENGTH = 4;
 		protected const int DEFAULT_MIN_NOTE_LENGTH = 4;

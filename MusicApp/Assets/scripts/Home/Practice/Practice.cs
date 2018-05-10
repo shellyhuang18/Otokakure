@@ -7,6 +7,8 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
+using Module;
+using Manager = Communication.Manager;
 
 //This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
@@ -39,14 +41,17 @@ public class Practice : MonoBehaviour {
 	}
 	//operations on pop up window
 	void WindowAction(int windowID){
-		Rect input_location = new Rect (100, 100, 700, 80);
-		Rect done_button_location = new Rect (100, 500, 700, 80);
+		Rect input_location = new Rect (100, 100, 100, 30);
+		Rect done_button_location = new Rect (100, 200, 700, 80);
 		input = GUI.TextField (input_location, input);
 		GUI.skin.textField.fontSize = 40;
 		GUI.skin.textField.alignment = TextAnchor.MiddleCenter;
 		GUI.skin.button.fontSize = 40;
+
+		//OnClick listener 
 		if (GUI.Button (done_button_location, "Done") ) {
-			SceneManager.LoadScene ("Daily");
+			Manager.addExercise (new Module.PitchModule (), 10);
+			Manager.transitionTo ("test");
 		}
 	}
 

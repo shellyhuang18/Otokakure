@@ -8,6 +8,7 @@ using Song = NoteLogic.NoteLogic.Song;
 using GameElements = NoteLogic.NoteLogic.GameElements;
 using Alert = NoteLogic.NoteLogic.Alert;
 using UnityEngine.SceneManagement;
+using Manager = Communication.Manager;
 
 namespace Conductor{
 	public class ConductorBehavior : MonoBehaviour
@@ -225,13 +226,14 @@ namespace Conductor{
 			//Wait until everything is off screen.
 			int total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			while(total_notes > 0){
-				yield return new WaitForSeconds (0.01f);
+				yield return new WaitForSeconds (1f);
 				total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			} 
 
-
-			Debug.Log ("Song has been finished");
 			isComposing = false;
+
+			Manager.transitionTo ("practice");
+
 		}
 			
 	}

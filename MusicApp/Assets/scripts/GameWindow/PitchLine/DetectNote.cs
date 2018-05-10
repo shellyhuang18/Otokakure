@@ -15,13 +15,13 @@ namespace PitchLine{
 
 		private int hit = 0;
 		private int miss = 0;
-		private DataAnalysis data;
+//		private DataAnalysis data;
 
 
 
 		// Use this for initialization
 		void Start () {
-			data = new DataAnalysis ();
+//			data = new DataAnalysis ();
 			enableDetection ();
 			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
@@ -37,7 +37,7 @@ namespace PitchLine{
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
-			data.IncrementHits();
+//			data.IncrementHits();
 			gameObject.GetComponent<ScoreBoard>().IncrementScore(1);
 			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
 			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
@@ -47,7 +47,7 @@ namespace PitchLine{
 		}
 
 		private void onMiss(){
-			data.IncrementMisses ();
+//			data.IncrementMisses ();
 
 			Debug.Log ("miss");
 		}
@@ -56,7 +56,7 @@ namespace PitchLine{
 		}
 
 		private void onComplete(){
-			data.SetCurrentValues ();
+//			data.SetCurrentValues ();
 			//data.SetCurrentValues (hit, hit + miss);
 			//data.CalculateOverall ();
 		}

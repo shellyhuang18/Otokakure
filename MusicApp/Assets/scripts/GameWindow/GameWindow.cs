@@ -35,9 +35,11 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool hintLineEnabled;
 
+	Song current_song;
+
 	// Use this for initialization
 	void Start () {
-		Manager.setGameWindow (gameObject); //Set it to this
+		
 
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
@@ -48,8 +50,8 @@ public class GameWindow : MonoBehaviour {
 		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
 
 
-
-		startSong (Manager.generateSong ());
+		current_song = Manager.generateSong ();
+		startSong (current_song);
 		
 
 	}
@@ -173,6 +175,9 @@ public class GameWindow : MonoBehaviour {
 		return this.isPaused;
 	}
 		
+	public Song getCurrentSong(){
+		return this.current_song;
+	}
 
 
 //====== Control Functions ======
@@ -260,9 +265,5 @@ public class GameWindow : MonoBehaviour {
 		pitchline.GetComponent<DetectNote> ().enableDetection ();
 	}
 
-	public void exitGameWindow(){
 
-		Manager.clear();
-		SceneManager.LoadScene ("Home Page");
-	}
 }
