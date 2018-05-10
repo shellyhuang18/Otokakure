@@ -6,15 +6,20 @@ using PitchLine;
 using Utility;
 using UnityEngine.SceneManagement;
 using Song = NoteLogic.NoteLogic.Song;
-
+using Manager = Communication.Manager;
+using HintLine;
+using UnityEngine.UI;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
 	private GameObject pitchline;
 	private GameObject conductor;
+	private GameObject hintline;
 
+	public static Rect pause_window;
 	[SerializeField]
 	private bool isPaused;
+	private bool window_enabled;
 
 	//Variables associated with the entire Game Window
 	[SerializeField]
@@ -24,23 +29,29 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private float tempo;
 
+	[SerializeField]
+	private bool micEnabled;
+
+	[SerializeField]
+	private bool hintLineEnabled;
+
 	// Use this for initialization
 	void Start () {
+		Manager.setGameWindow (gameObject); //Set it to this
+
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
+		hintline = (GameObject)GameObject.Find ("hint_line");
 
-		string test_score;
-		test_score = "";
-		for (int i = 0; i < 45; i++) {
-			test_score += "4a4 4b4 ";
-		}
-		Song test = new Song (test_score);
-//
-//
-//		Song test = new Song("16a4 17a4");
-		//conductor.GetComponent<ConductorBehavior> ().startSong(test);
-//			conductor.GetComponent<ConductorBehavior>().triggerPitch ("c4", 4*120);
+		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
+		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
+
+
+
+		startSong (Manager.generateSong ());
+		
+
 	}
 		
 	// Update is called once per frame
@@ -73,7 +84,7 @@ public class GameWindow : MonoBehaviour {
 			conductor.GetComponent<ConductorBehavior>().triggerPitch ("g#4", 4);
 		}
 		if (Input.GetKeyDown ("9")) {
-			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 4);
+			conductor.GetComponent<ConductorBehavior>().triggerPitch ("a4", 16);
 		}
 		if (Input.GetKeyDown ("0")) {
 			conductor.GetComponent<ConductorBehavior> ().triggerPitch ("a#4", 4);
@@ -91,7 +102,17 @@ public class GameWindow : MonoBehaviour {
 		}
 		if (Input.GetKeyDown ("p")) {
 			Debug.Log ("pause");
-			pause ();
+
+			isPaused = true;
+			window_enabled = true;
+		}
+		if (Input.GetKeyDown ("m")) {
+			Song new_song = new Song ("4c#4 4d#4 4r 4d4 4d#4 !alert");
+			conductor.GetComponent<ConductorBehavior>().startSong (new_song);
+		}
+		if (Input.GetKeyDown ("n")) {
+			Song new_song = new Song ("4c#4 4d#4 4r 4d4 4d#4 !!alertEx");
+			conductor.GetComponent<ConductorBehavior>().startSong (new_song);
 		}
 		if (Input.GetKeyDown ("s")) {
 			stop ();
@@ -100,7 +121,12 @@ public class GameWindow : MonoBehaviour {
 			Debug.Log ("resume");
 			resume ();
 		}
+		if (Input.GetKeyDown ("space")) {
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("main");
+		}
 	}
+
 
 
 //====== Variable Mutators and Getters ======
@@ -110,6 +136,15 @@ public class GameWindow : MonoBehaviour {
 
 	public string getHighestPitch(){
 		return this.highest_pitch;
+	}
+
+	public bool getMicStatus(){
+		return this.micEnabled;
+	}
+		
+
+	public void setHintLineActive(bool val){
+		hintline.GetComponent<HintLineBehavior> ().setEnabled (val);
 	}
 
 	//Sets the tempo for the conductor
@@ -137,9 +172,14 @@ public class GameWindow : MonoBehaviour {
 	public bool getPauseStatus(){
 		return this.isPaused;
 	}
+		
 
 
 //====== Control Functions ======
+
+	public void startSong(Song song){
+		conductor.GetComponent<ConductorBehavior>().startSong (song);
+	}
 
 	public void pause(){
 		isPaused = true;
@@ -149,6 +189,55 @@ public class GameWindow : MonoBehaviour {
 
 		//Pause the conductor from generating more music
 		conductor.GetComponent<ConductorBehavior>().pause();
+	}
+
+	public void openPauseWindow(){
+		isPaused = true;
+		window_enabled = true;
+	}
+
+	//gui function- anything gui related implement here
+	void OnGUI(){
+		if (isPaused && window_enabled) {
+			pause ();
+
+			//change button's sprite to play
+			GameObject pause_button = GameObject.Find ("Home Button");
+			pause_button.GetComponent<Image> ().sprite = Resources.Load ("Buttons/play_button", typeof(Sprite)) as Sprite;
+
+			//implement pause window
+			GameObject canvas = GameObject.Find ("Canvas");
+			Vector2 canvas_coords = canvas.transform.position;
+
+			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 300, 200);
+
+			GUIContent content = new GUIContent ();
+			content.text = "Pause Menu";
+			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
+		}
+	}
+	//operations on pop up window
+	void WindowAction(int windowID){
+		
+		Rect button = new Rect (100, 50, 100, 35);
+		Rect home = new Rect (100, 100, 100, 35);
+		//GUIContent butt = new GUIContent ();
+		//butt.image = GameObject.Find ("arrow").GetComponent<SpriteRenderer> ().sprite.texture;
+		if (GUI.Button (button, "Resume") ) {
+			isPaused = false;
+			window_enabled = false;
+			resume ();
+			//change button's sprite to pause
+			GameObject pause_button = GameObject.Find ("Home Button");
+			pause_button.GetComponent<Image> ().sprite = Resources.Load ("Buttons/pause_button", typeof(Sprite)) as Sprite;
+		}
+		if (GUI.Button (home, "Home") ) {
+			window_enabled = false;
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition ("Home Page");
+
+		}
+
 	}
 
 	public void resume(){
@@ -172,8 +261,8 @@ public class GameWindow : MonoBehaviour {
 	}
 
 	public void exitGameWindow(){
-		//change data in database
-		//call info page 
+
+		Manager.clear();
 		SceneManager.LoadScene ("Home Page");
 	}
 }

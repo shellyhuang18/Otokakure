@@ -23,7 +23,7 @@ namespace PitchLine{
 		void Start () {
 			data = new DataAnalysis ();
 			enableDetection ();
-			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<PolygonCollider2D>();
+			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
 		}
 
@@ -31,12 +31,7 @@ namespace PitchLine{
 			checkOnPitch ();
 		}
 
-		// Update is called once per frame
 
-
-//		void Update () {
-//			//checkOnPitch ();
-//		}
 			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
@@ -47,19 +42,17 @@ namespace PitchLine{
 			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
 			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
 			//data.updateCurrNote();
-			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("hit");
+
 		}
 
 		private void onMiss(){
 			data.IncrementMisses ();
-			GameObject.Find("arrow").GetComponent<ParticleSystem> ().Stop ();
 
 			Debug.Log ("miss");
 		}
 
 		private void onNothing(){
-			GameObject.Find ("arrow").GetComponent<ParticleSystem> ().Stop ();
 		}
 
 		private void onComplete(){
@@ -124,5 +117,7 @@ namespace PitchLine{
 		public void disableDetection(){
 			this.detection_enabled = false;
 		}
+
+
 	}
 }
