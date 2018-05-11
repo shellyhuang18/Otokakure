@@ -16,9 +16,10 @@ public class Practice : MonoBehaviour {
 	public GameObject header;
 	public Text practice_text;
 	public string input = "";
+	public string title;
 	List<string> interval_list = new List<string> (new string[] {"Unison", "Minor 2nd", "Major 2nd","Minor 3rd", "Major 3rd",
 		"Perfect 4th", "Perfect 5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"});
-
+//	List<Button.ButtonClickedEvent> = Selection;
 
 	public static Rect pause_window;
 	[SerializeField]
@@ -27,15 +28,15 @@ public class Practice : MonoBehaviour {
 	//gui function- anything gui related implement here
 	void OnGUI(){
 		if (isClicked && window_enabled) {
-
 			//implement pause window
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
 
-			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 900, 600);
+			pause_window = new Rect ((float)(canvas_coords.x / 2), (float)(canvas_coords.y / 2), 900, 600);
 			GUIContent content = new GUIContent ();
-			content.text = "Enter Amount";
+			content.text = title;
 			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
+	
 		}
 	}
 	//operations on pop up window
@@ -109,25 +110,25 @@ public class Practice : MonoBehaviour {
 		}
 	}
 
-	public void Done() {
+	public void Done(string id) {
 		isClicked = true;
 		window_enabled = true;
+		title = id;
 	}
 		
 
-	public Button.ButtonClickedEvent Selection;
-
-	void MapButtons(string practice_type){
+	void MapButtons(string practice_type) {
 		content_panel.DetachChildren ();
 		if (practice_type == "Pitch") {
 			isClicked = true;
 			window_enabled = true;
+			title = "Pitch";
 		} else if (practice_type == "Intervals") {
 			foreach (var practices in interval_list) {
 				GameObject newButton = Instantiate(sample_button) as GameObject;
 				ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
 				button_script.text.text = practices;
-				button_script.button.onClick = Selection;
+				button_script.button.onClick.AddListener (delegate {Done(practices);} );
 				button_script.check.isOn = true;
 				button_script.check.gameObject.SetActive (false);
 				newButton.transform.SetParent(content_panel);
