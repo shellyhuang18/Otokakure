@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using ToastPlugin;
 
 //This class serves as a template for dynamically generated buttons on practice page
 public class ButtonTemplate : MonoBehaviour {
