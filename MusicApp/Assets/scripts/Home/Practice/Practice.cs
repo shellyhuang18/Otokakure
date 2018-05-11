@@ -11,6 +11,7 @@ using Firebase.Database;
 //This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
 	public GameObject sample_button;
+	public Button temporary;
 	public Transform content_panel;
 	public GameObject header;
 	public Text practice_text;
@@ -90,6 +91,30 @@ public class Practice : MonoBehaviour {
 		MapButtons ("Intervals");
 	}
 
+	public void SingleOrMultiple () {
+		int amount = content_panel.childCount;
+		bool set_to2 = content_panel.GetChild (0).GetComponent<ButtonTemplate> ().button.IsActive();
+		bool set_to = !set_to2;
+		Debug.Log ("set_to " + set_to);
+		Debug.Log ("set_to2" + set_to2);
+		if (set_to2) {
+			temporary.gameObject.SetActive(true);
+		} else {
+			temporary.gameObject.SetActive(false); 
+		}
+		for (int i = 0; i < amount-1; i++) {
+			content_panel.GetChild (i).GetComponent<ButtonTemplate> ().button.gameObject.SetActive (set_to);
+			content_panel.GetChild (i).GetComponent<ButtonTemplate> ().check.gameObject.SetActive (set_to2);
+
+		}
+	}
+
+	public void Done() {
+		isClicked = true;
+		window_enabled = true;
+	}
+		
+
 	public Button.ButtonClickedEvent Selection;
 
 	void MapButtons(string practice_type){
@@ -101,11 +126,14 @@ public class Practice : MonoBehaviour {
 			foreach (var practices in interval_list) {
 				GameObject newButton = Instantiate(sample_button) as GameObject;
 				ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
-				button_script.button_text.text = practices;
+				button_script.text.text = practices;
 				button_script.button.onClick = Selection;
-				button_script.check.SetActive (false);
+				button_script.check.isOn = true;
+				button_script.check.gameObject.SetActive (false);
 				newButton.transform.SetParent(content_panel);
 			}
+			temporary.transform.SetParent (content_panel);
+			temporary.gameObject.SetActive(false);
 		} else {
 		}
 	}
