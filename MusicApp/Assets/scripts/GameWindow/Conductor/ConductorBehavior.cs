@@ -22,6 +22,7 @@ namespace Conductor{
 			isComposing = false;
 			game_window = GameObject.Find ("game_window");
 			tempo = game_window.GetComponent<GameWindow> ().getTempo ();
+
 		}
 
 		//Finds the corresponding child and commands it to create a pitch. The reference to the 
@@ -143,16 +144,21 @@ namespace Conductor{
 
 				if (item.is_alert) {
 					Alert alert = item as Alert;
+					AlertBehavior alert_canvas = GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior>();
 
 					//retrieve alert from list of alerts(based on id)
 					if (alert.multiple) {
-						StartCoroutine(GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior> ().DisplayAlertSlides (alert.id));
+						StartCoroutine(alert_canvas.DisplayAlertSlides (alert.id));
 
 					} else {
-						GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+						alert_canvas.DisplayAlert (alert.id);
+					}
+						
+					while (!alert_canvas.getEndStatus ()) {
+						yield return new WaitForSeconds (.1f);
 					}
 
-
+					alert_canvas.setEndStatus (false);
 					continue;
 				}
 
@@ -231,7 +237,7 @@ namespace Conductor{
 
 			isComposing = false;
 
-			if (game_window.GetComponent<GameWindow> ().willExitOnCompletition ()) {
+			if (game_window.GetComponent<GameWindow>().willExitOnCompletition()) {
 				Manager.transitionTo ("practice");
 			}
 

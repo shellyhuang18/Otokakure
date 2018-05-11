@@ -28,7 +28,7 @@ namespace PitchLine{
 
 
 
-		public void Start () {
+		public void instantiate () {
 			arrow = GameObject.Find ("arrow");
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;	

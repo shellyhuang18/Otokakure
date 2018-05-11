@@ -25,7 +25,15 @@ namespace Communication{
 		}
 
 		private static Queue<Exercise> queue = new Queue<Exercise>();
+		private static bool tutorial_mode = false;
 
+		public static void setTutorialStatus(bool val){
+			tutorial_mode = val;
+		}
+
+		public static bool getTutorialStatus(){
+			return tutorial_mode;
+		}
 
 		public static BaseModule getCurrentModule(){
 			if (queue.Count != 0) {

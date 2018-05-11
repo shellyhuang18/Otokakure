@@ -102,5 +102,24 @@ namespace DataAnalytics{
 		public int GetMisses(){
 			return this.misses;
 		}
+
+		public void updateDatabase(string key, string value){
+			user_table.Child (key).Push ().SetValueAsync (value);
+		}
+
+		public string getFromDatabase(string key){
+			string val = "";
+			if (user != null) {
+				user_table.Child (user.UserId).Child (key).GetValueAsync ().ContinueWith (task => {
+					if (task.IsFaulted) {
+						//error
+					} else if (task.IsCompleted) {
+						DataSnapshot snap = task.Result;
+						val = System.Convert.ToString(snap.Value);
+					}
+				});
+			}
+			return val;
+		}
 	}
 }

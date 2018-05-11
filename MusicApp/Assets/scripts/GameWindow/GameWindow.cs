@@ -9,6 +9,7 @@ using Song = NoteLogic.NoteLogic.Song;
 using Manager = Communication.Manager;
 using HintLine;
 using UnityEngine.UI;
+using DataAnalytics;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
@@ -38,25 +39,41 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool exitWhenSongFinished;
 
+	[SerializeField]
+	private bool tutorial_mode;
+
 	Song current_song;
 
 	// Use this for initialization
 	void Start () {
-		
+
+		if (!tutorial_mode) {
+			//Retrieve user's range
+			lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
+			highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
+		}
 
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 		hintline = (GameObject)GameObject.Find ("hint_line");
 
+
+		conductor.GetComponent<CreateNoteGenerator> ().instantiate ();
+		pitchline.GetComponent<ControlArrow> ().instantiate ();
+
 		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
 
-
-		current_song = Manager.generateSong ();
-		startSong (current_song);
-		
-
+		if (Manager.getTutorialStatus () || tutorial_mode) {
+			string tutorial_sfs = "!!welcome !!sound !!hitline !!matchnote";
+			Song tutorial = new Song (tutorial_sfs);
+			current_song = tutorial;
+			startSong (current_song);
+		} else {
+			current_song = Manager.generateSong ();
+			startSong (current_song);
+		}
 	}
 		
 	// Update is called once per frame
@@ -131,7 +148,21 @@ public class GameWindow : MonoBehaviour {
 			n.GetComponent<TransitionScene> ().startTransition ("main");
 		}
 	}
-
+//
+//	private IEnumerator startTutorial(){
+//		string tutorial_sfs = "!!welcome !!sound";
+//		Song tutorial = new Song (tutorial_sfs);
+//		current_song = tutorial;
+//		startSong (current_song);
+//
+//		//Wait for first song to finish
+//
+//		micEnabled = true;
+//
+//		Start
+//
+//
+//	}
 
 
 //====== Variable Mutators and Getters ======
