@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 
 namespace DataAnalytics{
+	//Class DataAnalysis analyzes the user performance during a session and stores scores on to the database
 	public class DataAnalysis{
 		public int hits;
 		public int misses;
 		private double overall_accuracy;
-		//private double individual_note_accuracy;
-		//private int individual_note_hits;
 		private int current_session_hits;
 		private int current_session_possible;
 		private int overall_hits;
@@ -21,7 +21,7 @@ namespace DataAnalytics{
 		Firebase.Auth.FirebaseUser user;
 		DatabaseReference user_table;
 
-
+		//gets reference to database and grabs corresponding values
 		public DataAnalysis(){
 			this.hits = 0;
 			this.misses = 0;
@@ -63,22 +63,23 @@ namespace DataAnalytics{
 
 		}
 
-		/*
-		public void CalculateOverall(){
-			overall_accuracy = overall_hits / overall_possible;
-			
-		}
-		*/
-
+		//sets values for storing to database
 		public void SetCurrentValues(){
 			this.current_session_hits = hits;
 			this.current_session_possible = hits + misses;
 			this.overall_hits += this.current_session_hits;
 			this.overall_possible += this.current_session_possible;
 			this.overall_accuracy = this.overall_hits / this.overall_possible;
+			Debug.Log ("Current session hits" + this.current_session_hits);
+			Debug.Log ("current session possible" + this.current_session_possible);
+			Debug.Log ("Overall hits" + this.overall_hits);
+			Debug.Log ("Current session accuracy" + (double)current_session_hits / (double)current_session_possible);
+			Debug.Log ("overall possible" + this.overall_possible);
+			Debug.Log ("overall accuracy" + this.overall_accuracy);
 			AddToDatabase ();
 		}
 
+		//gets reference to database and stores corresponding data to dataabse
 		private void AddToDatabase(){
 			if (user != null) {
 				user_table.Child ("Overall Accuracy").Push ().SetValueAsync (overall_accuracy);
@@ -86,7 +87,8 @@ namespace DataAnalytics{
 				user_table.Child ("Overall Possible").Push ().SetValueAsync (overall_possible);
 			}
 		}
-
+			
+			
 		public void IncrementHits(){
 			hits += 1;
 		}

@@ -117,6 +117,7 @@ public class Practice : MonoBehaviour {
 
 	public Button.ButtonClickedEvent Selection;
 
+	//maps buttons onto the screen when button clicked 
 	void MapButtons(string practice_type){
 		content_panel.DetachChildren ();
 		if (practice_type == "Pitch") {
