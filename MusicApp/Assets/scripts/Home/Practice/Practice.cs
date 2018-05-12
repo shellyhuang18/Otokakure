@@ -16,9 +16,14 @@ public class Practice : MonoBehaviour {
 	public GameObject header;
 	public Text practice_text;
 	public string input = "";
+	public string title;
 	List<string> interval_list = new List<string> (new string[] {"Unison", "Minor 2nd", "Major 2nd","Minor 3rd", "Major 3rd",
 		"Perfect 4th", "Perfect 5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"});
 
+	void Start () {
+		header.SetActive (false);
+		GetMicrophone ();
+	}
 
 	public static Rect pause_window;
 	[SerializeField]
@@ -27,21 +32,22 @@ public class Practice : MonoBehaviour {
 	//gui function- anything gui related implement here
 	void OnGUI(){
 		if (isClicked && window_enabled) {
-
 			//implement pause window
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
 
-			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 900, 600);
+
+			pause_window = new Rect ((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), canvas_coords.x, canvas_coords.y);//900, 600);
+			pause_window.center = new Vector2(Screen.width/2,Screen.height/2);
 			GUIContent content = new GUIContent ();
-			content.text = "Enter Amount";
+			content.text = title;
 			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
 		}
 	}
 	//operations on pop up window
 	void WindowAction(int windowID){
-		Rect input_location = new Rect (100, 100, 700, 80);
-		Rect done_button_location = new Rect (100, 500, 700, 80);
+		Rect input_location = new Rect (pause_window.x/2, pause_window.y/2, pause_window.width/2, pause_window.height/5);
+		Rect done_button_location = new Rect (input_location.x, input_location.y + 130, pause_window.width/2, pause_window.height/5);
 		input = GUI.TextField (input_location, input);
 		GUI.skin.textField.fontSize = 40;
 		GUI.skin.textField.alignment = TextAnchor.MiddleCenter;
@@ -49,12 +55,6 @@ public class Practice : MonoBehaviour {
 		if (GUI.Button (done_button_location, "Done") ) {
 			SceneManager.LoadScene ("Daily");
 		}
-	}
-
-
-	void Start () {
-		header.SetActive (false);
-		GetMicrophone ();
 	}
 
 	//On Ios applications, this method is needed to ask the user permission to use the microphone. 
@@ -109,26 +109,32 @@ public class Practice : MonoBehaviour {
 		}
 	}
 
-	public void Done() {
+	public void Done(string id) {
 		isClicked = true;
 		window_enabled = true;
+		title = id;
 	}
 		
 
+<<<<<<< HEAD
 	public Button.ButtonClickedEvent Selection;
 
 	//maps buttons onto the screen when button clicked 
 	void MapButtons(string practice_type){
+=======
+	void MapButtons(string practice_type) {
+>>>>>>> dd687cc7c5635648ce9f9a3ff14364ee9c96b942
 		content_panel.DetachChildren ();
 		if (practice_type == "Pitch") {
 			isClicked = true;
 			window_enabled = true;
+			title = "Pitch";
 		} else if (practice_type == "Intervals") {
 			foreach (var practices in interval_list) {
 				GameObject newButton = Instantiate(sample_button) as GameObject;
 				ButtonTemplate button_script = newButton.GetComponent<ButtonTemplate>();
 				button_script.text.text = practices;
-				button_script.button.onClick = Selection;
+				button_script.button.onClick.AddListener (delegate {Done(practices);} );
 				button_script.check.isOn = true;
 				button_script.check.gameObject.SetActive (false);
 				newButton.transform.SetParent(content_panel);
