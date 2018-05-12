@@ -56,9 +56,12 @@ public class Practice : MonoBehaviour {
 		if (GUI.Button (done_button_location, "Done") ) {
 			int reps = 0;
 			if(int.TryParse(input, out reps)){
+				//if pressed on pitch
 				window_enabled = false;
 				Manager.addExercise (new Module.PitchModule (), reps);
 				Manager.transitionTo ("test");
+
+
 			}
 		}
 	}

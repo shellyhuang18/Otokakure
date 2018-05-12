@@ -21,6 +21,7 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool isPaused;
 	private bool window_enabled;
+	private bool songBeingPlayed;
 
 	//Variables associated with the entire Game Window
 	[SerializeField]
@@ -40,14 +41,18 @@ public class GameWindow : MonoBehaviour {
 	private bool exitWhenSongFinished;
 
 	[SerializeField]
-	private bool tutorial_mode;
+	private bool debug_tutorial_mode;
+
+	[SerializeField]
+	private bool debug_user_logged_in;
 
 	Song current_song;
+
 
 	// Use this for initialization
 	void Start () {
 
-		if (!tutorial_mode) {
+		if (!debug_tutorial_mode && debug_user_logged_in) {
 			//Retrieve user's range
 			lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
 			highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
@@ -65,11 +70,15 @@ public class GameWindow : MonoBehaviour {
 		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
 
-		if (Manager.getTutorialStatus () || tutorial_mode) {
+		setSongPlayingStatus (false);
+
+		if (Manager.getTutorialStatus () || debug_tutorial_mode) {
 			string tutorial_sfs = "!!welcome !!sound !!hitline !!matchnote";
 			Song tutorial = new Song (tutorial_sfs);
 			current_song = tutorial;
 			startSong (current_song);
+
+//			Manager.tutorialStatus = false;
 		} else {
 			current_song = Manager.generateSong ();
 			startSong (current_song);
@@ -177,7 +186,6 @@ public class GameWindow : MonoBehaviour {
 	public bool getMicStatus(){
 		return this.micEnabled;
 	}
-		
 
 	public void setHintLineActive(bool val){
 		hintline.GetComponent<HintLineBehavior> ().setEnabled (val);
@@ -215,6 +223,14 @@ public class GameWindow : MonoBehaviour {
 
 	public bool willExitOnCompletition(){
 		return this.exitWhenSongFinished;
+	}
+		
+	public bool songPlayingStatus(){
+		return this.songBeingPlayed;
+	}
+
+	public void setSongPlayingStatus(bool val){
+		this.songBeingPlayed = val;
 	}
 
 //====== Control Functions ======
@@ -275,9 +291,8 @@ public class GameWindow : MonoBehaviour {
 		}
 		if (GUI.Button (home, "Home") ) {
 			window_enabled = false;
-			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
-			n.GetComponent<TransitionScene> ().startTransition ("Home Page");
 
+			exitSession ();
 		}
 
 	}
@@ -303,4 +318,12 @@ public class GameWindow : MonoBehaviour {
 	}
 
 
+	//Call this when preemptively leaving the game window. This resets stuff
+	public void exitSession(){
+
+		if (willExitOnCompletition ()) {
+			Manager.clearQueue ();
+			Manager.transitionTo ("Home Page");
+		}
+	}
 }

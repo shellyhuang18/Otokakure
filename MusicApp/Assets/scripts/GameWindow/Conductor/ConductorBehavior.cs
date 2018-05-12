@@ -98,11 +98,12 @@ namespace Conductor{
 		//Starts a song.
 		public void startSong(Song new_song){
 			StartCoroutine (coroutineStartSong (new_song));
+
 		}
 			
 
 		private IEnumerator coroutineStartSong(Song new_song){
-			onSongStart ();
+			onSongStartComposing ();
 
 			int metronome = 0;
 			int checkpoint = 0; //The time of the next expected note in the song
@@ -210,24 +211,25 @@ namespace Conductor{
 			}
 
 			//We are done generating music.
-			onSongFinish();
+			onSongFinishComposing();
 		}
 			
 
-		//Called when the Song starts
-		private void onSongStart(){
+		//Called when a Song starts
+		private void onSongStartComposing(){
+			game_window.GetComponent<GameWindow> ().setSongPlayingStatus (true);
 			isComposing = true;
+			GameObject game_window_UI = GameObject.Find ("game_window_UI");
+			game_window_UI.GetComponent<ScoreBoard> ().setSongToProgressBar (game_window.GetComponent<GameWindow>().getCurrentSong());
 		}
 
-		//Called when the Song is finished composing. 
-		//NOTE: When you want something to happen when the song is off screen,
-		//then write in on onSongCompletelyDone.
-		private void onSongFinish(){
-			StartCoroutine (onSongCompletelyDone());
+		//Called when the Song is finished composing.
+		private void onSongFinishComposing(){
+			StartCoroutine (waitForSongToLeaveScreen());
 		}
 
 		//Use this function when you want stuff to happen in the event that the song is off screen
-		private IEnumerator onSongCompletelyDone(){
+		private IEnumerator waitForSongToLeaveScreen(){
 			//Wait until everything is off screen.
 			int total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			while(total_notes > 0){
@@ -235,12 +237,26 @@ namespace Conductor{
 				total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			} 
 
+			//After this point, the song is off screen.
+			onSongCompletelyDone ();
+		}
+
+
+		//When the song is done and off screen
+		private void onSongCompletelyDone(){
+			game_window.GetComponent<GameWindow> ().setSongPlayingStatus (false);
 			isComposing = false;
 
-			if (game_window.GetComponent<GameWindow>().willExitOnCompletition()) {
-				Manager.transitionTo ("practice");
-			}
 
+			//Get the next song in the queue list if there is another
+			if(Manager.getQueueLength() != 0){
+				Manager.nextExercise();
+				game_window.GetComponent<GameWindow>().startSong(Manager.generateSong());
+			}
+			//Or just leave
+			else{
+				game_window.GetComponent<GameWindow> ().exitSession ();
+			}
 		}
 			
 	}

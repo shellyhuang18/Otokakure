@@ -1,10 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\note_logic.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Home/Practice/Practice.cs">
     <Files>
-      <File FileName="Assets\scripts\note_logic.cs" Line="13" Column="43" />
-      <File FileName="Assets\scripts\generate_notes.cs" Line="18" Column="52" />
-      <File FileName="Assets\scripts\create_note_generator.cs" Line="59" Column="2" />
+      <File FileName="Assets/scripts/GameWindow/Manager.cs" Line="53" Column="21" />
+      <File FileName="Assets/scripts/GenderSelect.cs" Line="22" Column="46" />
+      <File FileName="Assets/scripts/GameWindow/GameWindow.cs" Line="54" Column="27" />
+      <File FileName="Assets/scripts/Game UI/ScoreBoard.cs" Line="24" Column="2" />
+      <File FileName="Assets/scripts/GameWindow/Conductor/ConductorBehavior.cs" Line="125" Column="11" />
+      <File FileName="Assets/scripts/GameWindow/PitchLine/DetectNote.cs" Line="45" Column="33" />
+      <File FileName="Assets/scripts/GameWindow/Note/NoteLogic.cs" Line="80" Column="18" />
+      <File FileName="Assets/scripts/Home/Practice/Practice.cs" Line="64" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

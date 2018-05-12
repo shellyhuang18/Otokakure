@@ -13,7 +13,7 @@ using Song = NoteLogic.NoteLogic.Song;
  * */
 namespace Communication{
 	public class Manager: MonoBehaviour{
-		private struct Exercise{
+		public struct Exercise{
 			public BaseModule module;
 			public int repetitions;
 
@@ -61,7 +61,7 @@ namespace Communication{
 		}
 
 		//Clears everything the manager is currently tracking
-		public static void clear(){
+		public static void clearQueue(){
 			queue.Clear ();
 		}
 
@@ -80,7 +80,7 @@ namespace Communication{
 			return new Song(total_sfs);
 		}
 
-		public int getQueueLength(){
+		public static int getQueueLength(){
 			return queue.Count;
 		}
 

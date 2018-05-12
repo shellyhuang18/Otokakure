@@ -11,6 +11,8 @@ namespace PitchLine{
 		Collider2D arrow_collider;
 		Collider2D line_collider;
 
+		ScoreBoard scoreboard;
+
 		private bool detection_enabled; //A bool to check if you want to detect notes
 
 		private int hit = 0;
@@ -23,8 +25,9 @@ namespace PitchLine{
 		void Start () {
 //			data = new DataAnalysis ();
 			enableDetection ();
-			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<Collider2D>();
-			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
+			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
+			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
+			scoreboard = GameObject.Find ("game_window_UI").GetComponent<ScoreBoard>();
 		}
 
 		void FixedUpdate(){
@@ -38,8 +41,8 @@ namespace PitchLine{
 	//=============================================================================
 		private void onHit(){
 //			data.IncrementHits();
-			gameObject.GetComponent<ScoreBoard>().IncrementScore(1);
-			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
+			scoreboard.incrementScore();
+			scoreboard.updateProgress ();
 			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
 			//data.updateCurrNote();
 			Debug.Log ("hit");
@@ -48,12 +51,15 @@ namespace PitchLine{
 
 		private void onMiss(){
 //			data.IncrementMisses ();
-
+			scoreboard.updateProgress ();
 			Debug.Log ("miss");
 		}
 
 		private void onNothing(){
+			scoreboard.updateProgress ();
 		}
+
+
 
 		private void onComplete(){
 //			data.SetCurrentValues ();
