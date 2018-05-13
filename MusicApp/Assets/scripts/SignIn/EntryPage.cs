@@ -7,9 +7,7 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
-#if UNITY_ANDROID
 using Assets.SimpleAndroidNotifications;
-#endif
 #if UNITY_IOS
 using UnityEngine.iOS;
 #endif
@@ -28,15 +26,15 @@ namespace SignIn{
 
 		//On start of scene, check whether a user is logged in. If so, take user to a tutorial page. 
 		void Start () {
+			RegisterForNotif ();
+			ScheduleNotification ();
 			// Android Notification
-			#if UNITY_ANDROID
 			NotificationManager.Send(TimeSpan.FromSeconds(5), "Welcome To Our Music App", "Team 7 All Day Yoo!!!", new Color(1, 0.3f, 0.15f));
-			#endif
 			// iOS Notification
 			// schedule notification to be delivered in 10 seconds
 			#if UNITY_IOS
 			var n = new UnityEngine.iOS.LocalNotification();
-			n.fireDate = DateTime.Now.AddSeconds(10);
+			n.fireDate = DateTime.Now;
 			n.alertAction = "MusicApp";
 			n.alertBody = "Team 7 All Day Yooo!!!";
 			n.applicationIconBadgeNumber = 99;
@@ -111,6 +109,33 @@ namespace SignIn{
 
 		public void Hide(){
 			window.SetActive (false);
+		}
+
+		void RegisterForNotif()
+
+		{
+			#if UNITY_IOS
+			UnityEngine.iOS.NotificationServices.RegisterForNotifications(UnityEngine.iOS.NotificationType.Alert| UnityEngine.iOS.NotificationType.Badge |  UnityEngine.iOS.NotificationType.Sound);
+			#endif
+
+
+		}
+
+		void ScheduleNotification()
+
+		{
+
+			// schedule notification to be delivered in 24 hours
+			#if UNITY_IOS
+			UnityEngine.iOS.LocalNotification notif = new UnityEngine.iOS.LocalNotification();
+
+			notif.fireDate = DateTime.Now.AddSeconds(1);
+
+			notif.alertBody = "Youve generated more coins! Come back and play!";
+
+			UnityEngine.iOS.NotificationServices.ScheduleLocalNotification(notif);
+
+			#endif
 		}
 	}
 }

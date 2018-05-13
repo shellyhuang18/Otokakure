@@ -24,7 +24,11 @@ public class Practice : MonoBehaviour {
 	public string title;
 	List<string> interval_list = new List<string> (new string[] {"Unison", "Minor 2nd", "Major 2nd","Minor 3rd", "Major 3rd",
 		"Perfect 4th", "Perfect 5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"});
-//	List<Button.ButtonClickedEvent> = Selection;
+
+	void Start () {
+		header.SetActive (false);
+		GetMicrophone ();
+	}
 
 	public static Rect pause_window;
 	[SerializeField]
@@ -37,22 +41,18 @@ public class Practice : MonoBehaviour {
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
 
-			pause_window = new Rect(canvas_coords.x/2, canvas_coords.y/2, Screen.width/2, Screen.height/2);
 
-
+			pause_window = new Rect ((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), canvas_coords.x, canvas_coords.y);//900, 600);
+			pause_window.center = new Vector2(Screen.width/2,Screen.height/2);
 			GUIContent content = new GUIContent ();
 			content.text = title;
 			pause_window = GUI.ModalWindow (0, pause_window, WindowAction, content);
-	
 		}
 	}
 	//operations on pop up window
 	void WindowAction(int windowID){
-
-		Rect text_location = new Rect (pause_window.width / 2, pause_window.height * 0f, 100, 30);
-		Rect input_location = new Rect (pause_window.width/2, pause_window.height*0.25f, 100, 30);
-		Rect done_button_location = new Rect (pause_window.width/2, pause_window.height*0.50f, 100, 30);
-//		string n = GUI.
+		Rect input_location = new Rect (pause_window.x/2, pause_window.y/2, pause_window.width/2, pause_window.height/5);
+		Rect done_button_location = new Rect (input_location.x, input_location.y + 130, pause_window.width/2, pause_window.height/5);
 		input = GUI.TextField (input_location, input);
 		GUI.skin.textField.fontSize = 40;
 		GUI.skin.textField.alignment = TextAnchor.MiddleCenter;
@@ -62,12 +62,6 @@ public class Practice : MonoBehaviour {
 		if (GUI.Button (done_button_location, "Done") ) {
 			parseFormAndStartSession ();
 		}
-	}
-
-
-	void Start () {
-		header.SetActive (false);
-		GetMicrophone ();
 	}
 
 	//On Ios applications, this method is needed to ask the user permission to use the microphone. 

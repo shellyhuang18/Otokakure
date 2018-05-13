@@ -15,15 +15,14 @@ namespace PitchLine{
 
 		private bool detection_enabled; //A bool to check if you want to detect notes
 
-		private int hit = 0;
-		private int miss = 0;
-//		private DataAnalysis data;
+		private DataAnalysis data;
 
 
 
 		// Use this for initialization
 		void Start () {
-//			data = new DataAnalysis ();
+
+			data = new DataAnalysis (); //initialization of DataAnalysis
 			enableDetection ();
 			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
@@ -32,6 +31,9 @@ namespace PitchLine{
 
 		void FixedUpdate(){
 			checkOnPitch ();
+			if (Input.GetKeyDown ("g")) {
+				data.SetCurrentValues ();
+			}
 		}
 
 
@@ -40,19 +42,17 @@ namespace PitchLine{
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
-//			data.IncrementHits();
 			scoreboard.incrementScore();
 			scoreboard.updateProgress ();
-			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
-			//data.updateCurrNote();
-			Debug.Log ("hit");
+			data.IncrementHits();
 
 		}
 
 		private void onMiss(){
-//			data.IncrementMisses ();
+
 			scoreboard.updateProgress ();
-			Debug.Log ("miss");
+			data.IncrementMisses (); //on note miss, misses is incremented
+
 		}
 
 		private void onNothing(){
