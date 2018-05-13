@@ -16,6 +16,9 @@ public class User {
 	public string LastName;
 	public string LowerRange;
 	public string HigherRange;
+	public double OverallAccuracy;
+	public int OverallHits;
+	public int OverallPossible;
 
 	public User() {
 	}
@@ -26,6 +29,9 @@ public class User {
 		this.LastName = l_name;
 		this.LowerRange = "a3";
 		this.HigherRange = "a5";
+		this.OverallAccuracy = 100;
+		this.OverallHits = 0;
+		this.OverallPossible = 0;
 	}
 }
 
@@ -72,24 +78,6 @@ namespace SignIn{
 				//This returns a reference to the child of User Table, the user Id
 				user_table = user_table.Child (user.UserId);
 				user_table.SetRawJsonValueAsync (json);
-
-				/*
-				List<string> pitch = new List<string>(new string[] { "Intervals", "Undecided"});
-				pitch.Add ("Undecided 2");
-
-				foreach (var exercises in pitch) {
-					//Exercises are added as children of Pitch
-					user_table.Child ("Pitch").Push ().SetValueAsync (exercises);
-				}
-
-				List<string> rhythm = new List<string> (new string[] { "Undecided" });
-
-				foreach (var exercises in rhythm) {
-					//Exercises are added as children of Rhythm
-					user_table.Child ("Rhythm").Push ().SetValueAsync (exercises);
-				}
-				*/
-
 			}
 		}
 	}
