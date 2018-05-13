@@ -28,11 +28,11 @@ namespace Utility{
 		}
 			
 
-		//Returns whether pitch b is greater than pitch a.
-		public static bool isHigherPitch(string pitch_a, string pitch_b){
+		//Returns whether the pitch is higher than your reference pitch
+		public static bool isHigherPitch(string reference, string pitch){
 			//The last character of the string has the octave
-			int a_octave = (int)Char.GetNumericValue(pitch_a[pitch_a.Length-1]); 
-			int b_octave = (int)Char.GetNumericValue(pitch_b[pitch_b.Length-1]); 
+			int a_octave = (int)Char.GetNumericValue(reference[reference.Length-1]); 
+			int b_octave = (int)Char.GetNumericValue(pitch[pitch.Length-1]); 
 
 			if (a_octave < b_octave) {
 				return true;
@@ -44,8 +44,8 @@ namespace Utility{
 			//Assertion: Octaves are the same
 
 			//Stripping the octave component of the pitch, leaving behind the note
-			int note_a_index = getScaleIndex(pitch_a.Substring (0, pitch_a.Length - 1));
-			int note_b_index = getScaleIndex(pitch_b.Substring (0, pitch_b.Length - 1));
+			int note_a_index = getScaleIndex(reference.Substring (0, reference.Length - 1));
+			int note_b_index = getScaleIndex(pitch.Substring (0, pitch.Length - 1));
 
 			if (note_a_index < note_b_index ) {
 				return true;

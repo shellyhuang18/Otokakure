@@ -50,20 +50,22 @@ namespace Module{
 			string note_b = "";
 			int interval = interval_selection[this.generator.Next (0, interval_selection.Count)]; //randomly select an interval from the selection list
 
-			if (step_direction == step.both) {
-				int coin_flip = this.generator.Next (0, 1 + 1); //The upper bound is exclusive, so +1;
+			//Incase you generate an interval that is outside their range
+			do {
+				if (step_direction == step.both) {
+					int coin_flip = this.generator.Next (0, 1 + 1); //The upper bound is exclusive, so +1;
 
-				if (coin_flip == 0)
+					if (coin_flip == 0)
+						note_b = Pitch.incrementPitch (note_a, interval);
+					else if (coin_flip == 1)
+						note_b = Pitch.decrementPitch (note_a, interval);
+					
+				} else if (step_direction == step.up)
 					note_b = Pitch.incrementPitch (note_a, interval);
-				else if (coin_flip == 1)
+				else if (step_direction == step.down)
 					note_b = Pitch.decrementPitch (note_a, interval);
-				
-			} 
-			else if (step_direction == step.up)
-				note_b = Pitch.incrementPitch (note_a, interval);
-			else if (step_direction == step.down)
-				note_b = Pitch.decrementPitch (note_a, interval);
-			
+			} while(Utility.Pitch.isHigherPitch (highest_pitch, note_b) || Utility.Pitch.isHigherPitch (note_b, lowest_pitch));
+
 			int note_b_len = this.generator.Next (min_note_length, max_note_length + 1); //The upper bound is exclusive, so +1;
 			sfs += (note_b_len.ToString () + note_b + " ");
 

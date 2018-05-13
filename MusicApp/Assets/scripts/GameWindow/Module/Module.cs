@@ -7,8 +7,8 @@ namespace Module{
 	public abstract class BaseModule {
 		protected const string DEFAULT_LOWEST_PITCH = "c4";
 		protected const string DEFAULT_HIGHEST_PITCH = "c5";
-		protected const int DEFAULT_LEADING_LENGTH = 4;
-		protected const int DEFAULT_TRAILING_LENGTH = 4;
+		protected const int DEFAULT_LEADING_LENGTH = 8;
+		protected const int DEFAULT_TRAILING_LENGTH = 8;
 		protected const int DEFAULT_MIN_NOTE_LENGTH = 4;
 		protected const int DEFAULT_MAX_NOTE_LENGTH = 4;
 

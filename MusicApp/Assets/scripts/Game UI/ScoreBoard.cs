@@ -72,7 +72,6 @@ public class ScoreBoard : MonoBehaviour {
 			progress_tick += 1;
 			if (total_possible_hits != 0) {
 				float progress = (float)progress_tick / (float)total_possible_hits;
-				Debug.Log (progress);
 				BarBehaviour.Value = (float)progress * 100f; //Sets the value of the progress from 0 to 100
 			} 
 		}
