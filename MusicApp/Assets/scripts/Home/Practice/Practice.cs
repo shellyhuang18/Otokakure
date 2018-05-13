@@ -152,27 +152,27 @@ public class Practice : MonoBehaviour {
 	}
 
 	private void parseFormAndStartSession(){
-		string lowest_pitch = "c3"; //Default values
-		string highest_pitch = "c4";
+		string user_lowest_pitch = "c3"; //Default values
+		string user_highest_pitch = "c4";
 		if (!debug_mode) {
-			lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
-			highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
+			user_lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
+			user_highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
 		}
 
 		int reps = 0;
-		BaseModule module = new Module.PitchModule (lowest_pitch: lowest_pitch, highest_pitch:highest_pitch); //Let this be the default
+		BaseModule module = new Module.PitchModule (lowest_pitch: user_lowest_pitch, highest_pitch:user_highest_pitch); //Let this be the default
 
 
 
 		//Determining which module they selected
 		if (title == "Pitch")
-			module = new Module.PitchModule (lowest_pitch: lowest_pitch, highest_pitch:highest_pitch);
+			module = new Module.PitchModule (lowest_pitch: user_lowest_pitch, highest_pitch: user_highest_pitch);
 		int itr = 0;
 		foreach (var practices in interval_list) {
 			if (title == practices) {
 				int[] array = {itr};
 				List<int> interval_selection = new List<int>(array);
-				module = new Module.IntervalModule(intervals: interval_selection, lowest_pitch: lowest_pitch, highest_pitch:highest_pitch);
+				module = new Module.IntervalModule(intervals: interval_selection, lowest_pitch: user_lowest_pitch, highest_pitch: user_highest_pitch);
 				break;
 			}
 			itr += 1;

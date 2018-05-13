@@ -172,6 +172,10 @@ Prefab:
       propertyPath: gameobj
       value: 
       objectReference: {fileID: 54200887}
+    - target: {fileID: 4546968100682094, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.74
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
   m_IsPrefabParent: 0
