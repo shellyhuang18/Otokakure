@@ -63,3 +63,8 @@
 /Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.xml
 /Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll
 /Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
+/Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/Google.JarResolver_v1.2.64.0.dll
+/Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/Google.VersionHandlerImpl_v1.2.64.0.dll
+/Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/Google.IOSResolver_v1.2.64.0.dll
+/Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/Firebase.Analytics.dll
+/Users/jack/Documents/capstone/MusicApp/MusicApp/Temp/bin/Debug/Firebase.InstanceId.dll
