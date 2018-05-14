@@ -9,7 +9,7 @@ using Firebase.Database;
 
 namespace DataAnalytics{
 	//Class DataAnalysis analyzes the user performance during a session and stores scores on to the database
-	public class DataAnalysis{
+	public class DataAnalysis: MonoBehaviour{
 		public int hits;
 		public int misses;
 		private double overall_accuracy;
@@ -28,6 +28,7 @@ namespace DataAnalytics{
 			this.overall_accuracy = 0;
 			this.overall_hits = 0;
 			this.overall_possible = 0;
+
 			auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
 			user = auth.CurrentUser;
 			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
@@ -109,19 +110,62 @@ namespace DataAnalytics{
 			user_table.Child (key).Push ().SetValueAsync (value);
 		}
 
-		public string getFromDatabase(string key){
-			string val = "";
+		//Naseebs attempt to getfromdatabase
+//		public string getFromDatabase(string key){
+//			string val = "red";
+//			if (user != null) {
+//				user_table.Child (user.UserId).Child (key).GetValueAsync ().ContinueWith (task => {
+//					if (task.IsFaulted) {
+//						//error
+//					} else if (task.IsCompleted) {
+//						DataSnapshot snap = task.Result;
+//						val = System.Convert.ToString(snap.Value);
+//					}
+//				});
+//			}
+//			return val;
+//		}
+
+
+
+	} //End of DataAnalytics class
+
+	//Acts as a wrapper for an ongoing operation. To use it, you should constantly check
+	//to see if the querying is done. Then you can access the query_result directly.
+	public class QuerySearch: MonoBehaviour{
+		public bool querying = false;
+		public string query_result = "";
+
+		Firebase.Auth.FirebaseAuth auth;
+		Firebase.Auth.FirebaseUser user;
+		DatabaseReference user_table;
+
+		public QuerySearch(string key){
+			this.auth = Firebase.Auth.FirebaseAuth.GetAuth (FirebaseAuth.DefaultInstance.App);
+			this.user = auth.CurrentUser;
+			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
+			this.user_table = FirebaseDatabase.DefaultInstance.GetReference ("User Table");
+
+			//Start the query
+			this.querying = true;
 			if (user != null) {
-				user_table.Child (user.UserId).Child (key).GetValueAsync ().ContinueWith (task => {
+				user_table.Child (user.UserId).GetValueAsync ().ContinueWith ((task) => {
 					if (task.IsFaulted) {
-						//error
 					} else if (task.IsCompleted) {
 						DataSnapshot snap = task.Result;
-						val = System.Convert.ToString(snap.Value);
+						foreach (DataSnapshot name in snap.Children) {
+							if (name.Key.Equals (key)) {
+								this.query_result = name.Value.ToString ();
+								this.querying = false;
+								break;
+							}
+						}
 					}
 				});
+			} else {
+				Debug.Log ("The user is null");
 			}
-			return val;
+
 		}
-	}
+	} //End of QuerySearch class
 }

@@ -248,6 +248,9 @@ namespace Conductor{
 			isComposing = false;
 
 
+			//Save the results of the user's performance into the database.
+//			GameObject.Find ("pitch_line").GetComponent<PitchLine.DetectNote> ().getDataAnalysis ().SetCurrentValues ();
+
 			//Get the next song in the queue list if there is another
 			if(Manager.getQueueLength() != 0){
 				Manager.nextExercise();

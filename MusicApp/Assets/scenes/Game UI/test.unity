@@ -196,6 +196,36 @@ Prefab:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: exitWhenSongFinished
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: micEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: debug_user_logged_in
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82827272723749012, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: read_user_data
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: debug_tutorial_mode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
   m_IsPrefabParent: 0
@@ -311,12 +341,12 @@ Prefab:
     - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: -1.9188299
       objectReference: {fileID: 0}
     - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1.0759499
       objectReference: {fileID: 0}
     - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
         type: 2}
@@ -443,6 +473,56 @@ Prefab:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.5095615
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.50956166
+      objectReference: {fileID: 0}
+    - target: {fileID: 224250815411296028, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.50956166
+      objectReference: {fileID: 0}
+    - target: {fileID: 224882761309547720, guid: 1028fa97549264066b58ed0b3e8b75a2,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 2.0428753
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1028fa97549264066b58ed0b3e8b75a2, type: 2}
   m_IsPrefabParent: 0
@@ -494,7 +574,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 2000, y: 1125}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

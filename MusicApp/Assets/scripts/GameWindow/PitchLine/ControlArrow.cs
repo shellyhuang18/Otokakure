@@ -66,7 +66,7 @@ namespace PitchLine{
 		}
 
 		public void Update(){
-			if (game_window_script.getMicStatus()) {
+			if (game_window_script != null && game_window_script.getMicStatus()) {
 				moveArrow (pitch_detector.pitch);
 			} else {
 				moveArrow(440);
@@ -120,6 +120,9 @@ namespace PitchLine{
 
 				else {
 					arrow.transform.position = frequencyToPitchlinePosition (frequency);
+					Color color = arrow.GetComponent<SpriteRenderer> ().material.color;
+					color.a = 1f;
+					arrow.GetComponent<SpriteRenderer> ().material.color = color;
 				}
 			}
 		}

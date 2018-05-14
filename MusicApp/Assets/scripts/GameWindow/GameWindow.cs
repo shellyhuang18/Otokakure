@@ -44,19 +44,35 @@ public class GameWindow : MonoBehaviour {
 	private bool debug_tutorial_mode;
 
 	[SerializeField]
-	private bool debug_user_logged_in;
+	private bool read_user_data;
 
 	Song current_song;
 
-
 	// Use this for initialization
 	void Start () {
+		StartCoroutine (initalize ());
+	}
 
-		if (!debug_tutorial_mode && debug_user_logged_in) {
-			//Retrieve user's range
-			lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
-			highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
+	private IEnumerator initalize(){
+
+		if (/*!debug_tutorial_mode &&*/ read_user_data) {
+			DataAnalytics.QuerySearch low_pitch_search = new DataAnalytics.QuerySearch ("LowerRange");
+			DataAnalytics.QuerySearch high_pitch_search = new DataAnalytics.QuerySearch ("HigherRange");
+
+
+			//While the database is still querying
+			while (low_pitch_search.querying && high_pitch_search.querying) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			lowest_pitch = low_pitch_search.query_result;
+			highest_pitch = high_pitch_search.query_result;
+		
+		} else {
+			lowest_pitch = "c2";
+			highest_pitch = "c6";
 		}
+
 
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
@@ -78,7 +94,7 @@ public class GameWindow : MonoBehaviour {
 			current_song = tutorial;
 			startSong (current_song);
 
-//			Manager.tutorialStatus = false;
+			//			Manager.tutorialStatus = false;
 		} else {
 			current_song = Manager.generateSong ();
 			startSong (current_song);

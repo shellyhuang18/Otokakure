@@ -15,27 +15,24 @@ namespace PitchLine{
 
 		private bool detection_enabled; //A bool to check if you want to detect notes
 
-		private DataAnalysis data;
+//		private DataAnalysis data;
 
 
 
 		// Use this for initialization
 		void Start () {
 
-			data = new DataAnalysis (); //initialization of DataAnalysis
+//			data = new DataAnalysis (); //initialization of DataAnalysis
 			enableDetection ();
 			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
 			scoreboard = GameObject.Find ("game_window_UI").GetComponent<ScoreBoard>();
 		}
 
+
 		void FixedUpdate(){
 			checkOnPitch ();
-			if (Input.GetKeyDown ("g")) {
-				data.SetCurrentValues ();
-			}
 		}
-
 
 			
 
@@ -44,14 +41,15 @@ namespace PitchLine{
 		private void onHit(){
 			scoreboard.incrementScore();
 			scoreboard.updateProgress ();
-			data.IncrementHits();
+			Debug.Log ("hit");
+//			data.IncrementHits();
 
 		}
 
 		private void onMiss(){
-
+			Debug.Log ("miss");
 			scoreboard.updateProgress ();
-			data.IncrementMisses (); //on note miss, misses is incremented
+//			data.IncrementMisses (); //on note miss, misses is incremented
 
 		}
 
@@ -63,8 +61,6 @@ namespace PitchLine{
 
 		private void onComplete(){
 //			data.SetCurrentValues ();
-			//data.SetCurrentValues (hit, hit + miss);
-			//data.CalculateOverall ();
 		}
 			
 	//=============================================================================
@@ -124,6 +120,9 @@ namespace PitchLine{
 			this.detection_enabled = false;
 		}
 
+//		public DataAnalysis getDataAnalysis(){
+//			return this.data;
+//		}
 
 	}
 }

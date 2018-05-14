@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e8e1dcc74374dc993c5503a357d66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug_mode: 1
+  read_user_data: 1
   sample_button: {fileID: 1531155173914992, guid: 67a22573d4bfc43efa22283ce9bdadde,
     type: 2}
   temporary: {fileID: 1001967410}
@@ -1545,42 +1545,42 @@ Prefab:
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 7
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 7.5
+      value: -223.5
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 27
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.049000002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.8115537
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.11400001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0.92055374
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
         type: 2}
@@ -1601,6 +1601,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GoToHomePage
+      objectReference: {fileID: 0}
+    - target: {fileID: 224361900343110814, guid: c596918ffad20496a8e42df861137770,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2.7336016
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c596918ffad20496a8e42df861137770, type: 2}

@@ -13,7 +13,7 @@ using Manager = Communication.Manager;
 //This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
 	[SerializeField]
-	private bool debug_mode; 
+	private bool read_user_data; 
 
 	public GameObject sample_button;
 	public Button temporary;
@@ -146,11 +146,24 @@ public class Practice : MonoBehaviour {
 	}
 
 	private void parseFormAndStartSession(){
-		string user_lowest_pitch = "c3"; //Default values
+		StartCoroutine (parsingFormCoroutine ());
+	}
+
+	private IEnumerator parsingFormCoroutine(){
+		string user_lowest_pitch = "c3"; //Let these be default values
 		string user_highest_pitch = "c4";
-		if (!debug_mode) {
-			user_lowest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("LowerRange");
-			user_highest_pitch = new DataAnalytics.DataAnalysis ().getFromDatabase ("HigherRange");
+
+		if (read_user_data) {
+			DataAnalytics.QuerySearch low_pitch_search = new DataAnalytics.QuerySearch ("LowerRange");
+			DataAnalytics.QuerySearch high_pitch_search = new DataAnalytics.QuerySearch ("HigherRange");
+
+			//While the database is still querying
+			while (low_pitch_search.querying && high_pitch_search.querying) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			user_lowest_pitch = low_pitch_search.query_result;
+			user_highest_pitch = high_pitch_search.query_result;
 		}
 
 		int reps = 0;
