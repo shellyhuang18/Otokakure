@@ -1,16 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Home/Practice/Practice.cs">
-    <Files>
-      <File FileName="Assets/scripts/GameWindow/GameWindow.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/Home/Practice/Practice.cs" Line="152" Column="19" />
-      <File FileName="Assets/scripts/GameWindow/Conductor/GenerateNotes.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/GameWindow/Module/IntervalModule.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/GameWindow/PitchLine/DetectNote.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/DataAnalysis.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/SignIn/DisplayUserInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/GameWindow/PitchLine/ControlArrow.cs" Line="67" Column="3" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="MusicApp" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True" />
+            <Node name="Assembly-CSharp-firstpass" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="MusicApp" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
