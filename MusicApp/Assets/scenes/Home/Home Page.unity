@@ -169,7 +169,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0.7411765, b: 0.7411765, a: 1}
+    m_NormalColor: {r: 0.2509804, g: 0.3019608, b: 0.7686275, a: 1}
     m_HighlightedColor: {r: 0.9764706, g: 0.53333336, b: 0.53333336, a: 1}
     m_PressedColor: {r: 0.8235294, g: 0.44705883, b: 0.44705883, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -575,7 +575,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0.7411765, b: 0.7411765, a: 1}
+    m_NormalColor: {r: 0.27492434, g: 0.32476896, b: 0.8308824, a: 1}
     m_HighlightedColor: {r: 0.9764706, g: 0.53333336, b: 0.53333336, a: 1}
     m_PressedColor: {r: 0.8235294, g: 0.44705883, b: 0.44705883, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -878,7 +878,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.9490196, g: 0.89411765, b: 0.92941177, a: 1}
+  m_BackGroundColor: {r: 0.8088235, g: 0.81014204, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -985,7 +985,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0.7411765, b: 0.7411765, a: 1}
+    m_NormalColor: {r: 0.2627451, g: 0.3137255, b: 0.8000001, a: 1}
     m_HighlightedColor: {r: 0.9764706, g: 0.53333336, b: 0.53333336, a: 1}
     m_PressedColor: {r: 0.8235294, g: 0.44705883, b: 0.44705883, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

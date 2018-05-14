@@ -22,8 +22,11 @@ namespace Conductor{
 		float lower_bound; //The lowest point of the conductor
 		public float div_space;
 
+
+	 
+
 		// Use this for initialization
-		public void Start () {
+		public void instantiate () {
 			height = gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 			lower_bound = gameObject.transform.position.y - height / 2;
 

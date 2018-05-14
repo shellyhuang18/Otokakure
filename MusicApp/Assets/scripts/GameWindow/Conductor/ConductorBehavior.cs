@@ -8,6 +8,7 @@ using Song = NoteLogic.NoteLogic.Song;
 using GameElements = NoteLogic.NoteLogic.GameElements;
 using Alert = NoteLogic.NoteLogic.Alert;
 using UnityEngine.SceneManagement;
+using Manager = Communication.Manager;
 
 namespace Conductor{
 	public class ConductorBehavior : MonoBehaviour
@@ -21,6 +22,7 @@ namespace Conductor{
 			isComposing = false;
 			game_window = GameObject.Find ("game_window");
 			tempo = game_window.GetComponent<GameWindow> ().getTempo ();
+
 		}
 
 		//Finds the corresponding child and commands it to create a pitch. The reference to the 
@@ -96,11 +98,12 @@ namespace Conductor{
 		//Starts a song.
 		public void startSong(Song new_song){
 			StartCoroutine (coroutineStartSong (new_song));
+
 		}
 			
 
 		private IEnumerator coroutineStartSong(Song new_song){
-			onSongStart ();
+			onSongStartComposing ();
 
 			int metronome = 0;
 			int checkpoint = 0; //The time of the next expected note in the song
@@ -142,16 +145,21 @@ namespace Conductor{
 
 				if (item.is_alert) {
 					Alert alert = item as Alert;
+					AlertBehavior alert_canvas = GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior>();
 
 					//retrieve alert from list of alerts(based on id)
 					if (alert.multiple) {
-						StartCoroutine(GameObject.Find ("AlertCanvas").GetComponent<AlertBehavior> ().DisplayAlertSlides (alert.id));
+						StartCoroutine(alert_canvas.DisplayAlertSlides (alert.id));
 
 					} else {
-						GameObject.Find("AlertCanvas").GetComponent<AlertBehavior>().DisplayAlert (alert.id);
+						alert_canvas.DisplayAlert (alert.id);
+					}
+						
+					while (!alert_canvas.getEndStatus ()) {
+						yield return new WaitForSeconds (.1f);
 					}
 
-
+					alert_canvas.setEndStatus (false);
 					continue;
 				}
 
@@ -203,35 +211,55 @@ namespace Conductor{
 			}
 
 			//We are done generating music.
-			onSongFinish();
+			onSongFinishComposing();
 		}
 			
 
-		//Called when the Song starts
-		private void onSongStart(){
+		//Called when a Song starts
+		private void onSongStartComposing(){
+			game_window.GetComponent<GameWindow> ().setSongPlayingStatus (true);
 			isComposing = true;
-			Debug.Log ("Song has been started");
+			GameObject game_window_UI = GameObject.Find ("game_window_UI");
+			game_window_UI.GetComponent<ScoreBoard> ().setSongToProgressBar (game_window.GetComponent<GameWindow>().getCurrentSong());
 		}
 
-		//Called when the Song is finished composing. 
-		//NOTE: When you want something to happen when the song is off screen,
-		//then write in on onSongCompletelyDone.
-		private void onSongFinish(){
-			StartCoroutine (onSongCompletelyDone());
+		//Called when the Song is finished composing.
+		private void onSongFinishComposing(){
+			StartCoroutine (waitForSongToLeaveScreen());
 		}
 
 		//Use this function when you want stuff to happen in the event that the song is off screen
-		private IEnumerator onSongCompletelyDone(){
+		private IEnumerator waitForSongToLeaveScreen(){
 			//Wait until everything is off screen.
 			int total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			while(total_notes > 0){
-				yield return new WaitForSeconds (0.01f);
+				yield return new WaitForSeconds (1f);
 				total_notes = GameObject.FindGameObjectsWithTag ("MusicalNote").Length;
 			} 
 
+			//After this point, the song is off screen.
+			onSongCompletelyDone ();
+		}
 
-			Debug.Log ("Song has been finished");
+
+		//When the song is done and off screen
+		private void onSongCompletelyDone(){
+			game_window.GetComponent<GameWindow> ().setSongPlayingStatus (false);
 			isComposing = false;
+
+
+			//Save the results of the user's performance into the database.
+			GameObject.Find ("pitch_line").GetComponent<PitchLine.DetectNote> ().getDataAnalysis ().SetCurrentValues ();
+
+			//Get the next song in the queue list if there is another
+			if(Manager.getQueueLength() != 0){
+				Manager.nextExercise();
+				game_window.GetComponent<GameWindow>().startSong(Manager.generateSong());
+			}
+			//Or just leave
+			else{
+				game_window.GetComponent<GameWindow> ().exitSession ();
+			}
 		}
 			
 	}

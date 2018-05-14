@@ -13,7 +13,7 @@ using Song = NoteLogic.NoteLogic.Song;
  * */
 namespace Communication{
 	public class Manager: MonoBehaviour{
-		private struct Exercise{
+		public struct Exercise{
 			public BaseModule module;
 			public int repetitions;
 
@@ -23,25 +23,37 @@ namespace Communication{
 			}
 
 		}
-		private static BaseModule current_module; 
-		private static int repetitions; //The repetitions required for the current_module
-		private static Queue<Exercise> queue;
-		private static GameObject game_window;
 
+		private static Queue<Exercise> queue = new Queue<Exercise>();
+		private static bool tutorial_mode = false;
 
-		//Attempts to assign the Manager a game_window by ID
-		public static void setGameWindow(GameObject curr_game_window){
-			game_window = curr_game_window;
+		public static void setTutorialStatus(bool val){
+			tutorial_mode = val;
+		}
+
+		public static bool getTutorialStatus(){
+			return tutorial_mode;
 		}
 
 		public static BaseModule getCurrentModule(){
-			return current_module;
+			if (queue.Count != 0) {
+				return queue.Peek ().module;
+			}
+			return null;
+		}
+
+		public static int getCurrentRepetition(){
+			if (queue.Count != 0) {
+				return queue.Peek ().repetitions;
+			}
+			return 0;
 		}
 
 		//Dequeues the current exercise, updates manager info
 		public static void nextExercise(){
-			Exercise curr_ex = queue.Dequeue ();
-			current_module = curr_ex.module;
+			if (queue.Count != 0) {
+				Exercise curr_ex = queue.Dequeue ();
+			}
 		}
 
 		public static void addExercise(BaseModule module, int repetitions){
@@ -49,28 +61,26 @@ namespace Communication{
 		}
 
 		//Clears everything the manager is currently tracking
-		public static void clear(){
+		public static void clearQueue(){
 			queue.Clear ();
-			repetitions = 0;
-			current_module = null;
 		}
 
-		public static void startSession(){
-
+		public static void transitionTo(string scene_name){
+			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
+			n.GetComponent<TransitionScene> ().startTransition (scene_name);
 		}
-
-	
+			
 
 		//Generates a random song depending on the current module the manager is using.
 		public static Song generateSong(){
 			string total_sfs = "";
-			for(int i=0; i<repetitions; i++ ){
-				total_sfs += current_module.generateSFS ();
+			for(int i=0; i<getCurrentRepetition(); i++ ){
+				total_sfs += getCurrentModule().generateSFS ();
 			}
 			return new Song(total_sfs);
 		}
 
-		public int getQueueLength(){
+		public static int getQueueLength(){
 			return queue.Count;
 		}
 

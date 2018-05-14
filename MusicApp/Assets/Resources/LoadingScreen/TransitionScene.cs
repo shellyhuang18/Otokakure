@@ -5,17 +5,13 @@ using UnityEngine.UI;
 
 public class TransitionScene : MonoBehaviour
 {
-	[SerializeField]
-	private float alpha_incrementer = 0.01f;
 
-//	[SerializeField]
-//	GameObject curtain_prefab;
+	private float alpha_incrementer = 0.1f;
+
 
 	public void startTransition(string next_scene, int min_loading_time = 4){
 
-
 		StartCoroutine (loadingScreenCoroutine (next_scene, min_loading_time));
-
 
 	}
 
@@ -31,7 +27,6 @@ public class TransitionScene : MonoBehaviour
 		lower_curtain.GetComponent<Image> ().color = new Color (0, 0, 0, 0);
 
 		Color new_color = lower_curtain.GetComponent<Image> ().color;
-		this.alpha_incrementer = 0.1f;
 		while(lower_curtain.GetComponent<Image>().color.a < 1){
 			
 			new_color.a = new_color.a + alpha_incrementer;
@@ -52,47 +47,30 @@ public class TransitionScene : MonoBehaviour
 
 		//Load final scene
 		SceneManager.LoadScene (next_scene);
+		yield return null; //Must wait one frame for the scene to load properly
+		SceneManager.SetActiveScene (SceneManager.GetSceneByName (next_scene));
 
-//		GameObject raise_curtain;
-//		raise_curtain = Instantiate (curtain_prefab) as GameObject;
-//		raise_curtain.transform.SetParent ((GameObject.Find ("Canvas")).transform, false);
-//		raise_curtain.GetComponent<Image> ().color = new Color (0, 0, 0, 1);
-
+	
 		//Fade into the final scene
-//
-//
-//
-//		Color color = raise_curtain.GetComponent<Image> ().color;
-//		this.alpha_incrementer = 0.1f;
-//
-//		while (color.a > 0f) {
-//			color.a = color.a - alpha_incrementer;
-//			Destroy (raise_curtain);
-//			raise_curtain = Instantiate (curtain_prefab) as GameObject;
-//			raise_curtain.transform.SetParent ((GameObject.Find ("Canvas")).transform, false);
-//
-//			raise_curtain.GetComponent<Image> ().color = color;
-//			Debug.Log (raise_curtain.GetComponent<Image> ().color);
-//
-////			Debug.Log ("color var: " + color);
-////			Debug.Log ("gameobject color: " + raise_curtain);
-////
-////
-////			if (raise_curtain != null) {
-////				color.a = color.a - alpha_incrementer;
-////				Debug.Log ("not null");
-////				raise_curtain.GetComponent<Image> ().color = color;
-////
-////			}
-//
-//
-//			yield return new WaitForSeconds(0.1f);
-//
-//		}
-//
+		GameObject raise_curtain = Instantiate (curtain_prefab) as GameObject;
+		raise_curtain.transform.SetParent ((GameObject.Find ("Canvas")).transform, false);
+		raise_curtain.GetComponent<Image> ().color = new Color (0, 0, 0, 1);
 
-//		 Destroy (curtain); 
+
+		Color color = raise_curtain.GetComponent<Image> ().color;
+		Image curtain_img = raise_curtain.GetComponent<Image>();
+
+		while (color.a > 0f) {
+			color.a = color.a - alpha_incrementer;
+			curtain_img.color = color;
+			yield return new WaitForSeconds(0.01f);
+
+		}
+
+
+		Destroy (raise_curtain); 
 		Destroy (gameObject); //Destroy this script
+
 
 	}
 		

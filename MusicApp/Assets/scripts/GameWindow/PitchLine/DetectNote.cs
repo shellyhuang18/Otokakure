@@ -11,58 +11,50 @@ namespace PitchLine{
 		Collider2D arrow_collider;
 		Collider2D line_collider;
 
+		ScoreBoard scoreboard;
+
 		private bool detection_enabled; //A bool to check if you want to detect notes
 
-		//private int hit = 0;
-		//private int miss = 0;
 		private DataAnalysis data;
 
 
 
 		// Use this for initialization
 		void Start () {
+
 			data = new DataAnalysis (); //initialization of DataAnalysis
 			enableDetection ();
-			arrow_collider = (Collider2D)GameObject.Find ("arrow").GetComponent<Collider2D>();
-			line_collider = (Collider2D)GameObject.Find ("pitch_line").GetComponent<BoxCollider2D> ();
+			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
+			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
+			scoreboard = GameObject.Find ("game_window_UI").GetComponent<ScoreBoard>();
 		}
+
 
 		void FixedUpdate(){
 			checkOnPitch ();
-			if (Input.GetKeyDown ("g")) {
-				data.SetCurrentValues ();
-			}
 		}
-
 
 			
 
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
+			scoreboard.incrementScore (value: 10);
+			scoreboard.updateProgress ();
 			data.IncrementHits();
-			gameObject.GetComponent<ScoreBoard>().IncrementScore(1); //one note hit, hits is incremented
-			//gameObject.GetComponent<ScoreBoard> ().PercentageScore (total); //get total from song object
-			//gameObject.GetComponent<ScoreBoard> ().Progress (data.GetHits + data.GetMisses, total);  //total = how many  total hits possible 
-			//data.updateCurrNote();
-			Debug.Log ("hit");
 
 		}
 
 		private void onMiss(){
+			scoreboard.updateProgress ();
 			data.IncrementMisses (); //on note miss, misses is incremented
 
-			Debug.Log ("miss");
 		}
 
 		private void onNothing(){
+			scoreboard.updateProgress ();
 		}
-
-		private void onComplete(){
-//			data.SetCurrentValues ();
-			//data.SetCurrentValues (hit, hit + miss);
-			//data.CalculateOverall ();
-		}
+			
 			
 	//=============================================================================
 			
@@ -121,6 +113,9 @@ namespace PitchLine{
 			this.detection_enabled = false;
 		}
 
+		public DataAnalysis getDataAnalysis(){
+			return this.data;
+		}
 
 	}
 }

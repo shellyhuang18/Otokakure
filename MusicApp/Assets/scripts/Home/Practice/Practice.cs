@@ -7,9 +7,14 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Unity.Editor;
 using Firebase.Database;
+using Module;
+using Manager = Communication.Manager;
 
 //This class sets up the practice page of the app. In this page different exercises are generated based on user's level. 
 public class Practice : MonoBehaviour {
+	[SerializeField]
+	private bool read_user_data; 
+
 	public GameObject sample_button;
 	public Button temporary;
 	public Transform content_panel;
@@ -52,8 +57,10 @@ public class Practice : MonoBehaviour {
 		GUI.skin.textField.fontSize = 40;
 		GUI.skin.textField.alignment = TextAnchor.MiddleCenter;
 		GUI.skin.button.fontSize = 40;
+
+		//OnClick listener 
 		if (GUI.Button (done_button_location, "Done") ) {
-			SceneManager.LoadScene ("Daily");
+			parseFormAndStartSession ();
 		}
 	}
 
@@ -116,14 +123,7 @@ public class Practice : MonoBehaviour {
 	}
 		
 
-<<<<<<< HEAD
-	public Button.ButtonClickedEvent Selection;
-
-	//maps buttons onto the screen when button clicked 
-	void MapButtons(string practice_type){
-=======
 	void MapButtons(string practice_type) {
->>>>>>> dd687cc7c5635648ce9f9a3ff14364ee9c96b942
 		content_panel.DetachChildren ();
 		if (practice_type == "Pitch") {
 			isClicked = true;
@@ -142,6 +142,56 @@ public class Practice : MonoBehaviour {
 			temporary.transform.SetParent (content_panel);
 			temporary.gameObject.SetActive(false);
 		} else {
+		}
+	}
+
+	private void parseFormAndStartSession(){
+		StartCoroutine (parsingFormCoroutine ());
+	}
+
+	private IEnumerator parsingFormCoroutine(){
+		string user_lowest_pitch = "c3"; //Let these be default values
+		string user_highest_pitch = "c4";
+
+		if (read_user_data) {
+			DataAnalytics.QuerySearch low_pitch_search = new DataAnalytics.QuerySearch ("LowerRange");
+			DataAnalytics.QuerySearch high_pitch_search = new DataAnalytics.QuerySearch ("HigherRange");
+
+			//While the database is still querying
+			while (low_pitch_search.querying && high_pitch_search.querying) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			user_lowest_pitch = low_pitch_search.query_result;
+			user_highest_pitch = high_pitch_search.query_result;
+		}
+
+		int reps = 0;
+		BaseModule module = new Module.PitchModule (lowest_pitch: user_lowest_pitch, highest_pitch:user_highest_pitch); //Let this be the default
+
+
+
+		//Determining which module they selected
+		if (title == "Pitch")
+			module = new Module.PitchModule (lowest_pitch: user_lowest_pitch, highest_pitch: user_highest_pitch);
+		int itr = 0;
+		foreach (var practices in interval_list) {
+			if (title == practices) {
+				int[] array = {itr};
+				List<int> interval_selection = new List<int>(array);
+				module = new Module.IntervalModule(intervals: interval_selection, lowest_pitch: user_lowest_pitch, highest_pitch: user_highest_pitch);
+				break;
+			}
+			itr += 1;
+		}
+
+
+		if(int.TryParse(input, out reps)){
+			//if pressed on pitch
+			window_enabled = false;
+			Manager.addExercise (module, reps);
+			Manager.transitionTo ("test");
+
 		}
 	}
 }

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4625871967771766}
   - component: {fileID: 212416851330492562}
   - component: {fileID: 114072668025343884}
-  - component: {fileID: 114062243962807576}
   m_Layer: 0
   m_Name: game_window
   m_TagString: GameWindow
@@ -141,7 +140,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1460942272136006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.15, y: 0, z: 0}
+  m_LocalPosition: {x: -1.13, y: 0, z: 0}
   m_LocalScale: {x: 0.0018853879, y: 1, z: 0.9994431}
   m_Children: []
   m_Father: {fileID: 4625871967771766}
@@ -168,8 +167,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225116044508512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.19, z: 0}
-  m_LocalScale: {x: 2.7421412, y: 2, z: 1.0521859}
+  m_LocalPosition: {x: -0, y: -0.65, z: 0}
+  m_LocalScale: {x: 2.7421412, y: 2.2683637, z: 1.0521859}
   m_Children:
   - {fileID: 4597768078285904}
   - {fileID: 4751284082572684}
@@ -365,20 +364,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114062243962807576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1225116044508512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d5f46c9c47244be9fa18f99b6ce520, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreBoard: {fileID: 0}
-  percentBoard: {fileID: 0}
-  gameobj: {fileID: 0}
 --- !u!114 &114072668025343884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,6 +381,9 @@ MonoBehaviour:
   tempo: 140
   micEnabled: 0
   hintLineEnabled: 1
+  exitWhenSongFinished: 1
+  debug_tutorial_mode: 0
+  debug_user_logged_in: 0
 --- !u!114 &114138341411514288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,7 +449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreBoard: {fileID: 0}
-  percentBoard: {fileID: 0}
   gameobj: {fileID: 0}
 --- !u!114 &114239595923314308
 MonoBehaviour:
@@ -531,7 +518,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b925a1a2f1801432d9bab8c8d37cfdf8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.497}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -575,7 +562,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b925a1a2f1801432d9bab8c8d37cfdf8, type: 3}
-  m_Color: {r: 0.036548443, g: 0.08880207, b: 0.19117647, a: 1}
+  m_Color: {r: 0.7065311, g: 0.83947027, b: 0.9705882, a: 0.903}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -619,7 +606,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: e02765297a7004e98bc89b8a90e6fdb7, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.030851012, g: 0.029736139, b: 0.03676468, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -634,7 +621,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1406269467675746}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -707,7 +694,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b925a1a2f1801432d9bab8c8d37cfdf8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.203}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.559}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

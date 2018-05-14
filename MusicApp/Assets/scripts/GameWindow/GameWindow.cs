@@ -9,6 +9,7 @@ using Song = NoteLogic.NoteLogic.Song;
 using Manager = Communication.Manager;
 using HintLine;
 using UnityEngine.UI;
+using DataAnalytics;
 
 public class GameWindow : MonoBehaviour {
 	//UI Game Objects
@@ -20,6 +21,7 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool isPaused;
 	private bool window_enabled;
+	private bool songBeingPlayed;
 
 	//Variables associated with the entire Game Window
 	[SerializeField]
@@ -35,23 +37,68 @@ public class GameWindow : MonoBehaviour {
 	[SerializeField]
 	private bool hintLineEnabled;
 
+	[SerializeField]
+	private bool exitWhenSongFinished;
+
+	[SerializeField]
+	private bool debug_tutorial_mode;
+
+	[SerializeField]
+	private bool read_user_data;
+
+	Song current_song;
+
 	// Use this for initialization
 	void Start () {
-		Manager.setGameWindow (gameObject); //Set it to this
+		StartCoroutine (initalize ());
+	}
+
+	private IEnumerator initalize(){
+
+		if (/*!debug_tutorial_mode &&*/ read_user_data) {
+			DataAnalytics.QuerySearch low_pitch_search = new DataAnalytics.QuerySearch ("LowerRange");
+			DataAnalytics.QuerySearch high_pitch_search = new DataAnalytics.QuerySearch ("HigherRange");
+
+
+			//While the database is still querying
+			while (low_pitch_search.querying && high_pitch_search.querying) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			lowest_pitch = low_pitch_search.query_result;
+			highest_pitch = high_pitch_search.query_result;
+		
+		} else {
+			lowest_pitch = "c2";
+			highest_pitch = "c6";
+		}
+
 
 		Screen.orientation = ScreenOrientation.Landscape;
 		pitchline = (GameObject)GameObject.Find ("pitch_line");
 		conductor = (GameObject)GameObject.Find ("conductor");
 		hintline = (GameObject)GameObject.Find ("hint_line");
 
+
+		conductor.GetComponent<CreateNoteGenerator> ().instantiate ();
+		pitchline.GetComponent<ControlArrow> ().instantiate ();
+
 		pitchline.GetComponent<AudioSource> ().enabled = micEnabled;
 		hintline.GetComponent<HintLineBehavior> ().setEnabled(hintLineEnabled);
 
+		setSongPlayingStatus (false);
 
+		if (Manager.getTutorialStatus () || debug_tutorial_mode) {
+			string tutorial_sfs = "!!welcome !!sound !!hitline !!matchnote";
+			Song tutorial = new Song (tutorial_sfs);
+			current_song = tutorial;
+			startSong (current_song);
 
-		startSong (Manager.generateSong ());
-		
-
+			//			Manager.tutorialStatus = false;
+		} else {
+			current_song = Manager.generateSong ();
+			startSong (current_song);
+		}
 	}
 		
 	// Update is called once per frame
@@ -126,7 +173,21 @@ public class GameWindow : MonoBehaviour {
 			n.GetComponent<TransitionScene> ().startTransition ("main");
 		}
 	}
-
+//
+//	private IEnumerator startTutorial(){
+//		string tutorial_sfs = "!!welcome !!sound";
+//		Song tutorial = new Song (tutorial_sfs);
+//		current_song = tutorial;
+//		startSong (current_song);
+//
+//		//Wait for first song to finish
+//
+//		micEnabled = true;
+//
+//		Start
+//
+//
+//	}
 
 
 //====== Variable Mutators and Getters ======
@@ -141,7 +202,6 @@ public class GameWindow : MonoBehaviour {
 	public bool getMicStatus(){
 		return this.micEnabled;
 	}
-		
 
 	public void setHintLineActive(bool val){
 		hintline.GetComponent<HintLineBehavior> ().setEnabled (val);
@@ -173,7 +233,21 @@ public class GameWindow : MonoBehaviour {
 		return this.isPaused;
 	}
 		
+	public Song getCurrentSong(){
+		return this.current_song;
+	}
 
+	public bool willExitOnCompletition(){
+		return this.exitWhenSongFinished;
+	}
+		
+	public bool songPlayingStatus(){
+		return this.songBeingPlayed;
+	}
+
+	public void setSongPlayingStatus(bool val){
+		this.songBeingPlayed = val;
+	}
 
 //====== Control Functions ======
 
@@ -233,9 +307,8 @@ public class GameWindow : MonoBehaviour {
 		}
 		if (GUI.Button (home, "Home") ) {
 			window_enabled = false;
-			GameObject n = Instantiate (Resources.Load ("LoadingScreen/SceneTransition")) as GameObject;
-			n.GetComponent<TransitionScene> ().startTransition ("Home Page");
 
+			exitSession ();
 		}
 
 	}
@@ -260,9 +333,13 @@ public class GameWindow : MonoBehaviour {
 		pitchline.GetComponent<DetectNote> ().enableDetection ();
 	}
 
-	public void exitGameWindow(){
 
-		Manager.clear();
-		SceneManager.LoadScene ("Home Page");
+	//Call this when preemptively leaving the game window. This resets stuff
+	public void exitSession(){
+
+		if (willExitOnCompletition ()) {
+			Manager.clearQueue ();
+			Manager.transitionTo ("Home Page");
+		}
 	}
 }
