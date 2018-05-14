@@ -55,14 +55,17 @@ namespace SignIn {
 							if (name.Key == "LowerRange"){
 								lrange.text = name.Value.ToString();
 							}
-							if(name.Key == "OverallAccuracy"){
+							if(name.Key == "Overall Accuracy"){
 								overall_accuracy.text = name.Value.ToString();
 							}
-							if(name.Key == "OverallHits"){
+							if(name.Key == "Overall Hits"){
 								total_score.text = name.Value.ToString();
 							}
-							if(name.Key == "OverallPossible"){
+							if(name.Key == "Overall Possible"){
 								overall_possible.text = name.Value.ToString();
+							}
+							if(name.Key == "Total Score"){
+								total_score.text = name.Value.ToString();
 							}
 						}
 					}

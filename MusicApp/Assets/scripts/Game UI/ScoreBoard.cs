@@ -76,4 +76,8 @@ public class ScoreBoard : MonoBehaviour {
 			} 
 		}
 	}
+
+	public int getScore(){
+		return this.score;
+	}
 }

@@ -15,14 +15,14 @@ namespace PitchLine{
 
 		private bool detection_enabled; //A bool to check if you want to detect notes
 
-//		private DataAnalysis data;
+		private DataAnalysis data;
 
 
 
 		// Use this for initialization
 		void Start () {
 
-//			data = new DataAnalysis (); //initialization of DataAnalysis
+			data = new DataAnalysis (); //initialization of DataAnalysis
 			enableDetection ();
 			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
@@ -39,29 +39,22 @@ namespace PitchLine{
 	//Write what you want specifically to happen when there is a hit or miss here in this zone
 	//=============================================================================
 		private void onHit(){
-			scoreboard.incrementScore();
+			scoreboard.incrementScore (value: 10);
 			scoreboard.updateProgress ();
-			Debug.Log ("hit");
-//			data.IncrementHits();
+			data.IncrementHits();
 
 		}
 
 		private void onMiss(){
-			Debug.Log ("miss");
 			scoreboard.updateProgress ();
-//			data.IncrementMisses (); //on note miss, misses is incremented
+			data.IncrementMisses (); //on note miss, misses is incremented
 
 		}
 
 		private void onNothing(){
 			scoreboard.updateProgress ();
 		}
-
-
-
-		private void onComplete(){
-//			data.SetCurrentValues ();
-		}
+			
 			
 	//=============================================================================
 			
@@ -120,9 +113,9 @@ namespace PitchLine{
 			this.detection_enabled = false;
 		}
 
-//		public DataAnalysis getDataAnalysis(){
-//			return this.data;
-//		}
+		public DataAnalysis getDataAnalysis(){
+			return this.data;
+		}
 
 	}
 }
