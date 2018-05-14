@@ -38,7 +38,7 @@ namespace DataAnalytics{
 			FirebaseApp.DefaultInstance.SetEditorDatabaseUrl ("https://music-learning-capstone-c019b.firebaseio.com");
 			user_table = FirebaseDatabase.DefaultInstance.GetReference ("User Table");
 			if (user != null) {
-				user_table.Child (user.UserId).Child ("Total Score").GetValueAsync ().ContinueWith (task => {
+				user_table.Child (user.UserId).Child ("TotalScore").GetValueAsync ().ContinueWith (task => {
 					if (task.IsFaulted) {
 						//error
 					} else if (task.IsCompleted) {
@@ -47,7 +47,7 @@ namespace DataAnalytics{
 					}
 				});
 
-				user_table.Child (user.UserId).Child ("Overall Hits").GetValueAsync ().ContinueWith (task => {
+				user_table.Child (user.UserId).Child ("OverallHits").GetValueAsync ().ContinueWith (task => {
 					if (task.IsFaulted) {
 						//error
 					} else if (task.IsCompleted) {
@@ -56,7 +56,7 @@ namespace DataAnalytics{
 					}
 				});
 
-				user_table.Child (user.UserId).Child ("Overall Possible").GetValueAsync ().ContinueWith (task => {
+				user_table.Child (user.UserId).Child ("OverallPossible").GetValueAsync ().ContinueWith (task => {
 					if (task.IsFaulted) {
 						//error
 					} else if (task.IsCompleted) {
@@ -76,14 +76,14 @@ namespace DataAnalytics{
 			int new_overall_score = GameObject.Find ("game_window_UI").GetComponent<ScoreBoard> ().getScore () + overall_score;
 
 			if (user != null) {
-				user_table.Child(user.UserId).Child ("Overall Hits").SetValueAsync (System.Convert.ToInt64(new_overall_hit));
+				user_table.Child(user.UserId).Child ("OverallHits").SetValueAsync (System.Convert.ToInt64(new_overall_hit));
 
-				user_table.Child(user.UserId).Child ("Overall Possible").SetValueAsync (System.Convert.ToInt64(new_overall_possible));
+				user_table.Child(user.UserId).Child ("OverallPossible").SetValueAsync (System.Convert.ToInt64(new_overall_possible));
 
-				user_table.Child(user.UserId).Child ("Overall Accuracy").SetValueAsync (System.Convert.ToDouble(new_overall_accuracy));
+				user_table.Child(user.UserId).Child ("OverallAccuracy").SetValueAsync (System.Convert.ToDouble(new_overall_accuracy));
 
 
-				user_table.Child (user.UserId).Child ("Total Score").SetValueAsync (System.Convert.ToInt64(new_overall_score));
+				user_table.Child (user.UserId).Child ("TotalScore").SetValueAsync (System.Convert.ToInt64(new_overall_score));
 			}
 		}
 			

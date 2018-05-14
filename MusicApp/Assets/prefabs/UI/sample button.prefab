@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114333245019778498}
   - component: {fileID: 114645545512536684}
   m_Layer: 5
-  m_Name: SAM
+  m_Name: sample button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

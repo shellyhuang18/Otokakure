@@ -339,7 +339,7 @@ public class GameWindow : MonoBehaviour {
 
 		if (willExitOnCompletition ()) {
 			Manager.clearQueue ();
-			Manager.transitionTo ("Home Page");
+			Manager.transitionTo ("Practice");
 		}
 	}
 }

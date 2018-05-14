@@ -226,6 +226,12 @@ Prefab:
       propertyPath: debug_tutorial_mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82827272723749012, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243113570055264812, guid: e9941513f1228412391bb659d0a9bdb2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
   m_IsPrefabParent: 0

@@ -191,7 +191,6 @@ public class Practice : MonoBehaviour {
 			window_enabled = false;
 			Manager.addExercise (module, reps);
 			Manager.transitionTo ("test");
-
 		}
 	}
 }
