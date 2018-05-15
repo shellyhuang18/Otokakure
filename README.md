@@ -38,7 +38,7 @@ Prof. Ana Wisnewska(?)
 
             GameWindow -> Conductor - scripts that relate to outputting notes. 
             GameWindow -> Module - scripts that relate to modules. This includes Pitch and Intervals. Things like randomly generated strings are made here.
-            GameWindow -> Note - scripts that relate to the notes that fly across the screen. This includes physical behavior as well                as the logic behind a note(the class). This includes the logic behind the sfs.
+            GameWindow -> Note - scripts that relate to the notes that fly across the screen. This includes physical behavior as well as the logic behind a note(the class). This includes the logic behind the sfs.
             GameWindow -> PitchDetector - scripts that relate to detecting pitch on the game window.
             GameWindow -> PitchLine - scripts that control the pitch line. This includes the arrow attached to the pitch line which dispays the user's current pitch as well as detecting the notes that pass the line.
 
