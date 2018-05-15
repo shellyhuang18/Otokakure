@@ -18,7 +18,7 @@ Sacit Gonen
 Naseeb Gafar  
 
 ## Capstone Advisor
-Prof. Ana Wisnewska(?)
+Prof. Anna Wisniewska
 
 ## Folder Organization
     MusicApp -> MusicApp 
