@@ -56,7 +56,11 @@ namespace SignIn {
 								lrange.text = name.Value.ToString();
 							}
 							if(name.Key == "OverallAccuracy"){
-								overall_accuracy.text = name.Value.ToString().Substring(0, 4);
+								if (name.Value.ToString().Length <= 4) {
+									overall_accuracy.text = name.Value.ToString();
+								} else {
+									overall_accuracy.text = name.Value.ToString().Substring(0, 4);
+								}
 							}
 							if(name.Key == "OverallHits"){
 								total_score.text = name.Value.ToString();
