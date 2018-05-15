@@ -1,4 +1,4 @@
-# MusicApp
+# Otokakure
 __Senior capstone project for Hunter College, Spring 2018.__
 
 ---
