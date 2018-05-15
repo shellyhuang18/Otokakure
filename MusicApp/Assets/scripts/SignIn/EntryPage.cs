@@ -59,12 +59,12 @@ namespace SignIn{
 		}
 
 		void Update(){
-			#if UNITY_IOS
+			/*#if UNITY_IOS
 			if (UnityEngine.iOS.NotificationServices.localNotificationCount > 0) {
 				Debug.Log(UnityEngine.iOS.NotificationServices.localNotifications[0].alertBody);
 				UnityEngine.iOS.NotificationServices.ClearLocalNotifications();
 			}
-			#endif
+			#endif*/
 		}
 
 		//If Login button is clicked by user, authenticates user email and password. If email and password are valid, user is taken to a tutorial page.
@@ -102,7 +102,7 @@ namespace SignIn{
 			SceneManager.LoadScene (scene_name);
 		}
 
-		public void Show (string message){
+		public void Show (string message) {
 			messageField.text = message;
 			window.SetActive (true);
 		}
@@ -111,30 +111,19 @@ namespace SignIn{
 			window.SetActive (false);
 		}
 
-		void RegisterForNotif()
-
-		{
+		void RegisterForNotif() {
 			#if UNITY_IOS
 			UnityEngine.iOS.NotificationServices.RegisterForNotifications(UnityEngine.iOS.NotificationType.Alert| UnityEngine.iOS.NotificationType.Badge |  UnityEngine.iOS.NotificationType.Sound);
 			#endif
-
-
 		}
 
-		void ScheduleNotification()
-
-		{
-
+		void ScheduleNotification() {
 			// schedule notification to be delivered in 24 hours
 			#if UNITY_IOS
 			UnityEngine.iOS.LocalNotification notif = new UnityEngine.iOS.LocalNotification();
-
 			notif.fireDate = DateTime.Now.AddSeconds(1);
-
 			notif.alertBody = "Youve generated more coins! Come back and play!";
-
 			UnityEngine.iOS.NotificationServices.ScheduleLocalNotification(notif);
-
 			#endif
 		}
 	}
