@@ -106,8 +106,10 @@ public class Practice : MonoBehaviour {
 		Debug.Log ("set_to2" + set_to2);
 		if (set_to2) {
 			temporary.gameObject.SetActive(true);
+			practice_text.text = "Single Interval Practice";
 		} else {
-			temporary.gameObject.SetActive(false); 
+			temporary.gameObject.SetActive(false);
+			practice_text.text = "Multiple Interval Practice";
 		}
 		for (int i = 0; i < amount-1; i++) {
 			content_panel.GetChild (i).GetComponent<ButtonTemplate> ().button.gameObject.SetActive (set_to);
