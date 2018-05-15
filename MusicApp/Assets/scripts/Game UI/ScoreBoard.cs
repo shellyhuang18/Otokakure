@@ -35,10 +35,7 @@ public class ScoreBoard : MonoBehaviour {
 		GameObject note_prefab = Resources.Load ("prefabs/note") as GameObject;
 		float whole_note_width = note_prefab.GetComponent<SpriteRenderer> ().sprite.bounds.size.x;
 
-		int total_16th_notes = 0;
-		foreach(NoteLogic.NoteLogic.Note note in song.score){
-				total_16th_notes += note.duration;
-		}
+		int total_16th_notes = song.total_dur;
 		float total_whole_notes = total_16th_notes / 16f;
 
 		//The distances of the two parts
@@ -68,7 +65,7 @@ public class ScoreBoard : MonoBehaviour {
 	//total = how many there are
 	public void updateProgress(){
 		//Only update if a song has started
-		if(game_window.GetComponent<GameWindow>().songPlayingStatus()){
+		if(game_window.GetComponent<GameWindow>().getSongPlayingStatus()){
 			progress_tick += 1;
 			if (total_possible_hits != 0) {
 				float progress = (float)progress_tick / (float)total_possible_hits;

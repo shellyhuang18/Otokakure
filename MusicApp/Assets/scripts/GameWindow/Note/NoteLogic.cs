@@ -187,7 +187,10 @@ namespace NoteLogic{
 			}//song constructor
 				
 			//empty constructor
-			public Song(){}
+			public Song(){
+				total_dur = 0;
+				score = null;
+			}
 
 			public void PrintScore(){
 				foreach (Sound item in score) {

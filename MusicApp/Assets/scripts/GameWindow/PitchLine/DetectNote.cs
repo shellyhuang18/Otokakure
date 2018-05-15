@@ -22,7 +22,7 @@ namespace PitchLine{
 		// Use this for initialization
 		void Start () {
 
-			data = new DataAnalysis (); //initialization of DataAnalysis
+//			data = new DataAnalysis (); //initialization of DataAnalysis
 			enableDetection ();
 			arrow_collider = GameObject.Find ("arrow").GetComponent<Collider2D>();
 			line_collider = GameObject.Find ("pitch_line").GetComponent<Collider2D> ();
@@ -41,13 +41,13 @@ namespace PitchLine{
 		private void onHit(){
 			scoreboard.incrementScore (value: 10);
 			scoreboard.updateProgress ();
-			data.IncrementHits();
+//			data.IncrementHits();
 
 		}
 
 		private void onMiss(){
 			scoreboard.updateProgress ();
-			data.IncrementMisses (); //on note miss, misses is incremented
+//			data.IncrementMisses (); //on note miss, misses is incremented
 
 		}
 

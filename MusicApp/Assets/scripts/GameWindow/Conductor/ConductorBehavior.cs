@@ -18,6 +18,8 @@ namespace Conductor{
 		private bool isComposing; //Whether the conductor is busy creating a song
 		private GameObject game_window;
 
+
+
 		void Start(){
 			isComposing = false;
 			game_window = GameObject.Find ("game_window");
@@ -214,6 +216,9 @@ namespace Conductor{
 			onSongFinishComposing();
 		}
 			
+		public bool getComposingStatus(){
+			return this.isComposing;
+		}
 
 		//Called when a Song starts
 		private void onSongStartComposing(){
@@ -225,6 +230,7 @@ namespace Conductor{
 
 		//Called when the Song is finished composing.
 		private void onSongFinishComposing(){
+			isComposing = false;
 			StartCoroutine (waitForSongToLeaveScreen());
 		}
 
@@ -245,20 +251,21 @@ namespace Conductor{
 		//When the song is done and off screen
 		private void onSongCompletelyDone(){
 			game_window.GetComponent<GameWindow> ().setSongPlayingStatus (false);
-			isComposing = false;
 
 
 			//Save the results of the user's performance into the database.
-			GameObject.Find ("pitch_line").GetComponent<PitchLine.DetectNote> ().getDataAnalysis ().SetCurrentValues ();
+			if (!Manager.getTutorialStatus () && !game_window.GetComponent<GameWindow> ().getTutorialModeStatus ()) {
+				GameObject.Find ("pitch_line").GetComponent<PitchLine.DetectNote> ().getDataAnalysis ().SetCurrentValues ();
 
-			//Get the next song in the queue list if there is another
-			if(Manager.getQueueLength() != 0){
-				Manager.nextExercise();
-				game_window.GetComponent<GameWindow>().startSong(Manager.generateSong());
-			}
+				//Get the next song in the queue list if there is another
+				if (Manager.getQueueLength () != 0) {
+					Manager.nextExercise ();
+					game_window.GetComponent<GameWindow> ().startSong (Manager.generateSong ());
+				}
 			//Or just leave
-			else{
-				game_window.GetComponent<GameWindow> ().exitSession ();
+			else {
+					game_window.GetComponent<GameWindow> ().exitSession ();
+				}
 			}
 		}
 			

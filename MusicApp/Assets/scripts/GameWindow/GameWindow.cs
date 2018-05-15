@@ -41,12 +41,12 @@ public class GameWindow : MonoBehaviour {
 	private bool exitWhenSongFinished;
 
 	[SerializeField]
-	private bool debug_tutorial_mode;
+	private bool tutorial_mode;
 
 	[SerializeField]
 	private bool read_user_data;
 
-	Song current_song;
+	private Song current_song;
 
 	// Use this for initialization
 	void Start () {
@@ -88,13 +88,75 @@ public class GameWindow : MonoBehaviour {
 
 		setSongPlayingStatus (false);
 
-		if (Manager.getTutorialStatus () || debug_tutorial_mode) {
-			string tutorial_sfs = "!!welcome !!sound !!hitline !!matchnote";
-			Song tutorial = new Song (tutorial_sfs);
-			current_song = tutorial;
-			startSong (current_song);
+		if (Manager.getTutorialStatus () || tutorial_mode) {
 
-			//			Manager.tutorialStatus = false;
+			micEnabled = false;
+
+			//MAKE SOME NOISE
+			string tutorial_sfs_pt_1 = "!!welcome";
+			current_song = new Song (tutorial_sfs_pt_1);
+			startSong (current_song);
+			while (conductor.GetComponent<ConductorBehavior> ().getComposingStatus ()) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			micEnabled = true;
+			yield return new WaitForSeconds (2f);
+			micEnabled = false; 
+
+
+			//PLAY AROUND SOME MORE
+			string tutorial_sfs_pt_2 = "!!sound";
+			startSong (new Song (tutorial_sfs_pt_2));
+			while (conductor.GetComponent<ConductorBehavior> ().getComposingStatus ()) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			micEnabled = true;
+			yield return new WaitForSeconds (2f);
+
+			//Introduce a note while they're playing for the second time
+			string tutorial_sfs_pt_3 = "4c4";
+			startSong (new Song (tutorial_sfs_pt_3));
+
+			yield return new WaitForSeconds (2f);
+			micEnabled = false;
+
+			//THIS IS THE HINT LINE
+			string tutorial_sfs_pt_4 = "!!hitline";
+			startSong (new Song(tutorial_sfs_pt_4));
+			while (conductor.GetComponent<ConductorBehavior> ().getComposingStatus ()) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			micEnabled = true;
+			yield return new WaitForSeconds (1.5f);
+			micEnabled = false;
+
+
+			//TRY TO MATCH THE NOTE
+			string tutorial_sfs_pt_5 = "!!matchnote";
+			startSong (new Song (tutorial_sfs_pt_5));
+			while (conductor.GetComponent<ConductorBehavior> ().getComposingStatus ()) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			//GOOD NOW FINISH THE FUCKING REST
+			string tutorial_sfs_pt_6 = "4c4 4r 4c4 4r 4c4";
+			startSong (new Song (tutorial_sfs_pt_6));
+
+			micEnabled = true;
+
+			//Wait until the remaining notes are off screen
+			while (gameObject.GetComponent<GameWindow> ().getSongPlayingStatus()) {
+				yield return new WaitForSeconds (0.01f);
+			}
+
+			yield return new WaitForSeconds (1.5f);
+
+			//Transition to home
+			Manager.setTutorialStatus(false);
+			Manager.transitionTo("Home Page");
 		} else {
 			current_song = Manager.generateSong ();
 			startSong (current_song);
@@ -173,21 +235,7 @@ public class GameWindow : MonoBehaviour {
 			n.GetComponent<TransitionScene> ().startTransition ("main");
 		}
 	}
-//
-//	private IEnumerator startTutorial(){
-//		string tutorial_sfs = "!!welcome !!sound";
-//		Song tutorial = new Song (tutorial_sfs);
-//		current_song = tutorial;
-//		startSong (current_song);
-//
-//		//Wait for first song to finish
-//
-//		micEnabled = true;
-//
-//		Start
-//
-//
-//	}
+
 
 
 //====== Variable Mutators and Getters ======
@@ -201,6 +249,14 @@ public class GameWindow : MonoBehaviour {
 
 	public bool getMicStatus(){
 		return this.micEnabled;
+	}
+
+	public Song getCurrentSong(){
+		return this.current_song;
+	}
+
+	public bool getTutorialModeStatus(){
+		return this.tutorial_mode;
 	}
 
 	public void setHintLineActive(bool val){
@@ -233,15 +289,12 @@ public class GameWindow : MonoBehaviour {
 		return this.isPaused;
 	}
 		
-	public Song getCurrentSong(){
-		return this.current_song;
-	}
 
 	public bool willExitOnCompletition(){
 		return this.exitWhenSongFinished;
 	}
 		
-	public bool songPlayingStatus(){
+	public bool getSongPlayingStatus(){
 		return this.songBeingPlayed;
 	}
 

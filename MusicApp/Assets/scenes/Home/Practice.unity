@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e8e1dcc74374dc993c5503a357d66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  read_user_data: 1
+  read_user_data: 0
   sample_button: {fileID: 1531155173914992, guid: 67a22573d4bfc43efa22283ce9bdadde,
     type: 2}
   temporary: {fileID: 1001967410}

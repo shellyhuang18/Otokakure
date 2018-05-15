@@ -174,7 +174,7 @@ Prefab:
       objectReference: {fileID: 54200887}
     - target: {fileID: 4546968100682094, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.74
+      value: -0.46
       objectReference: {fileID: 0}
     - target: {fileID: 212416851330492562, guid: ed71cf3cd739141e5a8d05d24cd1c291,
         type: 2}
@@ -199,7 +199,7 @@ Prefab:
     - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
         type: 2}
       propertyPath: exitWhenSongFinished
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
         type: 2}
@@ -219,12 +219,37 @@ Prefab:
     - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
         type: 2}
       propertyPath: read_user_data
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
         type: 2}
       propertyPath: debug_tutorial_mode
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: lowest_pitch
+      value: c3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: highest_pitch
+      value: c5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: tempo
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: hintLineEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072668025343884, guid: ed71cf3cd739141e5a8d05d24cd1c291,
+        type: 2}
+      propertyPath: tutorial_mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed71cf3cd739141e5a8d05d24cd1c291, type: 2}

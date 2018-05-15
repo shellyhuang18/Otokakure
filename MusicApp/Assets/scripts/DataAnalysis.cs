@@ -9,7 +9,7 @@ using Firebase.Database;
 
 namespace DataAnalytics{
 	//Class DataAnalysis analyzes the user performance during a session and stores scores on to the database
-	public class DataAnalysis: MonoBehaviour{
+	public class DataAnalysis{
 		private int current_session_hits;
 		private int current_session_misses;
 
