@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//Contributers
+// - Sacit Gonen
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +45,7 @@ public class Practice : MonoBehaviour {
 			Vector2 canvas_coords = canvas.transform.position;
 
 
-			pause_window = new Rect ((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), canvas_coords.x, canvas_coords.y);//900, 600);
+			pause_window = new Rect ((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), canvas_coords.x, canvas_coords.y);
 			pause_window.center = new Vector2(Screen.width/2,Screen.height/2);
 			GUIContent content = new GUIContent ();
 			content.text = title;
@@ -77,11 +80,12 @@ public class Practice : MonoBehaviour {
 		}
 	}
 
-
+	//Button for home page
 	public void GoToHomePage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}
 
+	//Button for user info
 	public void GoToUserInfoPage (string scene_name) {
 		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);
 		SceneManager.LoadScene (scene_name);
@@ -98,6 +102,7 @@ public class Practice : MonoBehaviour {
 		MapButtons ("Intervals");
 	}
 
+	//Switches interval selection from single to multiple or vice versa
 	public void SingleOrMultiple () {
 		int amount = content_panel.childCount;
 		bool set_to2 = content_panel.GetChild (0).GetComponent<ButtonTemplate> ().button.IsActive();
@@ -124,7 +129,7 @@ public class Practice : MonoBehaviour {
 		title = id;
 	}
 		
-
+	//Creates buttons for intervals
 	void MapButtons(string practice_type) {
 		content_panel.DetachChildren ();
 		if (practice_type == "Pitch") {

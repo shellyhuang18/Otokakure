@@ -283,7 +283,8 @@ public class GameWindow : MonoBehaviour {
 			GameObject canvas = GameObject.Find ("Canvas");
 			Vector2 canvas_coords = canvas.transform.position;
 
-			pause_window = new Rect((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), 300, 200);
+			pause_window = new Rect ((float)(canvas_coords.x/2), (float)(canvas_coords.y/2), canvas_coords.x, canvas_coords.y);
+			pause_window.center = new Vector2(Screen.width/2,Screen.height/2);
 
 			GUIContent content = new GUIContent ();
 			content.text = "Pause Menu";
@@ -293,8 +294,8 @@ public class GameWindow : MonoBehaviour {
 	//operations on pop up window
 	void WindowAction(int windowID){
 		
-		Rect button = new Rect (100, 50, 100, 35);
-		Rect home = new Rect (100, 100, 100, 35);
+		Rect button = new Rect (pause_window.x/2, pause_window.y/2, pause_window.width/2, pause_window.height/5);
+		Rect home = new Rect (button.x, button.y + 110, pause_window.width/2, pause_window.height/5);
 		//GUIContent butt = new GUIContent ();
 		//butt.image = GameObject.Find ("arrow").GetComponent<SpriteRenderer> ().sprite.texture;
 		if (GUI.Button (button, "Resume") ) {

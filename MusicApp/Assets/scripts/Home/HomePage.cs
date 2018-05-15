@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributers
+// - Sacit Gonen
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,19 +19,23 @@ public class HomePage : MonoBehaviour {
 		ToastHelper.ShowToast("Hello World", true);
 	}
 
+	//Button function for user info button
 	public void UserInfoPage (string scene_name) {
 		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);
 		SceneManager.LoadScene (scene_name);
 	}
 
+	//Button function for Daily button
 	public void DailyPage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}
 
+	//Button function for practice button
 	public void PracticePage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}
 
+	//Button function for curriculum button
 	public void CurriculumPage (string scene_name) {
 		SceneManager.LoadScene (scene_name);
 	}

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributers
+// - Sacit Gonen
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,8 +29,8 @@ public class User {
 	public User(string f_name, string l_name) {
 		this.FirstName = f_name;
 		this.LastName = l_name;
-		this.LowerRange = "a3";
-		this.HigherRange = "a5";
+		this.LowerRange = "c2";
+		this.HigherRange = "c5";
 		this.OverallAccuracy = 100;
 		this.OverallHits = 0;
 		this.OverallPossible = 0;
