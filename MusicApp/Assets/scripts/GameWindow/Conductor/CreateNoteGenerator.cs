@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Contributor: Shelly Huang, Jack Chen
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

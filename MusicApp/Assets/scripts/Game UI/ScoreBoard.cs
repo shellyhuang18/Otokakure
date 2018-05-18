@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Contributors: Rubaiyat Rashid, Naseeb Gafar, Jack CHen
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +10,9 @@ using Song = NoteLogic.NoteLogic.Song;
 
 public class ScoreBoard : MonoBehaviour {
 	int score = 0;
-	int total_possible_hits= 0; //get total from song object
+	int total_possible_hits= 0; //Total hits possible for the song
 	public Text scoreBoard;
-//	public Text percentBoard;
-	public GameObject gameobj; //progressbarlabelfollow
+	public GameObject gameobj; //Progress Bar Object
 	ProgressBarBehaviour BarBehaviour;
 
 	GameObject game_window;

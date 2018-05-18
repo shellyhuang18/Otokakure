@@ -1,9 +1,10 @@
-﻿using System;
+﻿//Contributor Jack Chen
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utility;
-using PitchLine; //This namespace hold's Naseeb's pitch tracker stuff
 
 namespace PitchLine{
 	public class ControlArrow : MonoBehaviour {

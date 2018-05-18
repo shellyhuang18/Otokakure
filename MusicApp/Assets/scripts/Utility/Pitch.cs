@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Jack Chen, Naseeb Gafar
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -187,15 +189,7 @@ namespace Utility{
 			// Base Note is A4 = 440
 			float baseNote = 440;
 			float pitchinHz = 440;
-			// octaves from base -> octaves  =  log(base2)(freq/base).
-			//double octavesFromBase = Mathf.Round(Mathf.Log(pitchInHz/baseNote, 2));
 			double halfStepsFromBase = Mathf.Round (12 * Mathf.Log(pitchInHz/baseNote, 2));
-			//return halfStepsFromBase;
-			//double octavesFromBase = Math.round((Math.log((pitchInHz/baseNote))/Math.log(2)));
-			// half steps = log2^12 (freq/base)
-			//double halfStepsFromBase = (Math.log((pitchInHz/baseNote))/Math.log(a));
-			// half steps from base -> half steps  =  12 * log(base2)(freq/base).
-			//double halfStepsFromBase = Math.round(12 * (Math.log((pitchInHz/baseNote))/Math.log(2)));
 			int letterNoteIndex = ((int) halfStepsFromBase % 12)-3;
 			if (letterNoteIndex < 0)
 				letterNoteIndex += 12;
@@ -207,7 +201,6 @@ namespace Utility{
 				numberNote = (int)halfStepsFromBase / 12 + 5;
 			}
 			return SCALE_NOTES[letterNoteIndex] + numberNote;
-//			/noteText.setText(letterNoteArray[letterNoteIndex] + numberNote);
 		}
 
 	}//end of class

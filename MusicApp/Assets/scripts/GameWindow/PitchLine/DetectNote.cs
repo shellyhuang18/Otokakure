@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Jack Chen, Rubaiyat Rashid, Naseeb Gafar
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DataAnalytics;

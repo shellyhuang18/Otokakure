@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Contributor: Jack Chen, Shelly Huang
+
+using UnityEngine;
 using System.Collections;
 using Random = System.Random;
 using UnityEngine.UI;

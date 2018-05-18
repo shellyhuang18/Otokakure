@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Jack Chen
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Conductor;
@@ -173,21 +175,6 @@ public class GameWindow : MonoBehaviour {
 			n.GetComponent<TransitionScene> ().startTransition ("main");
 		}
 	}
-//
-//	private IEnumerator startTutorial(){
-//		string tutorial_sfs = "!!welcome !!sound";
-//		Song tutorial = new Song (tutorial_sfs);
-//		current_song = tutorial;
-//		startSong (current_song);
-//
-//		//Wait for first song to finish
-//
-//		micEnabled = true;
-//
-//		Start
-//
-//
-//	}
 
 
 //====== Variable Mutators and Getters ======
@@ -295,8 +282,6 @@ public class GameWindow : MonoBehaviour {
 		
 		Rect button = new Rect (100, 50, 100, 35);
 		Rect home = new Rect (100, 100, 100, 35);
-		//GUIContent butt = new GUIContent ();
-		//butt.image = GameObject.Find ("arrow").GetComponent<SpriteRenderer> ().sprite.texture;
 		if (GUI.Button (button, "Resume") ) {
 			isPaused = false;
 			window_enabled = false;

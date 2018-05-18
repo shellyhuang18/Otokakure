@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Contributor: Jack Chen, Shelly Huang
+
+using UnityEngine;
 using System.Collections;
 using NoteLogic;
 using Note = NoteLogic.NoteLogic.Note;
@@ -13,7 +15,6 @@ using Manager = Communication.Manager;
 namespace Conductor{
 	public class ConductorBehavior : MonoBehaviour
 	{
-
 		private float tempo;
 		private bool isComposing; //Whether the conductor is busy creating a song
 		private GameObject game_window;
@@ -124,24 +125,6 @@ namespace Conductor{
 
 
 			foreach (GameElements item in new_song.score) {
-				//output chords
-//				if (item.is_chord) {
-//
-//					Chord c = item as Chord;
-//					//output notes in chord
-//					foreach (Note i in c.notes) {
-//						if (i.pitch != "r") {
-//							triggerPitch (i.pitch, i.duration, metronome, i);
-//						}
-//					}
-//
-//					while (metronome != checkpoint) {
-//						metronome++;
-//						yield return new WaitForSeconds (single_beat_time/*amount of time passed for one beat*/);
-//					}
-//
-//					//output single notes
-//				} else {
 
 				if (item.is_alert) {
 					Alert alert = item as Alert;

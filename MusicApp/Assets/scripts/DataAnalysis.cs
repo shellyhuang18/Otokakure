@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+Contributers: Rubaiyat Rashid, Naseeb Gafar, Jack Chen
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +26,7 @@ namespace DataAnalytics{
 		Firebase.Auth.FirebaseUser user;
 		DatabaseReference user_table;
 
-		//gets reference to database and grabs corresponding values
+		//Retrieves from the database and instantiates DataAnalysis
 		public DataAnalysis(){
 			this.current_session_hits = 0;
 			this.current_session_misses = 0;
@@ -68,7 +72,7 @@ namespace DataAnalytics{
 
 		}
 
-		//sets values for storing to database
+		//Sets values for storing to database
 		public void SetCurrentValues(){
 			int new_overall_hit = this.current_session_hits + this.overall_hits;
 			int new_overall_possible = this.current_session_hits + this.current_session_misses + this.overall_possible;
@@ -109,7 +113,7 @@ namespace DataAnalytics{
 				user_table.Child(user.UserId).Child (key).SetValueAsync (value);
 		}
 
-		//Naseebs attempt to getfromdatabase
+		//Get data asynchronously from the database
 		public string getFromDatabaseAsync(string key){
 			string val = "";
 			if (user != null) {

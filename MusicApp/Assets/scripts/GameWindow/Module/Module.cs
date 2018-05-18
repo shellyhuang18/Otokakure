@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Jack Chen
+
+using System.Collections;
 using System.Collections.Generic;
 using RandomGenerator = System.Random;
 

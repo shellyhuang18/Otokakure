@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Jack CHen
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BaseModule = Module.BaseModule;

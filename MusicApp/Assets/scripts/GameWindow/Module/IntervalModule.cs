@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//Contributor: Jack Chen
+
+using System.Collections.Generic;
 using Pitch = Utility.Pitch;
 
 namespace Module{

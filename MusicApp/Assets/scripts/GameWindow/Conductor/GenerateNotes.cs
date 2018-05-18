@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Contributor: Shelly Huang, Jack Chen
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Conductor;
